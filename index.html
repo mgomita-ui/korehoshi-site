@@ -122,17 +122,39 @@ h2 .b{color:var(--blue)}
 .cap{font-size:12.5px;color:var(--ink3);margin-top:10px}
 .foot-note{margin-top:14px;font-size:13.5px;color:var(--ink3)}
 
-/* カスタマイズ */
-.cust{display:grid;grid-template-columns:1.1fr 1fr;gap:32px;margin-top:26px}
-@media(max-width:760px){.cust{grid-template-columns:1fr}}
-.cust h3{font-size:18px;margin-bottom:10px;color:var(--blue)}
-ul.cases,ul.knobs{list-style:none;padding:0;margin:0}
-ul.cases li{padding:10px 0;border-top:1px solid var(--line);font-size:15px;color:var(--ink2);line-height:1.75}
-ul.cases li:last-child{border-bottom:1px solid var(--line)}
-ul.cases li b{color:var(--ink);display:inline-block;min-width:6.5em}
-ul.knobs li{position:relative;padding:8px 0 8px 22px;font-size:15px;color:var(--ink2);border-top:1px solid var(--line)}
-ul.knobs li:last-child{border-bottom:1px solid var(--line)}
-ul.knobs li:before{content:"";position:absolute;left:0;top:16px;width:10px;height:10px;border-radius:50%;background:var(--blue)}
+/* カスタマイズ（図） */
+.custfig{margin-top:30px;display:grid;grid-template-columns:1fr 1.15fr 1fr;gap:18px 28px;align-items:center}
+.custfig .col{display:flex;flex-direction:column;gap:12px}
+.knob{position:relative;background:#fff;border:1.5px solid var(--line);border-radius:12px;padding:12px 14px 11px}
+.knob b{display:block;font-size:15px;color:var(--ink)}
+.knob b:before{content:"";display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--blue);margin-right:8px;vertical-align:1px}
+.knob small{display:block;font-size:12.5px;color:var(--ink3);line-height:1.6;margin-top:2px}
+.knob i{position:absolute;right:10px;top:10px;font-style:normal;font-size:10.5px;font-weight:700;color:var(--blue);background:var(--blue-soft);border-radius:999px;padding:1px 8px}
+.knob:after{content:"";position:absolute;top:50%;width:28px;border-top:2px dashed #c9d3e6}
+.col.l .knob:after{right:-29px}.col.r .knob:after{left:-29px}
+.hub{background:var(--blue-soft);border:2px solid var(--blue);border-radius:18px;padding:18px 18px 16px;text-align:center}
+.hub h4{margin:0 0 4px;font-size:17px;color:var(--blue);line-height:1.5}
+.hub p{margin:0 0 12px;font-size:12.5px;color:var(--ink2);line-height:1.6}
+.mini{background:#fff;border:1px solid var(--line);border-radius:10px;overflow:hidden;text-align:left;font-size:10.5px;color:var(--ink2)}
+.mini .mb{display:flex;gap:5px;padding:6px 9px;background:#eef1f6;border-bottom:1px solid var(--line)}
+.mini .mb span{width:8px;height:8px;border-radius:50%;background:#d3d8e2}
+.mini .mp{display:grid;grid-template-columns:1fr 1.5fr}
+.mini .mc{padding:8px;border-right:1px solid var(--line);display:flex;flex-direction:column;gap:5px;background:#fbfcfe}
+.mini .mc i{display:block;height:9px;border-radius:4px;background:#e8ecf3;width:80%}
+.mini .mc i.me{background:var(--blue);align-self:flex-end;width:65%}
+.mini .ml div{display:flex;align-items:center;gap:6px;padding:6px 8px;border-bottom:1px solid var(--line);white-space:nowrap;overflow:hidden}
+.mini .ml div:before{content:"";flex:none;width:7px;height:7px;border-radius:50%;background:var(--accent)}
+.mini .ml div:nth-child(2):before{background:#f5b342}.mini .ml div:nth-child(3):before{background:#8b93a1}.mini .ml div:nth-child(4):before{background:#3aa66a}
+.hub .hn{margin-top:12px;display:flex;flex-wrap:wrap;justify-content:center;gap:5px}
+.hub .hn span{font-size:11px;font-weight:700;color:var(--blue);background:#fff;border:1px solid #c9d3e6;border-radius:999px;padding:1px 8px}
+@media(max-width:860px){.custfig{grid-template-columns:1fr;gap:12px}.hub{order:-1;margin-bottom:6px}.knob:after{display:none}}
+.cases2{margin-top:34px}
+.cases2 h3{font-size:18px;margin-bottom:12px;color:var(--blue)}
+.cases2 ul{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+@media(max-width:860px){.cases2 ul{grid-template-columns:1fr 1fr}}@media(max-width:560px){.cases2 ul{grid-template-columns:1fr}}
+.cases2 li{background:#fff;border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;font-size:13.5px;color:var(--ink2);line-height:1.7}
+.cases2 li b{display:block;font-size:15px;color:var(--ink);margin-bottom:2px}
+.cases2 li em{font-style:normal;color:var(--blue);font-weight:700}
 /* 送るのは人 */
 .rule{margin-top:22px;background:#fff;border:2px solid var(--accent);border-radius:14px;padding:18px 20px;font-size:20px;font-weight:900;color:var(--accent);line-height:1.6}
 .rule small{display:block;font-size:14px;font-weight:400;color:var(--ink2);margin-top:6px}
@@ -265,30 +287,37 @@ footer p{margin:4px 0}
 <section><div class="w">
   <h2>用途に応じて、カスタマイズできます。</h2>
   <p class="lead">受信箱の骨組みは同じで、つなぐ入口・振り分けの基準・返事の書き方・催促のタイミングを、仕事に合わせて変えます。</p>
-  <div class="cust">
-    <div>
-      <h3>例えば、こんな使い方</h3>
-      <ul class="cases">
-        <li><b>士業事務所</b>　顧問先からの質問をAIが先に読み、過去の回答と資料を踏まえて下書き。担当ごとに振り分け</li>
-        <li><b>製造業・卸</b>　取引先の見積・納期・変更の連絡を1か所に。返した瞬間に納期と催促どきが残る</li>
-        <li><b>建設・不動産</b>　現場からの写真とPDFを読み取り、確認事項だけを要点に。急ぎを先頭に</li>
-        <li><b>医療・介護</b>　予約・家族からの連絡・業者の連絡を分け、返信不要なものは件数だけ</li>
-        <li><b>営業チーム</b>　問い合わせを担当に自動で振り分け、返信の下書きと次回確認日を残す</li>
-        <li><b>経営者個人</b>　LINE・メール・チャットを1つの受信箱に。秘書の代わりに、朝いちばんで「今日返すもの」だけ</li>
-      </ul>
+  <div class="custfig">
+    <div class="col l">
+      <div class="knob"><i>差し替え可</i><b>つなぐ入口</b><small>LINE公式・チャットワーク・Slack・メール・議事録 など</small></div>
+      <div class="knob"><i>差し替え可</i><b>振り分けの基準</b><small>急ぎ／判断が要る／返信不要、担当の割り当て</small></div>
+      <div class="knob"><i>差し替え可</i><b>返事の書き方</b><small>自分の文体・決まり文句・敬称の使い方を覚えさせる</small></div>
+      <div class="knob"><i>差し替え可</i><b>読ませる資料の置き場</b><small>Googleドライブ・Notion・社内のマニュアル など</small></div>
     </div>
-    <div>
-      <h3>変えられるところ</h3>
-      <ul class="knobs">
-        <li>つなぐ入口（LINE公式・チャットワーク・Slack・メール・議事録 など）</li>
-        <li>振り分けの基準（急ぎ／判断が要る／返信不要、担当の割り当て）</li>
-        <li>返事の書き方（自分の文体・決まり文句・敬称の使い方を覚えさせる）</li>
-        <li>読ませる資料の置き場（Googleドライブ・Notion・社内のマニュアル など）</li>
-        <li>催促のタイミングと文面（3営業日、1週間、月末 など）</li>
-        <li>使うAIの組み合わせ（判定・下書き・読み取り・批評を分ける）</li>
-        <li>見せない情報（個人情報の塊は先に読まない、隠したものは件数で）</li>
-      </ul>
+    <div class="hub">
+      <h4>受信箱の骨組みは、共通</h4>
+      <p>入ってくる → AIが読んで下書き → 人が送る → 残る</p>
+      <div class="mini"><div class="mb"><span></span><span></span><span></span></div>
+        <div class="mp"><div class="mc"><i></i><i class="me"></i><i></i><i style="width:60%"></i></div>
+        <div class="ml"><div>納期の前倒し　返事待ち</div><div>ロゴ案の確認　判断が要る</div><div>請求書PDF　返信不要</div><div>日程調整　送信済み</div></div></div></div>
+      <div class="hn"><span>まわりの部品を、仕事に合わせて入れ替える</span></div>
     </div>
+    <div class="col r">
+      <div class="knob"><i>差し替え可</i><b>催促のタイミングと文面</b><small>3営業日、1週間、月末 など</small></div>
+      <div class="knob"><i>差し替え可</i><b>使うAIの組み合わせ</b><small>判定・下書き・読み取り・批評を分ける</small></div>
+      <div class="knob"><i>差し替え可</i><b>見せない情報</b><small>個人情報の塊は先に読まない。隠したものは件数で</small></div>
+    </div>
+  </div>
+  <div class="cases2">
+    <h3>例えば、こんな使い方</h3>
+    <ul>
+      <li><b>士業事務所</b>顧問先の質問をAIが先に読み、<em>過去の回答と資料</em>を踏まえて下書き。担当ごとに振り分け</li>
+      <li><b>製造業・卸</b>見積・納期・変更の連絡を1か所に。返した瞬間に<em>納期と催促どき</em>が残る</li>
+      <li><b>建設・不動産</b>現場の写真とPDFを読み取り、<em>確認事項だけ</em>を要点に。急ぎを先頭に</li>
+      <li><b>医療・介護</b>予約・家族・業者の連絡を分け、<em>返信不要なものは件数だけ</em></li>
+      <li><b>営業チーム</b>問い合わせを担当に自動で振り分け、<em>下書きと次回確認日</em>を残す</li>
+      <li><b>経営者個人</b>LINE・メール・チャットを1つに。朝いちばんに<em>「今日返すもの」だけ</em></li>
+    </ul>
   </div>
 </div></section>
 

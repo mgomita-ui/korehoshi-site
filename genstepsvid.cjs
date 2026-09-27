@@ -26,6 +26,7 @@ window.KH = (function () {
     + ".kh-rip{position:fixed;width:34px;height:34px;margin:-17px 0 0 -17px;border-radius:50%;border:3px solid rgba(37,99,235,.75);z-index:2147483646;pointer-events:none;animation:khRip .5s ease-out forwards}"
     + "@keyframes khRip{from{transform:scale(.3);opacity:1}to{transform:scale(1.4);opacity:0}}"
     + ".kh-new{animation:khNew 2s ease-out}"
+    + ".ask .askbox{transform:scale(1.2)}"
     + "@keyframes khNew{0%{background:#fff1b8;transform:translateY(-12px);opacity:.1}20%{background:#fff1b8;transform:none;opacity:1}60%{background:#fff6d6}100%{background:transparent}}";
   document.head.appendChild(st);
   var c = document.createElement("div"); c.className = "kh-cur";
@@ -62,7 +63,7 @@ window.KH = (function () {
 const CLIPS = [
   {
     // 01 入ってくる：受信箱に2件届き、経路の絞り込みを押して戻す。
-    name: "step1-in", w: 760, h: 570, dsf: 1,
+    name: "step1-in", w: 543, h: 407, dsf: 1.4, cropSel: "#states",
     setup: `(async function () {
       var D = window.DEMO;
       window.__hold = D.threads.filter(function (t) { return t.id === "line:Uaoba001" || t.id === "chatwork:R1001"; });
@@ -93,10 +94,18 @@ const CLIPS = [
   },
   {
     // 02 取りに行く：会話を開き、AIが読んだ中身（AIの読み）を見て、下書きが入る。
-    name: "step2-draft", w: 400, h: 624, dsf: 1.5,
+    name: "step2-draft", w: 320, h: 499, dsf: 1.875,
     setup: `(async function () {
       // 開いた時点で本体が入れる先回りの下書きを、いったん空にしておき、あとで同じ文を流し込む。
       window.__draft = "";
+      // カレンダーに入った表示は 03（送ったあと）で出すので、ここでは出さない。
+      CAL = [];
+      var inner = window.fetch;
+      window.fetch = function (input, init) {
+        var url = String(input && input.url ? input.url : input);
+        if (url.indexOf("/inbox/api/calendar/auto") >= 0 && url.indexOf("/undo") < 0) return Promise.resolve({ ok: true, status: 200, json: function () { return Promise.resolve({ entries: [] }); } });
+        return inner.apply(window, arguments);
+      };
       new MutationObserver(function () {
         var ta = document.getElementById("reply");
         if (ta && !ta.dataset.kh) { ta.dataset.kh = "1"; window.__draft = ta.value; ta.value = ""; }
@@ -129,7 +138,7 @@ const CLIPS = [
   },
   {
     // 03 返すと残る：送信 → 宛先の確認 → 対応済み → やってもらうことに1件入る。
-    name: "step3-sent", w: 760, h: 570, dsf: 1,
+    name: "step3-sent", w: 543, h: 407, dsf: 1.4,
     url: "/?thread=line%3AUaoba001",
     setup: `(async function () {
       var D = window.DEMO, id = "line:Uaoba001";
@@ -137,6 +146,7 @@ const CLIPS = [
       var inner = window.fetch;
       window.fetch = function (input, init) {
         var url = String(input && input.url ? input.url : input);
+        if (url.indexOf("/inbox/api/calendar/auto") >= 0 && url.indexOf("/undo") < 0 && !window.__calIsOn) return Promise.resolve({ ok: true, status: 200, json: function () { return Promise.resolve({ entries: [] }); } });
         if (/\\/inbox\\/api\\/send$/.test(url) && init && init.method === "POST") {
           var b = JSON.parse(init.body || "{}");
           D.detail[id].messages.push({ id: 99, direction: "out", kind: "text", body: b.text, created_at: Date.now() });
@@ -147,6 +157,10 @@ const CLIPS = [
         }
         return inner.apply(window, arguments);
       };
+      // カレンダーに入った表示は、送ったあとに出す（それまでは空にしておく）。
+      window.__calIsOn = true; window.__cal = (await api("/calendar/auto")).entries || []; window.__calIsOn = false;
+      CAL = []; renderCalNote(th);
+      window.__calOn = function () { window.__calIsOn = true; CAL = window.__cal.map(function (e) { return Object.assign({}, e, { at: Date.now() }); }); };
       var ta = document.getElementById("reply"); try { ta.setSelectionRange(0, 0); } catch (e) {} ta.scrollTop = 0; ta.blur();
     })()`,
     run: `(async function () {
@@ -158,9 +172,20 @@ const CLIPS = [
       await KH.tap(document.getElementById("tabWaits"), 800);
       document.getElementById("main").classList.add("viewing");
       await KH.sleep(50);
-      KH.mark(KH.byText("#detail .task", "送料の扱い"));
-      await KH.move(innerWidth * 0.8, innerHeight * 0.8, 700);
-      await KH.sleep(1000);
+      var row = KH.byText("#detail .task", "送料の扱い");
+      KH.mark(row);
+      await KH.sleep(1500);
+      // 送った会話に戻ると、決まった日程がカレンダーに入っている。
+      window.__calOn();
+      await KH.tap(row.querySelector("[data-open]"), 700);
+      for (var i = 0; i < 40 && !document.querySelector("#calNote .calnote"); i++) await KH.sleep(50);
+      var cn = document.querySelector("#calNote .calnote");
+      KH.mark(cn);
+      // 光ったあとも、入った1行は淡く色を残す（最後の場面＝ポスターでも分かるように）。
+      if (cn) { cn.style.background = "#fff4c2"; cn.style.boxShadow = "inset 4px 0 0 #f5b400"; }
+      var u = document.getElementById("calUndo");
+      if (u) { var r = u.getBoundingClientRect(); await KH.move(r.right + 14, r.bottom + 10, 700); }
+      await KH.sleep(2000);
       KH.done = true;
     })()`,
   },
@@ -175,6 +200,15 @@ async function record(b, clip) {
   await p.setViewport({ width: clip.w, height: clip.h, deviceScaleFactor: clip.dsf });
   await p.goto("http://127.0.0.1:8811" + (clip.url || "/"), { waitUntil: "networkidle0" });
   await sleep(1500);
+  // 上の余白（見出しのアイコンや検索欄など）を切って、要る部分だけを撮る。
+  let crop = null;
+  if (clip.cropSel) {
+    const y = await p.evaluate(s => Math.max(0, Math.round(document.querySelector(s).getBoundingClientRect().top - 6)), clip.cropSel);
+    await p.setViewport({ width: clip.w, height: clip.h + y, deviceScaleFactor: clip.dsf });
+    crop = { x: 0, y, width: clip.w, height: clip.h };
+    await sleep(400);
+  }
+  const shot = o => p.screenshot(crop ? Object.assign({ clip: crop }, o) : o);
   await p.evaluate(() => { window.__order = window.DEMO.threads.map(t => t.id); });
   await p.evaluate(HELPER);
   await p.evaluate(clip.setup);
@@ -185,17 +219,22 @@ async function record(b, clip) {
   while (true) {
     const t = Date.now() - t0;
     const f = path.join(dir, String(frames.length).padStart(4, "0") + ".jpg");
-    await p.screenshot({ path: f, type: "jpeg", quality: 92, optimizeForSpeed: true });
+    await shot({ path: f, type: "jpeg", quality: 92, optimizeForSpeed: true });
     frames.push({ f, t });
-    if (await p.evaluate(() => KH.done)) break;
+    const st = await p.evaluate(() => { const s = { done: KH.done, snap: KH.snap }; KH.snap = false; return s; });
+    // 途中の場面をポスターにするとき（KH.snap = true）。
+    if (st.snap) await shot({ path: path.join(OUT, clip.name + ".png") });
+    if (st.done) break;
     const wait = 125 - ((Date.now() - t0) - t);
     if (wait > 0) await sleep(wait);
-    if (t > 20000) { console.error("timeout", clip.name); break; }
+    if (t > (clip.maxMs || 20000)) { console.error("timeout", clip.name); break; }
   }
   const total = Date.now() - t0;
   // ポスター（動かさない人向けの1枚）は最後の場面。カーソルは消して撮る。
-  await p.evaluate(() => document.querySelectorAll(".kh-cur,.kh-rip").forEach(e => e.remove()));
-  await p.screenshot({ path: path.join(OUT, clip.name + ".png") });
+  if (!clip.snapPoster) {
+    await p.evaluate(() => document.querySelectorAll(".kh-cur,.kh-rip").forEach(e => e.remove()));
+    await shot({ path: path.join(OUT, clip.name + ".png") });
+  }
   await ctx.close();
   if (errs.length) console.error(clip.name, "page errors:", errs);
   // 撮った時刻どおりの長さで並べる（concat の duration）。
@@ -209,12 +248,13 @@ async function record(b, clip) {
   const outW = Math.round(clip.w * clip.dsf / 2) * 2, outH = Math.round(clip.h * clip.dsf / 2) * 2;
   const mp4 = path.join(OUT, clip.name + ".mp4");
   cp.execFileSync(FFMPEG, ["-y", "-loglevel", "error", "-f", "concat", "-safe", "0", "-i", path.join(dir, "list.txt"),
-    "-vf", `scale=${outW}:${outH}:flags=lanczos,fps=15,format=yuv420p`, "-c:v", "libx264", "-preset", "veryslow", "-crf", String(clip.crf || 26),
-    "-tune", "stillimage", "-an", "-movflags", "+faststart", mp4]);
+    "-vf", `${clip.speed ? "setpts=PTS/" + clip.speed + "," : ""}scale=${outW}:${outH}:flags=lanczos:in_range=full:out_range=tv,fps=15,format=yuv420p`, "-c:v", "libx264", "-preset", "veryslow", "-crf", String(clip.crf || 26),
+    "-tune", "stillimage", "-color_range", "tv", "-an", "-movflags", "+faststart", mp4]);
   console.log(clip.name, frames.length + " frames", (total / 1000).toFixed(1) + "s", (fs.statSync(mp4).size / 1024).toFixed(0) + "KB");
 }
 
-(async () => {
+module.exports = { HELPER, record, srv, puppeteer };
+if (require.main === module) (async () => {
   await new Promise(r => srv.listen(8811, "127.0.0.1", r));
   const b = await puppeteer.launch({ executablePath: "C:/Program Files/Google/Chrome/Application/chrome.exe", headless: "new", args: ["--no-sandbox"] });
   const only = process.argv[2];

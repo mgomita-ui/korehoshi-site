@@ -1,0 +1,9 @@
+/* 「これほしが、やること」の3つの画面を動かす（見本を実際に操作して撮った動画）。
+   枠の大きさは画像のときと同じ。動かさない設定の人には、ポスター（最後の場面）だけを出す。 */
+.shot video.stepvid{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;object-position:top;background:#fff}
+.app .inbox video.stepvid{display:block;width:100%;height:100%;object-fit:cover;object-position:top;background:#fff}
+.stepvid img{display:block;width:100%}
+@media(max-width:760px){
+  /* 狭い画面では受信箱の欄が320pxで切れる。下書きが入る下側を見せる。 */
+  .app .inbox video.stepvid{height:320px;object-position:50% 100%}
+}

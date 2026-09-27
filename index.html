@@ -196,6 +196,61 @@ h2 .b{color:var(--blue)}
 .app .inbox .lbl{position:absolute;left:8px;top:6px;background:#fff;padding:1px 6px;border:1px solid var(--line);border-radius:3px}
 .app .inbox img{width:100%;height:100%;object-fit:cover;object-position:top}
 @media(max-width:760px){.app .panes{grid-template-columns:1fr}.app .chat{border-right:0;border-bottom:1px solid var(--line)}.app .inbox{max-height:320px;overflow:hidden}}
+/* 02 どこでも扉：順番つきの図 */
+.dd .bar{display:flex;flex-wrap:wrap;gap:4px 12px;align-items:center}
+.dd .bar .order{font-size:11px;color:var(--blue);font-weight:700}
+.dd .panes{grid-template-columns:1fr 1.25fr}
+.dd .chat{gap:10px;font-size:12.5px}
+.dd .lbl{font-size:11px;font-weight:700;color:var(--ink3);margin-bottom:2px}
+.dd .lbl b{color:var(--ink)}
+.dd .inbox{padding:12px;display:flex;flex-direction:column;gap:10px;background:#fff;max-height:none;overflow:visible}
+.dd .inbox .lbl{position:static;border:0;padding:0;background:none}
+.dd .num{position:absolute;left:-9px;top:-9px;width:22px;height:22px;border-radius:50%;background:var(--accent);color:#fff;font-size:12px;font-weight:900;font-style:normal;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 6px rgba(0,0,0,.2);z-index:2}
+.dd .bub{position:relative;font-size:12.5px;line-height:1.6;max-width:100%}
+.dd .bub.me{align-self:stretch;background:var(--blue);color:#fff;font-weight:700;border-radius:10px 10px 3px 10px}
+.dd .bub.ai{align-self:stretch;border-radius:10px 10px 10px 3px}
+.dd .ib{position:relative;border:1px solid var(--line);border-radius:10px;padding:9px 11px;font-size:12.5px;line-height:1.6;color:var(--ink)}
+.dd .ib .h{font-size:11px;font-weight:700;color:var(--ink3);margin-bottom:2px}
+.dd .ib.msg{background:#f4f6fa;border-color:#e6ebf3}
+.dd .ib.msg .att{display:inline-block;margin-top:4px;font-size:11px;background:#fff;border:1px solid var(--line);border-radius:5px;padding:1px 7px;color:var(--ink2)}
+.dd .ib.read{background:#fff;border-style:dashed;color:var(--blue);font-weight:700;font-size:12px;text-align:center}
+.dd .ib.draft{background:#fbfcfe}
+.dd .ib.draft .h{color:var(--blue)}
+.dd .ib.send{display:flex;align-items:center;gap:8px;flex-wrap:wrap;background:#fff}
+.dd .ib.send .to{font-size:12px;color:var(--ink2);background:#f4f6fa;border-radius:6px;padding:4px 8px}
+.dd .ib.send .to b{color:var(--ink)}
+.dd .ib.send .go{margin-left:auto;background:var(--blue);color:#fff;font-weight:900;font-size:12.5px;border-radius:7px;padding:6px 12px;white-space:nowrap}
+.dd .ib.send .who{font-size:11px;color:var(--accent);font-weight:700;width:100%}
+.dd .legend{list-style:none;padding:8px 12px 10px;margin:0;display:grid;grid-template-columns:repeat(5,1fr);gap:6px;border-top:1px solid var(--line);background:#f7f9fc}
+.act .dd .legend li{display:flex;align-items:center;gap:6px;padding:0;margin:0;font-size:11.5px;font-weight:700;color:var(--ink3);line-height:1.3}.act .dd .legend li:before{display:none}
+.dd .legend li i{flex:none;width:18px;height:18px;border-radius:50%;background:#d3d8e2;color:#fff;font-style:normal;font-size:11px;display:flex;align-items:center;justify-content:center}
+.dd .legend li.on{color:var(--ink)}
+.dd .legend li.on i{background:var(--accent)}
+@media(max-width:760px){.dd .legend{grid-template-columns:1fr 1fr}.dd .panes{display:flex;flex-direction:column}.dd .inbox{order:1}.dd .chat{order:2;border-bottom:0;border-top:1px solid var(--line)}}
+/* 動き：14秒で1周。①0.5s ②3s ③5.5s ④8.5s ⑤11s */
+.dd .an{animation:14s linear infinite both}
+.dd .s1{animation-name:dd1}.dd .s2{animation-name:dd2}.dd .s3{animation-name:dd3}.dd .s3b{animation-name:dd3b}.dd .s4{animation-name:dd4}.dd .s5{animation-name:dd5}
+@keyframes dd1{0%,3%{opacity:0;transform:translateY(6px)}6%,97%{opacity:1;transform:none}100%{opacity:0}}
+@keyframes dd2{0%,21%{opacity:0;transform:translateY(6px)}24%,97%{opacity:1;transform:none}100%{opacity:0}}
+@keyframes dd3{0%,39%{opacity:0;transform:translateY(6px)}42%,97%{opacity:1;transform:none}100%{opacity:0}}
+@keyframes dd3b{0%,43%{opacity:0}46%,60%{opacity:1}64%,100%{opacity:0}}
+@keyframes dd4{0%,60%{opacity:0;transform:translateY(6px)}63%,97%{opacity:1;transform:none}100%{opacity:0}}
+@keyframes dd5{0%,78%{opacity:0;transform:translateY(6px)}81%,97%{opacity:1;transform:none}100%{opacity:0}}
+.dd .legend .l1{animation:ddL1 14s linear infinite}.dd .legend .l2{animation:ddL2 14s linear infinite}.dd .legend .l3{animation:ddL3 14s linear infinite}.dd .legend .l4{animation:ddL4 14s linear infinite}.dd .legend .l5{animation:ddL5 14s linear infinite}
+.dd .legend li i{animation:14s linear infinite}
+.dd .legend .l1 i{animation-name:ddI1}.dd .legend .l2 i{animation-name:ddI2}.dd .legend .l3 i{animation-name:ddI3}.dd .legend .l4 i{animation-name:ddI4}.dd .legend .l5 i{animation-name:ddI5}
+@keyframes ddL1{0%,3%{color:var(--ink3)}4%,100%{color:var(--ink)}}
+@keyframes ddL2{0%,21%{color:var(--ink3)}22%,100%{color:var(--ink)}}
+@keyframes ddL3{0%,39%{color:var(--ink3)}40%,100%{color:var(--ink)}}
+@keyframes ddL4{0%,60%{color:var(--ink3)}61%,100%{color:var(--ink)}}
+@keyframes ddL5{0%,78%{color:var(--ink3)}79%,100%{color:var(--ink)}}
+@keyframes ddI1{0%,3%{background:#d3d8e2}4%,100%{background:var(--accent)}}
+@keyframes ddI2{0%,21%{background:#d3d8e2}22%,100%{background:var(--accent)}}
+@keyframes ddI3{0%,39%{background:#d3d8e2}40%,100%{background:var(--accent)}}
+@keyframes ddI4{0%,60%{background:#d3d8e2}61%,100%{background:var(--accent)}}
+@keyframes ddI5{0%,78%{background:#d3d8e2}79%,100%{background:var(--accent)}}
+@media(prefers-reduced-motion:reduce){.dd .an,.dd .legend li,.dd .legend li i{animation:none}.dd .s3b{opacity:0}.dd .legend li{color:var(--ink)}.dd .legend li i{background:var(--accent)}}
+
 .cap{font-size:12.5px;color:var(--ink3);margin-top:10px}
 .foot-note{margin-top:14px;font-size:13.5px;color:var(--ink3)}
 
@@ -391,17 +446,21 @@ footer p{margin:4px 0}
         <ul><li>受信箱の中のやり取りと添付</li><li>メール・チャットワークの過去の履歴</li><li class="api">APIでつなげられる置き場：Googleドライブ／Google カレンダー／Notion／OneDrive・SharePoint など</li></ul>
         <p class="foot-note">1つのAIに全部を任せません。判定は軽いAI、読み取りと下書きは別のAI、批評はまた別のAI。仕事ごとに使い分けます。</p>
       </div>
-      <div class="app">
-        <div class="bar">どこでも扉 ― AIのブラウザで開ける受信箱</div>
+      <div class="app dd">
+        <div class="bar">どこでも扉 ― AIのブラウザで開ける受信箱<span class="order">順番：右に届く → 左で頼む → AIが右を読む → 右に下書き → 人が送る</span></div>
         <div class="panes">
-          <div class="chat"><span class="lbl">AI（相談する）</span>
-            <div class="bub me">ひまわり製作所の納期の件、返答の要点を整理して</div>
-            <div class="bub ai">受信箱の会話と見積書を読みました。聞かれているのは前倒しの可否なので、先に結論（全量は難しいが分納なら可）を返します。分納の日程案を2行で添えて、下書きを右に用意しました。</div>
-            <div class="bub me">それで。送料の扱いの確認も1行足して</div>
-            <div class="bub ai">足しました。中身を確かめて、送信を押してください。</div>
+          <div class="chat"><div class="lbl">左：<b>AI に頼む</b>（Claude・Codex など、ふだん使うAI）</div>
+            <div class="bub me an s2"><i class="num">2</i>この件、要点と返信の下書きを</div>
+            <div class="bub ai an s3"><i class="num">3</i>右の会話と見積書.pdfを読みました。前倒しは全量は難しく、分納なら可。下書きを右に入れました。</div>
           </div>
-          <div class="inbox"><span class="lbl">受信箱（確かめて送る）</span><video class="stepvid" src="img/step2-draft.mp4" poster="img/step2-draft.png" autoplay muted loop playsinline preload="metadata" aria-label="会話を開くと、AIの読みと返信の下書きが入る様子。"><img src="img/step2-draft.png" alt="受信箱の画面。届いた相談と、AIが用意した返信の下書き。"></video></div>
+          <div class="inbox"><div class="lbl">右：<b>受信箱</b>（LINE・メール・チャットワークが集まる）</div>
+            <div class="ib msg an s1"><i class="num">1</i><div class="h">ひまわり製作所　日向さん（LINE）</div>10月納品分を、2週間前倒しできますか。見積書を添付します。<br><span class="att">📎 見積書_20260925.pdf</span></div>
+            <div class="ib read an s3b">← AIが、この会話と添付を読んでいます</div>
+            <div class="ib draft an s4"><i class="num">4</i><div class="h">返信の下書き（AIが入れた）</div>全量の前倒しは難しいため、分納でご提案します。送料の扱いをご確認ください。</div>
+            <div class="ib send an s5"><i class="num">5</i><span class="to">宛先　<b>日向さん</b></span><span class="go">確認して送信</span><span class="who">押すのは、人。AIは送れません</span></div>
+          </div>
         </div>
+        <ol class="legend"><li class="l1"><i>1</i>右に届く</li><li class="l2"><i>2</i>左でAIに頼む</li><li class="l3"><i>3</i>AIが右を読む</li><li class="l4"><i>4</i>右に下書きが入る</li><li class="l5"><i>5</i>人が確かめて送る</li></ol>
       </div>
     </div>
     <div class="item">

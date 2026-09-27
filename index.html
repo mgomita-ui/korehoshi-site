@@ -58,6 +58,31 @@ h1,h2,h3{margin:0;line-height:1.35;font-weight:900;letter-spacing:.01em}
 .htags em{font-style:normal;font-size:11.5px;color:var(--ink3);font-weight:700;align-self:center;margin-right:2px}
 .hhuman{padding:8px 12px 10px;background:#fff;border-top:1px solid var(--line);font-size:12.5px;color:var(--ink);font-weight:700}
 .hhuman:before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--accent);margin-right:8px;vertical-align:middle}
+/* AIの窓：14秒で一巡（12秒の説明＋2秒の間）。opacity/transformのみで高さは固定 */
+.hchat .hb{animation:14s linear infinite both}
+.hchat .hb:nth-of-type(2){animation-name:hb1}
+.hchat .hb:nth-of-type(3){animation-name:hb2}
+.hchat .hb:nth-of-type(4){animation-name:hb3}
+.hchat .hb:nth-of-type(5){animation-name:hb4}
+.hchat .hb:nth-of-type(6){animation-name:hb5}
+@keyframes hb1{0%,2.1%{opacity:0;transform:translateY(8px)}5.7%,96%{opacity:1;transform:none}100%{opacity:0;transform:none}}
+@keyframes hb2{0%,13.6%{opacity:0;transform:translateY(8px)}17.1%,96%{opacity:1;transform:none}100%{opacity:0;transform:none}}
+@keyframes hb3{0%,25%{opacity:0;transform:translateY(8px)}28.6%,96%{opacity:1;transform:none}100%{opacity:0;transform:none}}
+@keyframes hb4{0%,36.4%{opacity:0;transform:translateY(8px)}40%,96%{opacity:1;transform:none}100%{opacity:0;transform:none}}
+@keyframes hb5{0%,47.9%{opacity:0;transform:translateY(8px)}51.4%,96%{opacity:1;transform:none}100%{opacity:0;transform:none}}
+.hinbox:after{content:"";position:absolute;inset:0;pointer-events:none;z-index:2;box-shadow:inset 0 0 0 2px var(--blue),inset 0 0 22px rgba(11,63,168,.35);opacity:0;animation:hinboxGlow 14s linear infinite}
+@keyframes hinboxGlow{0%,37.9%{opacity:0}40.7%{opacity:1}43.6%{opacity:.15}46.4%{opacity:1}49.3%{opacity:.15}52.1%{opacity:1}55.7%,100%{opacity:0}}
+.htags span{animation:htagOn 14s linear infinite}
+.htags span:nth-of-type(1){animation-delay:8s}
+.htags span:nth-of-type(2){animation-delay:8.25s}
+.htags span:nth-of-type(3){animation-delay:8.5s}
+.htags span:nth-of-type(4){animation-delay:8.75s}
+.htags span:nth-of-type(5){animation-delay:9s}
+.htags span:nth-of-type(6){animation-delay:9.25s}
+@keyframes htagOn{0%{background:var(--blue-soft);color:var(--blue)}1.5%,15.7%{background:var(--blue);color:#fff}18.6%,100%{background:var(--blue-soft);color:var(--blue)}}
+.hhuman:before{animation:hdot 14s ease-in-out 10.6s infinite}
+@keyframes hdot{0%{transform:scale(1);box-shadow:0 0 0 0 rgba(232,91,82,0)}2.1%{transform:scale(1.7);box-shadow:0 0 0 4px rgba(232,91,82,.25)}4.3%{transform:scale(1);box-shadow:0 0 0 0 rgba(232,91,82,0)}6.4%{transform:scale(1.7);box-shadow:0 0 0 4px rgba(232,91,82,.25)}8.6%,100%{transform:scale(1);box-shadow:0 0 0 0 rgba(232,91,82,0)}}
+@media(prefers-reduced-motion:reduce){.hchat .hb,.hinbox:after,.htags span,.hhuman:before{animation:none}}
 @media(max-width:820px){.hpanes{grid-template-columns:1fr}.hchat{border-right:0;border-bottom:1px solid var(--line)}.hinbox{max-height:300px;overflow:hidden}}
 @media(max-width:820px){.hero .w{grid-template-columns:1fr;gap:24px;padding-top:40px;padding-bottom:40px}.hero h1{font-size:32px}.hero .sub{font-size:18px}}
 

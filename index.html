@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>これほし｜AI時代の連絡大爆発。解決策は、やはり「AI」。</title>
+<meta name="description" content="相手もAIで書くから、ラリーは速く、1通は濃く、入口は増え続ける。届いた時点でAIが読み、返信の準備を済ませておく連絡の受信箱「これほし」。送るのは人。">
+<meta property="og:title" content="これほし｜AI時代の連絡大爆発。解決策は、やはり「AI」。">
+<meta property="og:description" content="返信の準備はAI。送るのは、私。">
+<meta property="og:image" content="img/og.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--blue:#0B3FA8;--blue2:#062B78;--blue-soft:#EEF3FC;--ink:#111827;--ink2:#4b5563;--ink3:#8b93a1;--line:#e3e7ee;--accent:#E85B52;--white:#fff;--lime:#DFF25A}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:#fff;color:var(--ink);font-family:"Noto Sans JP",system-ui,sans-serif;font-size:16.5px;line-height:1.95;-webkit-font-smoothing:antialiased}
+img{max-width:100%;height:auto;display:block}a{color:inherit}
+.w{max-width:1040px;margin:0 auto;padding:0 24px}
+h1,h2,h3{margin:0;line-height:1.35;font-weight:900;letter-spacing:.01em}
+.top{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.top .w{display:flex;align-items:center;height:64px}
+.logo{font-weight:900;font-size:20px;text-decoration:none;color:var(--blue)}
+.logo small{font-weight:500;color:var(--ink3);font-size:12px;margin-left:10px}
+.top .cta{margin-left:auto;font-size:14px;font-weight:700;text-decoration:none;background:var(--blue);color:#fff;border-radius:999px;padding:9px 18px;white-space:nowrap}
+@media(max-width:640px){.logo small{display:none}.top .cta{font-size:13px;padding:8px 14px}.top .cta .long{display:none}}
+.btn{display:inline-flex;align-items:center;gap:8px;background:var(--blue);color:#fff;text-decoration:none;font-weight:900;font-size:16px;padding:15px 28px;border-radius:999px;box-shadow:0 10px 24px rgba(11,63,168,.25)}
+.btn:hover{background:var(--blue2)}
+.btn.w{background:#fff;color:var(--blue);box-shadow:none}
+.btn.w:hover{background:#eef3fc}
+
+/* ヒーロー（青） */
+.hero{background:linear-gradient(135deg,#0A3EA6 0%,#0B2F80 60%,#071F57 100%);color:#fff;overflow:hidden}
+.hero .w{display:grid;grid-template-columns:0.9fr 1.1fr;gap:36px;align-items:center;padding-top:56px;padding-bottom:56px}
+.hero .kicker{display:inline-block;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.35);border-radius:999px;padding:4px 14px;font-size:13.5px;font-weight:700;margin-bottom:16px}
+.hero h1{font-size:46px;color:#fff}
+.hero h1 .q{color:var(--lime)}
+.hero .sub{margin:18px 0 0;font-size:22px;font-weight:700}
+.hero .p{margin:14px 0 0;color:#d5def5;font-size:15.5px;max-width:520px}
+.hero .cta{margin-top:26px;display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.hero .cta small{color:#c5d0ee;font-size:13px}
+.hero .cta .btn{background:#fff;color:var(--blue);box-shadow:0 10px 24px rgba(0,0,0,.25)}
+.hero .cta .btn:hover{background:#eef3fc}
+.hwin{background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 30px 60px rgba(0,0,0,.35);color:var(--ink)}
+.hbar{display:flex;align-items:center;gap:6px;padding:8px 12px;background:#eef1f6;border-bottom:1px solid var(--line);font-size:12px;color:var(--ink2)}
+.hbar span{width:9px;height:9px;border-radius:50%;background:#cfd5df;display:inline-block}
+.hbar b{margin-left:8px;font-weight:700}
+.hpanes{display:grid;grid-template-columns:1fr 1.15fr}
+.hchat{padding:10px;border-right:1px solid var(--line);display:flex;flex-direction:column;gap:7px;font-size:11.5px;line-height:1.5;background:#fbfcfe}
+.hl{font-size:10.5px;color:var(--ink3);font-weight:700}
+.hb{padding:7px 9px;border-radius:8px;max-width:96%}
+.hb.me{align-self:flex-end;background:var(--blue);color:#fff;font-weight:700}
+.hb.ai{align-self:flex-start;background:#fff;border:1px solid var(--line);color:var(--ink)}
+.hinbox{position:relative;background:#fff}
+.hinbox .hl{position:absolute;left:8px;top:6px;background:#fff;padding:1px 6px;border:1px solid var(--line);border-radius:3px;z-index:1}
+.hinbox img{width:100%;height:100%;object-fit:cover;object-position:top}
+.htags{display:flex;flex-wrap:wrap;gap:6px;padding:10px 12px;border-top:1px solid var(--line);background:#f7f9fc}
+.htags span{font-size:11.5px;font-weight:700;color:var(--blue);background:var(--blue-soft);border-radius:999px;padding:2px 9px}
+.htags em{font-style:normal;font-size:11.5px;color:var(--ink3);font-weight:700;align-self:center;margin-right:2px}
+.hhuman{padding:8px 12px 10px;background:#fff;border-top:1px solid var(--line);font-size:12.5px;color:var(--ink);font-weight:700}
+.hhuman:before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--accent);margin-right:8px;vertical-align:middle}
+@media(max-width:820px){.hpanes{grid-template-columns:1fr}.hchat{border-right:0;border-bottom:1px solid var(--line)}.hinbox{max-height:300px;overflow:hidden}}
+@media(max-width:820px){.hero .w{grid-template-columns:1fr;gap:24px;padding-top:40px;padding-bottom:40px}.hero h1{font-size:32px}.hero .sub{font-size:18px}}
+
+section{padding:64px 0}
+section.soft{background:var(--blue-soft)}
+h2{font-size:30px;color:var(--ink)}
+h2 .b{color:var(--blue)}
+.lead{margin:12px 0 0;color:var(--ink2);max-width:760px}
+@media(max-width:640px){section{padding:48px 0}h2{font-size:24px}}
+
+/* 爆発の3軸 */
+.three{margin-top:28px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media(max-width:760px){.three{grid-template-columns:1fr}}
+.three .c{background:#fff;border:1px solid var(--line);border-radius:14px;padding:22px 22px 20px}
+.three .k{display:inline-block;background:var(--blue);color:#fff;font-weight:900;font-size:13px;border-radius:6px;padding:2px 10px}
+.three h3{font-size:22px;margin:10px 0 8px;color:var(--ink)}
+.three h3 .b{color:var(--blue)}
+.three p{margin:0;color:var(--ink2);font-size:15px}
+.three p em{font-style:normal;font-weight:700;color:var(--ink)}
+/* あるある */
+.aru{background:#fff}
+.aru-list{list-style:none;padding:0;margin:22px 0 0;display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:760px){.aru-list{grid-template-columns:1fr}}
+.aru-list li{position:relative;background:var(--blue-soft);border-radius:12px;padding:14px 16px 14px 48px;font-size:15.5px;color:var(--ink);font-weight:500;line-height:1.7}
+.aru-list li:before{content:"";position:absolute;left:16px;top:16px;width:20px;height:20px;border:2px solid var(--blue);border-radius:5px;background:#fff}
+.aru-list li:after{content:"";position:absolute;left:22px;top:19px;width:6px;height:11px;border-right:2.5px solid var(--blue);border-bottom:2.5px solid var(--blue);transform:rotate(45deg)}
+.doors{margin-top:18px;font-size:14px;color:var(--ink3)}
+.doors span{display:inline-block;background:#fff;border:1px solid var(--line);border-radius:999px;padding:3px 12px;margin:0 6px 8px 0;color:var(--ink2);font-weight:500}
+.punch{margin-top:26px;font-size:24px;font-weight:900;line-height:1.6;color:var(--ink)}
+.punch .b{color:var(--blue)}
+.wide{margin-top:26px;border-radius:16px;overflow:hidden;box-shadow:0 24px 50px rgba(11,63,168,.18)}
+
+/* 3つの動作 */
+.act{margin-top:6px}
+.act .item{display:grid;grid-template-columns:1fr 1fr;gap:36px;align-items:center;padding:40px 0;border-top:1px solid var(--line)}
+.act .item:first-child{border-top:0}
+.act .n{display:inline-block;background:var(--blue-soft);color:var(--blue);font-weight:900;font-size:13px;border-radius:6px;padding:2px 10px;letter-spacing:.06em}
+.act h3{font-size:24px;margin:10px 0 10px}
+.act p{margin:0;color:var(--ink2)}
+.act p strong{color:var(--ink)}
+.act ul{margin:12px 0 0;padding:0;list-style:none}
+.act li{position:relative;padding-left:22px;margin:4px 0;color:var(--ink2);font-size:15px}
+.act li:before{content:"";position:absolute;left:0;top:.7em;width:12px;height:12px;border-radius:50%;background:var(--blue)}
+.act li.api:before{background:#fff;border:2px solid var(--blue);width:8px;height:8px}
+.shot{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#fff;box-shadow:0 18px 40px rgba(11,63,168,.10)}
+.shot img{aspect-ratio:4/3;object-fit:cover;object-position:top}
+@media(max-width:760px){.act .item{grid-template-columns:1fr;gap:18px;padding:30px 0}.act .item .shot,.act .item .app{order:2}}
+
+/* アプリの枠 */
+.app{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#fff;box-shadow:0 18px 40px rgba(11,63,168,.10)}
+.app .bar{padding:8px 12px;border-bottom:1px solid var(--line);font-size:12px;color:var(--ink3);background:#f7f9fc}
+.app .panes{display:grid;grid-template-columns:1fr 1.3fr}
+.app .chat{padding:12px;border-right:1px solid var(--line);display:flex;flex-direction:column;gap:8px;font-size:12px;line-height:1.55;background:#fbfcfe}
+.app .lbl{font-size:11px;color:var(--ink3)}
+.bub{padding:8px 10px;border-radius:8px;max-width:96%}
+.bub.me{align-self:flex-end;background:var(--blue-soft);color:var(--blue2)}
+.bub.ai{align-self:flex-start;background:#fff;border:1px solid var(--line)}
+.app .inbox{position:relative}
+.app .inbox .lbl{position:absolute;left:8px;top:6px;background:#fff;padding:1px 6px;border:1px solid var(--line);border-radius:3px}
+.app .inbox img{width:100%;height:100%;object-fit:cover;object-position:top}
+@media(max-width:760px){.app .panes{grid-template-columns:1fr}.app .chat{border-right:0;border-bottom:1px solid var(--line)}.app .inbox{max-height:320px;overflow:hidden}}
+.cap{font-size:12.5px;color:var(--ink3);margin-top:10px}
+.foot-note{margin-top:14px;font-size:13.5px;color:var(--ink3)}
+
+/* カスタマイズ */
+.cust{display:grid;grid-template-columns:1.1fr 1fr;gap:32px;margin-top:26px}
+@media(max-width:760px){.cust{grid-template-columns:1fr}}
+.cust h3{font-size:18px;margin-bottom:10px;color:var(--blue)}
+ul.cases,ul.knobs{list-style:none;padding:0;margin:0}
+ul.cases li{padding:10px 0;border-top:1px solid var(--line);font-size:15px;color:var(--ink2);line-height:1.75}
+ul.cases li:last-child{border-bottom:1px solid var(--line)}
+ul.cases li b{color:var(--ink);display:inline-block;min-width:6.5em}
+ul.knobs li{position:relative;padding:8px 0 8px 22px;font-size:15px;color:var(--ink2);border-top:1px solid var(--line)}
+ul.knobs li:last-child{border-bottom:1px solid var(--line)}
+ul.knobs li:before{content:"";position:absolute;left:0;top:16px;width:10px;height:10px;border-radius:50%;background:var(--blue)}
+/* 送るのは人 */
+.rule{margin-top:22px;background:#fff;border:2px solid var(--accent);border-radius:14px;padding:18px 20px;font-size:20px;font-weight:900;color:var(--accent);line-height:1.6}
+.rule small{display:block;font-size:14px;font-weight:400;color:var(--ink2);margin-top:6px}
+ul.rules{list-style:none;padding:0;margin:16px 0 0;display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+@media(max-width:760px){ul.rules{grid-template-columns:1fr}}
+ul.rules li{background:#fff;border:1px solid var(--line);border-radius:10px;padding:12px 14px;font-size:14.5px;color:var(--ink2)}
+
+/* 価格 */
+.price{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:24px}
+@media(max-width:640px){.price{grid-template-columns:1fr}}
+.price div{background:#fff;border:1px solid var(--line);border-radius:14px;padding:22px}
+.price .t{font-size:13px;color:var(--blue);font-weight:900}
+.price .v{font-size:24px;font-weight:900;margin:4px 0 6px}
+.price p{margin:0;color:var(--ink2);font-size:14.5px}
+
+.last{background:linear-gradient(135deg,#0A3EA6,#071F57);color:#fff;padding:64px 0}
+.last h2{color:#fff;font-size:28px}
+.last p{color:#d5def5;margin:12px 0 0;max-width:640px}
+.last .how{margin-top:18px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.25);border-radius:10px;padding:12px 16px;font-size:14.5px}
+.last .btn{margin-top:22px;background:#fff;color:var(--blue)}
+footer{padding:26px 0 44px;font-size:12.5px;color:var(--ink3)}
+footer p{margin:4px 0}
+</style>
+</head>
+<body>
+
+<header class="top"><div class="w">
+  <a class="logo" href="#">これほし<small>これが欲しかった</small></a>
+  <a class="cta" href="https://line.me/R/ti/p/@232zafzm"><span class="long">公式LINEで</span>話を聞く</a>
+</div></header>
+
+<section class="hero"><div class="w">
+  <div>
+    <span class="kicker">AI時代の連絡大爆発</span>
+    <h1>解決策は、<br>やはり<span class="q">「AI」</span>。</h1>
+    <p class="sub">返信の準備はAI。送るのは、私。</p>
+    <p class="p">LINE・チャットワーク・メールの連絡が1か所に集まり、届いた時点でAIが読んで、要点と返信の下書きを済ませておく「連絡の受信箱」です。必ず「これ欲しかった」と言われるので、「これほし」と名付けました。</p>
+    <div class="cta"><a class="btn" href="https://line.me/R/ti/p/@232zafzm">公式LINEで話を聞く</a><small>友だち追加して「これほしの話を聞きたい」と送ってください。</small></div>
+  </div>
+  <div class="hwin">
+    <div class="hbar"><span></span><span></span><span></span><b>AIの窓 ― 左で頼む、右で確かめて送る</b></div>
+    <div class="hpanes">
+      <div class="hchat">
+        <div class="hl">AI</div>
+        <div class="hb me">ひまわり製作所の納期前倒しの件、経緯と添付の見積書を読んで、要点を3行に</div>
+        <div class="hb ai">受信箱の会話と添付を読みました。①10月納品分を2週間前倒ししたい ②見積書（9/25付）の納期は10月20日、分納の条項なし ③一部だけ先に、でも可と言っている。</div>
+        <div class="hb me">全量は無理なので分納案で返信の下書き。送料の扱いの確認も1行</div>
+        <div class="hb ai">右に用意しました。あわせて「送料の扱いの返事」を相手待ちのやることに入れ、3営業日後に催促の文面が出るようにしました。</div>
+        <div class="hb me">OK。送信は自分で押す</div>
+      </div>
+      <div class="hinbox"><div class="hl">受信箱</div><img src="img/shot2-thread-draft.png" alt="受信箱の画面。届いた相談と、AIが用意した返信の下書き。"></div>
+    </div>
+    <div class="htags"><em>AIがやること</em><span>振り分け</span><span>要点の整理</span><span>PDF・画像の読み取り</span><span>返信の下書き</span><span>やることの記録</span><span>催促の文面</span></div>
+    <div class="hhuman">送信ボタンを押すのは、必ず人。AIには送信の道具を渡していません。</div>
+  </div>
+</div></section>
+
+<section class="aru"><div class="w">
+  <h2>こんなこと、ありませんか？</h2>
+  <p class="lead">一つでも当てはまったら、このページはあなた向けです。</p>
+  <ul class="aru-list">
+    <li>「後でやろう」と置いておいたら、そのまま忘れていた</li>
+    <li>軽めのタスクを先にこなして、重めのタスクがたまり、テンションが下がる</li>
+    <li>過去の経緯や資料を確認してから回答するので、返事に時間がかかる</li>
+    <li>AIで作られた文章や資料は分かりにくく、読み解くのに時間がかかる</li>
+    <li>連絡のために、AIへコピペとアップロードをする役割になっている</li>
+    <li>AIの言っていること・やっていることが分からなくなり、えいやで投げてしまっている</li>
+  </ul>
+</div></section>
+
+<section><div class="w">
+  <h2>連絡は、<span class="b">AI</span>で加速している。</h2>
+  <p class="lead">相手もAIで書き、AIで資料を作る。だからラリーは速く、1通は濃く、入口は増え続ける。返す側だけが、人のままです。</p>
+  <div class="three">
+    <div class="c"><span class="k">量</span><h3>ラリーが<span class="b">速い</span></h3><p>AIが書くから、送る側は疲れない。ためらいが消え、返せばすぐ次が来る。<em>速くなった分だけ、届く数が増える。</em></p></div>
+    <div class="c"><span class="k">質</span><h3>1通が<span class="b">濃い</span></h3><p>AIが作った文章と資料は、長くて、抜けがなくて、濃い。<em>読み解くのに時間がかかる。</em>判断の前に「読む」が積み上がる。</p></div>
+    <div class="c"><span class="k">入口</span><h3>窓口が<span class="b">多い</span></h3><p>サービスが増えるたびに入口が増え、あちこち見に行く。しかも<em>入口ごとにAIをつなぐ手間まで増える。</em>コピペして、アップロードして、また別の入口へ。</p></div>
+  </div>
+  <div class="doors"><span>LINE公式アカウント</span><span>チャットワーク</span><span>Slack</span><span>Microsoft Teams</span><span>メール</span><span>Outlook</span><span>問い合わせフォーム</span><span>議事録</span><span>Googleドライブ</span><span>Notion</span>…相手の数だけ、入口がある</div>
+  <p class="punch">人が全部読んで、判断して、返す。その前提が崩れた。<br>だから、解決策も<span class="b">AI</span>。ただし、送るのは人。</p>
+</div></section>
+
+<section class="soft"><div class="w">
+  <h2>これほしが、やること。</h2>
+  <p class="lead">3つの動作に畳んであります。入ってくる、取りに行く、返すと残る。</p>
+  <div class="act">
+    <div class="item">
+      <div>
+        <span class="n">01　入ってくる</span>
+        <h3>入口の情報が、そのまま受信箱に入る</h3>
+        <p>届いたものは自動で受信箱に集まり、AIが振り分けて、PDFや画像も読んでおきます。<strong>コピペも、アップロードも、要りません。</strong>一覧に並ぶのは「まだ返していないものだけ」。</p>
+        <ul><li>いま動いている入口：LINE公式アカウント／チャットワーク／メール／議事録</li><li class="api">APIでつなげられる入口：Slack／Microsoft Teams／Outlook／Googleカレンダー／Notion／kintone／Backlog／Zoomの録画 など</li></ul>
+      </div>
+      <div class="shot"><img src="img/shot1-list.png" alt="受信箱の一覧。まだ返していないものだけが並ぶ。"></div>
+    </div>
+    <div class="item">
+      <div>
+        <span class="n">02　取りに行く</span>
+        <h3>どのAIからでも開けて、そのグループの文脈で答える</h3>
+        <p>受信箱はAIのブラウザの中で開きます。開いている会話を、AIがそのまま読める。過去のやり取り、届いた資料、頼んだ仕事を踏まえて、<strong>「あの資料のあの話」を前提にした下書き</strong>が出ます。必要な資料は、AIが置き場まで取りに行きます。</p>
+        <ul><li>受信箱の中のやり取りと添付</li><li>メール・チャットワークの過去の履歴</li><li class="api">APIでつなげられる置き場：Googleドライブ／Google カレンダー／Notion／OneDrive・SharePoint など</li></ul>
+        <p class="foot-note">1つのAIに全部を任せません。判定は軽いAI、読み取りと下書きは別のAI、批評はまた別のAI。仕事ごとに使い分けます。</p>
+      </div>
+      <div class="app">
+        <div class="bar">どこでも扉 ― AIのブラウザで開ける受信箱</div>
+        <div class="panes">
+          <div class="chat"><span class="lbl">AI（相談する）</span>
+            <div class="bub me">ひまわり製作所の納期の件、返答の要点を整理して</div>
+            <div class="bub ai">受信箱の会話と見積書を読みました。聞かれているのは前倒しの可否なので、先に結論（全量は難しいが分納なら可）を返します。分納の日程案を2行で添えて、下書きを右に用意しました。</div>
+            <div class="bub me">それで。送料の扱いの確認も1行足して</div>
+            <div class="bub ai">足しました。中身を確かめて、送信を押してください。</div>
+          </div>
+          <div class="inbox"><span class="lbl">受信箱（確かめて送る）</span><img src="img/shot2-thread-draft.png" alt="受信箱の画面。届いた相談と、AIが用意した返信の下書き。"></div>
+        </div>
+      </div>
+    </div>
+    <div class="item">
+      <div>
+        <span class="n">03　返すと、残る</span>
+        <h3>返信と、管理が、同時に行われる</h3>
+        <p>返事を送った瞬間に、「自分のやること」「相手にやってもらうこと」「催促どき」が会話ごとに残ります。相手待ちのものは確認日に戻ってきて、催促の文案までAIが用意する。<strong>誰に何をいつまでに、が消えません。</strong></p>
+        <ul><li>やること／やってもらうこと</li><li>次回確認日と催促の文案</li><li>別のタスク表を持たなくてよい</li></ul>
+      </div>
+      <div class="shot"><img src="img/shot5-tasks.png" alt="やることの画面。頼んだ仕事が相手側のやることとして残る。"></div>
+    </div>
+  </div>
+  <p class="cap">画面のやり取りは、すべて架空のデータです。「APIでつなげられる」入口と置き場は、使っているものを伺ってから、設置のときにつなぎます。</p>
+</div></section>
+
+<section><div class="w">
+  <h2>用途に応じて、カスタマイズできます。</h2>
+  <p class="lead">受信箱の骨組みは同じで、つなぐ入口・振り分けの基準・返事の書き方・催促のタイミングを、仕事に合わせて変えます。</p>
+  <div class="cust">
+    <div>
+      <h3>例えば、こんな使い方</h3>
+      <ul class="cases">
+        <li><b>士業事務所</b>　顧問先からの質問をAIが先に読み、過去の回答と資料を踏まえて下書き。担当ごとに振り分け</li>
+        <li><b>製造業・卸</b>　取引先の見積・納期・変更の連絡を1か所に。返した瞬間に納期と催促どきが残る</li>
+        <li><b>建設・不動産</b>　現場からの写真とPDFを読み取り、確認事項だけを要点に。急ぎを先頭に</li>
+        <li><b>医療・介護</b>　予約・家族からの連絡・業者の連絡を分け、返信不要なものは件数だけ</li>
+        <li><b>営業チーム</b>　問い合わせを担当に自動で振り分け、返信の下書きと次回確認日を残す</li>
+        <li><b>経営者個人</b>　LINE・メール・チャットを1つの受信箱に。秘書の代わりに、朝いちばんで「今日返すもの」だけ</li>
+      </ul>
+    </div>
+    <div>
+      <h3>変えられるところ</h3>
+      <ul class="knobs">
+        <li>つなぐ入口（LINE公式・チャットワーク・Slack・メール・議事録 など）</li>
+        <li>振り分けの基準（急ぎ／判断が要る／返信不要、担当の割り当て）</li>
+        <li>返事の書き方（自分の文体・決まり文句・敬称の使い方を覚えさせる）</li>
+        <li>読ませる資料の置き場（Googleドライブ・Notion・社内のマニュアル など）</li>
+        <li>催促のタイミングと文面（3営業日、1週間、月末 など）</li>
+        <li>使うAIの組み合わせ（判定・下書き・読み取り・批評を分ける）</li>
+        <li>見せない情報（個人情報の塊は先に読まない、隠したものは件数で）</li>
+      </ul>
+    </div>
+  </div>
+</div></section>
+
+<section><div class="w">
+  <h2>送るのは、人。ここだけは変えません。</h2>
+  <div class="rule">送る前に、必ず全文を見て、了承を得てから送る。<small>AIに送信の道具は渡していません。下書きができても、それだけで相手に届くことはありません。</small></div>
+  <ul class="rules">
+    <li>送信の口は、人が押すボタン1つだけ。宛先を必ず見せてから送る</li>
+    <li>接続用の鍵は本人の画面で入力し、データは本人のアカウントに置く</li>
+    <li>AIの読み取りや下書きにも誤りはあり得るので、送る前に人が確認する</li>
+  </ul>
+</div></section>
+
+<section class="soft"><div class="w">
+  <h2>価格</h2>
+  <p class="lead">いまはテスト期間です。この期間に入っていただく方は、設定の費用だけで始められます。</p>
+  <div class="price">
+    <div><div class="t">設定（テスト期間）</div><div class="v">50,000円</div><p>使っている連絡手段と、返信・依頼の流れを伺って、つなぎます。作って動かしている本人が設置します。連携先のサービスの利用料が別にかかる場合は、事前にご説明します。</p></div>
+    <div><div class="t">導入にかかる時間</div><div class="v">ゼロからでも3時間</div><p>入口をつなぐ → 受信箱を開く → 最初の返事を一緒に送る、まで。特別な準備は要りません。</p></div>
+  </div>
+</div></section>
+
+<section class="last"><div class="w">
+  <h2>自社なら、どの連絡をまとめるか。</h2>
+  <p>売り込みはしません。使っている連絡手段と、返信・依頼の流れを伺って、合うかどうかから一緒に考えます。</p>
+  <div class="how">公式LINEを友だち追加して、「これほしの話を聞きたい」と送ってください。</div>
+  <a class="btn" href="https://line.me/R/ti/p/@232zafzm">公式LINEで話を聞く</a>
+</div></section>
+
+<footer><div class="w">
+  <p>これほし（これが欲しかった）／どこでも扉　運営：社会保険労務士 五味田匡功（レリック社会保険労務士法人）。社労士の私が、自分の実務のために作り、毎日使っています。</p>
+  <p>掲載している画面はすべて架空のデータです。</p>
+</div></footer>
+
+</body>
+</html>

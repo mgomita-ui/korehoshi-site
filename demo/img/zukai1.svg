@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600">
+  <style>
+    text { font-family: "Yu Gothic UI", "Hiragino Kaku Gothic ProN", system-ui, sans-serif; fill: #1a1a1a; }
+    .t { font-size: 30px; font-weight: 700; }
+    .k { font-size: 15px; fill: #6b7280; }
+    .b { font-size: 22px; font-weight: 700; }
+    .s { font-size: 14px; fill: #4b5563; }
+  </style>
+  <rect width="800" height="600" fill="#f6f7f9"/>
+  <rect x="0" y="0" width="800" height="96" fill="#ffffff"/>
+  <rect x="0" y="95" width="800" height="1" fill="#e5e7eb"/>
+  <text class="t" x="48" y="52">図解の例 1/3</text>
+  <text class="k" x="48" y="78">受信箱の流れ（届く → 仕分ける → 下書き → 人が送る）</text>
+
+  <g>
+    <rect x="48" y="150" width="160" height="110" rx="14" fill="#ffffff" stroke="#e5e7eb"/>
+    <text class="b" x="128" y="198" text-anchor="middle">届く</text>
+    <text class="s" x="128" y="224" text-anchor="middle">LINE・チャット</text>
+    <text class="s" x="128" y="244" text-anchor="middle">メール・議事録</text>
+
+    <rect x="240" y="150" width="160" height="110" rx="14" fill="#ffffff" stroke="#e5e7eb"/>
+    <text class="b" x="320" y="198" text-anchor="middle">仕分ける</text>
+    <text class="s" x="320" y="224" text-anchor="middle">相槌は外す</text>
+    <text class="s" x="320" y="244" text-anchor="middle">手のかかり具合</text>
+
+    <rect x="432" y="150" width="160" height="110" rx="14" fill="#ffffff" stroke="#e5e7eb"/>
+    <text class="b" x="512" y="198" text-anchor="middle">下書き</text>
+    <text class="s" x="512" y="224" text-anchor="middle">狙いを添えて</text>
+    <text class="s" x="512" y="244" text-anchor="middle">返信欄に入れる</text>
+
+    <rect x="624" y="150" width="160" height="110" rx="14" fill="#ffffff" stroke="#06c755"/>
+    <text class="b" x="704" y="198" text-anchor="middle">人が送る</text>
+    <text class="s" x="704" y="224" text-anchor="middle">押すまで</text>
+    <text class="s" x="704" y="244" text-anchor="middle">何も届かない</text>
+
+    <path d="M212 205 h22" stroke="#9aa0a6" stroke-width="2"/>
+    <path d="M404 205 h22" stroke="#9aa0a6" stroke-width="2"/>
+    <path d="M596 205 h22" stroke="#9aa0a6" stroke-width="2"/>
+    <path d="M228 199 l8 6 -8 6z" fill="#9aa0a6"/>
+    <path d="M420 199 l8 6 -8 6z" fill="#9aa0a6"/>
+    <path d="M612 199 l8 6 -8 6z" fill="#9aa0a6"/>
+  </g>
+
+  <rect x="48" y="316" width="736" height="1" fill="#e5e7eb"/>
+
+  <g>
+    <rect x="48" y="352" width="356" height="180" rx="14" fill="#ffffff" stroke="#e5e7eb"/>
+    <text class="b" x="76" y="396">ここまでが自動</text>
+    <text class="s" x="76" y="428">・届いたものを1か所に集める</text>
+    <text class="s" x="76" y="454">・返事の要らないものを外す</text>
+    <text class="s" x="76" y="480">・下書きと、やることの候補を用意する</text>
+    <text class="s" x="76" y="506">・読んだ根拠を「狙い」として残す</text>
+
+    <rect x="428" y="352" width="356" height="180" rx="14" fill="#ffffff" stroke="#06c755"/>
+    <text class="b" x="456" y="396">ここから先は人</text>
+    <text class="s" x="456" y="428">・宛先と本文を目で確かめる</text>
+    <text class="s" x="456" y="454">・直したいところを直す</text>
+    <text class="s" x="456" y="480">・［送信］を押す</text>
+    <text class="s" x="456" y="506">・押さないかぎり、相手には届かない</text>
+  </g>
+
+  <text class="k" x="48" y="574">※ これは見本用の作り物の図です。実在の顧客データは含まれていません。</text>
+</svg>

@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600">
+  <style>
+    text { font-family: "Yu Gothic UI", "Hiragino Kaku Gothic ProN", system-ui, sans-serif; fill: #1a1a1a; }
+    .t { font-size: 30px; font-weight: 700; }
+    .k { font-size: 15px; fill: #6b7280; }
+    .b { font-size: 19px; font-weight: 700; }
+    .s { font-size: 14px; fill: #4b5563; }
+    .lbl { font-size: 13px; font-weight: 700; }
+  </style>
+  <rect width="800" height="600" fill="#f6f7f9"/>
+  <rect x="0" y="0" width="800" height="96" fill="#ffffff"/>
+  <rect x="0" y="95" width="800" height="1" fill="#e5e7eb"/>
+  <text class="t" x="48" y="52">図解の例 2/3</text>
+  <text class="k" x="48" y="78">どこを自動にして、どこを人が押すのか</text>
+
+  <g>
+    <rect x="48" y="132" width="16" height="16" rx="4" fill="#dbeafe" stroke="#93c5fd"/>
+    <text class="lbl" x="74" y="146">自動で進む</text>
+    <rect x="188" y="132" width="16" height="16" rx="4" fill="#dcf7c5" stroke="#06c755"/>
+    <text class="lbl" x="214" y="146">人が押す</text>
+  </g>
+
+  <g>
+    <rect x="48" y="172" width="736" height="66" rx="12" fill="#dbeafe" stroke="#93c5fd"/>
+    <text class="b" x="76" y="200">1. 届いたものを受け取る</text>
+    <text class="s" x="76" y="224">LINE・チャットワーク・メール・議事録を、1つの受信箱に集める</text>
+
+    <rect x="48" y="252" width="736" height="66" rx="12" fill="#dbeafe" stroke="#93c5fd"/>
+    <text class="b" x="76" y="280">2. 返事の要らないものを外す</text>
+    <text class="s" x="76" y="304">相槌・お知らせは要対応から外し、件数だけ見えるところに残す</text>
+
+    <rect x="48" y="332" width="736" height="66" rx="12" fill="#dbeafe" stroke="#93c5fd"/>
+    <text class="b" x="76" y="360">3. 下書きと、やることの候補を用意する</text>
+    <text class="s" x="76" y="384">判断が要る件では下書きを作らず、「これが決まれば書けます」を出す</text>
+
+    <rect x="48" y="412" width="736" height="66" rx="12" fill="#dcf7c5" stroke="#06c755"/>
+    <text class="b" x="76" y="440">4. 宛先と本文を確かめる</text>
+    <text class="s" x="76" y="464">誰に、何通、どの順で送るのかが1画面に出る</text>
+
+    <rect x="48" y="492" width="736" height="66" rx="12" fill="#dcf7c5" stroke="#06c755"/>
+    <text class="b" x="76" y="520">5. 送信を押す</text>
+    <text class="s" x="76" y="544">押すまで相手には何も届かない。AIは送信できない</text>
+  </g>
+</svg>

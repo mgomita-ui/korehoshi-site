@@ -104,13 +104,47 @@ h2 .b{color:var(--blue)}
 .three p em{font-style:normal;font-weight:700;color:var(--ink)}
 /* あるある */
 .aru{background:#fff}
-.aru-list{list-style:none;padding:0;margin:22px 0 0;display:grid;grid-template-columns:1fr 1fr;gap:12px}
-@media(max-width:760px){.aru-list{grid-template-columns:1fr}}
-.aru-list li{position:relative;background:var(--blue-soft);border-radius:12px;padding:14px 16px 14px 48px;font-size:15.5px;color:var(--ink);font-weight:500;line-height:1.7}
-.aru-list li:before{content:"";position:absolute;left:16px;top:16px;width:20px;height:20px;border:2px solid var(--blue);border-radius:5px;background:#fff}
-.aru-list li:after{content:"";position:absolute;left:22px;top:19px;width:6px;height:11px;border-right:2.5px solid var(--blue);border-bottom:2.5px solid var(--blue);transform:rotate(45deg)}
-.doors{margin-top:18px;font-size:14px;color:var(--ink3)}
-.doors span{display:inline-block;background:#fff;border:1px solid var(--line);border-radius:999px;padding:3px 12px;margin:0 6px 8px 0;color:var(--ink2);font-weight:500}
+.aru-list{list-style:none;padding:0;margin:22px 0 0;display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+@media(max-width:900px){.aru-list{grid-template-columns:1fr 1fr}}@media(max-width:600px){.aru-list{grid-template-columns:1fr}}
+.aru-list li{background:var(--blue-soft);border-radius:14px;padding:18px 18px 14px;display:flex;flex-direction:column}
+.aru-list li b{font-size:18px;line-height:1.5;color:var(--ink);font-weight:900}
+.aru-list li p{margin:6px 0 12px;font-size:13.5px;color:var(--ink2);line-height:1.7;flex:1}
+.aru-list li .so{border-top:1px dashed #c9d3e6;padding-top:10px;font-size:13.5px;color:var(--blue);font-weight:700;line-height:1.6}
+.aru-list li .so:before{content:"これほしなら";display:inline-block;font-size:10.5px;background:var(--blue);color:#fff;border-radius:999px;padding:1px 8px;margin-right:8px;vertical-align:2px}
+/* 加速の図 */
+.accfig{margin-top:28px;display:grid;grid-template-columns:1.35fr auto 1fr;gap:18px;align-items:stretch}
+@media(max-width:860px){.accfig{grid-template-columns:1fr}}
+.accfig .side{background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px 20px 16px}
+.accfig .side h3{margin:0 0 4px;font-size:16px;color:var(--ink3);font-weight:700}
+.accfig .side h3 b{font-size:22px;color:var(--ink);font-weight:900;margin-right:8px}
+.accfig .side h3 .b{color:var(--blue)}
+.lane{display:grid;grid-template-columns:52px 1fr;gap:12px;align-items:center;padding:12px 0;border-top:1px solid var(--line)}
+.lane .k{display:inline-block;background:var(--blue);color:#fff;font-weight:900;font-size:13px;border-radius:6px;padding:2px 0;text-align:center}
+.lane p{margin:4px 0 0;font-size:13px;color:var(--ink2);line-height:1.6}
+.lane p em{font-style:normal;font-weight:700;color:var(--ink)}
+.bubs{display:flex;flex-wrap:wrap;gap:4px}
+.bubs i{display:block;width:26px;height:14px;border-radius:7px 7px 7px 2px;background:#dfe6f3}
+.bubs i:nth-child(3n){background:#c9d5ee}
+.bubs i.n{background:var(--blue)}
+.thick{border:1px solid #c9d3e6;border-radius:8px 8px 8px 2px;padding:6px 8px;background:#f7f9fc;width:100%;max-width:340px}
+.thick i{display:block;height:5px;border-radius:3px;background:#c9d5ee;margin:4px 0}
+.thick i:nth-child(2){width:92%}.thick i:nth-child(3){width:76%}.thick i:nth-child(4){width:88%}.thick i:nth-child(5){width:40%}
+.thick small{display:block;font-size:10.5px;color:var(--ink3);margin-top:4px}
+.doors2{display:flex;flex-wrap:wrap;gap:4px}
+.doors2 span{font-size:11px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:1px 8px;color:var(--ink2)}
+.accfig .arrow{display:flex;align-items:center;justify-content:center;font-size:34px;color:var(--blue);font-weight:900}
+@media(max-width:860px){.accfig .arrow{transform:rotate(90deg);font-size:28px;padding:0}}
+.accfig .me{background:var(--blue-soft);border:2px solid var(--blue);border-radius:16px;padding:18px 20px;display:flex;flex-direction:column;align-items:center;text-align:center;justify-content:center}
+.accfig .me h3{margin:0;font-size:16px;color:var(--ink3);font-weight:700}
+.accfig .me h3 b{display:block;font-size:22px;color:var(--ink);font-weight:900}
+.person{position:relative;width:64px;height:64px;margin:14px 0 6px}
+.person:before{content:"";position:absolute;left:20px;top:0;width:24px;height:24px;border-radius:50%;background:var(--blue)}
+.person:after{content:"";position:absolute;left:8px;top:28px;width:48px;height:36px;border-radius:24px 24px 6px 6px;background:var(--blue)}
+.pile{display:flex;flex-direction:column;gap:3px;width:100%;max-width:200px;margin-top:8px}
+.pile i{display:block;height:9px;border-radius:3px;background:#c9d5ee}
+.pile i:nth-child(odd){background:#dfe6f3}
+.pile b{font-size:12.5px;color:var(--accent);margin-top:6px}
+.accfig .me p{margin:10px 0 0;font-size:13px;color:var(--ink2);line-height:1.7}
 .punch{margin-top:26px;font-size:24px;font-weight:900;line-height:1.6;color:var(--ink)}
 .punch .b{color:var(--blue)}
 .wide{margin-top:26px;border-radius:16px;overflow:hidden;box-shadow:0 24px 50px rgba(11,63,168,.18)}
@@ -241,24 +275,33 @@ footer p{margin:4px 0}
   <h2>こんなこと、ありませんか？</h2>
   <p class="lead">一つでも当てはまったら、このページはあなた向けです。</p>
   <ul class="aru-list">
-    <li>「後でやろう」と置いておいたら、そのまま忘れていた</li>
-    <li>軽めのタスクを先にこなして、重めのタスクがたまり、テンションが下がる</li>
-    <li>過去の経緯や資料を確認してから回答するので、返事に時間がかかる</li>
-    <li>AIで作られた文章や資料は分かりにくく、読み解くのに時間がかかる</li>
-    <li>連絡のために、AIへコピペとアップロードをする役割になっている</li>
-    <li>AIの言っていること・やっていることが分からなくなり、えいやで投げてしまっている</li>
+    <li><b>「後でやろう」が、そのまま消える。</b><p>置いておいたら、忘れていた。気づくのは催促が来てから。</p><span class="so">返した瞬間に「やること」と期日が残る。忘れても、受信箱が覚えている</span></li>
+    <li><b>軽いのから片づけて、重いのがたまる。</b><p>気持ちは楽になるが、重めのタスクは残り続けて、テンションが下がる。</p><span class="so">朝いちばんに「今日返すもの」だけが先頭に並ぶ</span></li>
+    <li><b>経緯を調べてから返す。だから遅い。</b><p>過去のやり取りや資料を確認してから回答するので、返事に時間がかかる。</p><span class="so">AIが先に過去の会話と資料を読み、要点と下書きを用意する</span></li>
+    <li><b>AIが作った文章が、読めない。</b><p>相手がAIで作った文章や資料は長くて濃く、読み解くのに時間がかかる。</p><span class="so">要点3行にしてから見せる。判断だけすればいい</span></li>
+    <li><b>AIにコピペする係になっている。</b><p>連絡のたびに、AIへコピペしてアップロードする役割が増えた。</p><span class="so">入口ごとに直接つなぐ。コピペもアップロードもいらない</span></li>
+    <li><b>分からなくなって、えいや。</b><p>AIの言っていること・やっていることが追えなくなり、確かめずに投げてしまう。</p><span class="so">AIがやったことは履歴に残る。送るボタンは、人だけが押す</span></li>
   </ul>
 </div></section>
 
 <section><div class="w">
   <h2>連絡は、<span class="b">AI</span>で加速している。</h2>
   <p class="lead">相手もAIで書き、AIで資料を作る。だからラリーは速く、1通は濃く、入口は増え続ける。返す側だけが、人のままです。</p>
-  <div class="three">
-    <div class="c"><span class="k">量</span><h3>ラリーが<span class="b">速い</span></h3><p>AIが書くから、送る側は疲れない。ためらいが消え、返せばすぐ次が来る。<em>速くなった分だけ、届く数が増える。</em></p></div>
-    <div class="c"><span class="k">質</span><h3>1通が<span class="b">濃い</span></h3><p>AIが作った文章と資料は、長くて、抜けがなくて、濃い。<em>読み解くのに時間がかかる。</em>判断の前に「読む」が積み上がる。</p></div>
-    <div class="c"><span class="k">入口</span><h3>窓口が<span class="b">多い</span></h3><p>サービスが増えるたびに入口が増え、あちこち見に行く。しかも<em>入口ごとにAIをつなぐ手間まで増える。</em>コピペして、アップロードして、また別の入口へ。</p></div>
+  <div class="accfig">
+    <div class="side">
+      <h3><b>相手側</b>AIで書き、AIで作る</h3>
+      <div class="lane"><span class="k">量</span><div><div class="bubs"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="n"></i><i class="n"></i><i class="n"></i></div><p>ラリーが<em>速い</em>。AIが書くから送る側は疲れない。返せばすぐ次が来て、<em>届く数が増える</em></p></div></div>
+      <div class="lane"><span class="k">質</span><div><div class="thick"><i></i><i></i><i></i><i></i><i></i><small>添付：見積書.pdf／仕様書.xlsx</small></div><p>1通が<em>濃い</em>。長くて抜けがなくて、<em>読み解くのに時間がかかる</em>。判断の前に「読む」が積み上がる</p></div></div>
+      <div class="lane"><span class="k">入口</span><div><div class="doors2"><span>LINE公式</span><span>チャットワーク</span><span>Slack</span><span>Teams</span><span>メール</span><span>Outlook</span><span>問い合わせフォーム</span><span>議事録</span><span>Googleドライブ</span><span>Notion</span></div><p>窓口が<em>多い</em>。相手の数だけ入口があり、<em>入口ごとにAIをつなぐ手間</em>まで増える</p></div></div>
+    </div>
+    <div class="arrow">→</div>
+    <div class="me">
+      <h3>返す側<b>人のまま、ひとり</b></h3>
+      <div class="person"></div>
+      <div class="pile"><i></i><i></i><i></i><i></i><i></i><b>未返信 24件</b></div>
+      <p>全部読んで、判断して、返す。<br>速さも、濃さも、入口の数も、こちらは変わっていない。</p>
+    </div>
   </div>
-  <div class="doors"><span>LINE公式アカウント</span><span>チャットワーク</span><span>Slack</span><span>Microsoft Teams</span><span>メール</span><span>Outlook</span><span>問い合わせフォーム</span><span>議事録</span><span>Googleドライブ</span><span>Notion</span>…相手の数だけ、入口がある</div>
   <p class="punch">人が全部読んで、判断して、返す。その前提が崩れた。<br>だから、解決策も<span class="b">AI</span>。ただし、送るのは人。</p>
 </div></section>
 

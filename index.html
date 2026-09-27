@@ -124,10 +124,12 @@ h2 .b{color:var(--blue)}
 .aru{background:#fff}
 .aru-list{list-style:none;padding:0;margin:22px 0 0;display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
 @media(max-width:900px){.aru-list{grid-template-columns:1fr 1fr}}@media(max-width:600px){.aru-list{grid-template-columns:1fr}}
-.aru-list li{background:var(--blue-soft);border-radius:14px;padding:18px 18px 14px;display:flex;flex-direction:column}
+.aru-list li{background:var(--blue-soft);border-radius:14px;padding:18px 18px 14px;display:grid;grid-template-rows:subgrid;grid-row:span 4;align-content:start}
+@supports not (grid-template-rows:subgrid){.aru-list li{display:flex;flex-direction:column}}
+.aru-list li .so{align-self:start}
 .aru-list li .pic{display:block;width:calc(100% + 36px);max-width:none;margin:-18px -18px 14px;aspect-ratio:3/2;object-fit:cover;border-radius:14px 14px 0 0;background:#fff;border-bottom:1px solid #dfe6f3}
 .aru-list li b{font-size:18px;line-height:1.5;color:var(--ink);font-weight:900}
-.aru-list li p{margin:6px 0 12px;font-size:15px;color:var(--ink2);line-height:1.7;flex:1}
+.aru-list li p{margin:6px 0 12px;font-size:15px;color:var(--ink2);line-height:1.7}
 .aru-list li .so{border-top:1px dashed #c9d3e6;padding-top:10px;font-size:15px;color:var(--blue);font-weight:700;line-height:1.6}
 .aru-list li .so:before{content:"これほしなら";display:inline-block;font-size:12px;background:var(--blue);color:#fff;border-radius:999px;padding:1px 8px;margin-right:8px;vertical-align:2px}
 /* 加速の図 */
@@ -475,10 +477,17 @@ footer p{margin:4px 0}
         <p>返事を送った瞬間に、「自分のやること」「相手にやってもらうこと」「催促どき」「日程」が会話ごとに残ります。決まった打ち合わせはカレンダーに入り、相手待ちのものは確認日に戻ってきて、催促の文案までAIが用意する。<strong>誰に何をいつまでに、が消えません。</strong></p>
         <ul><li>やること／やってもらうこと</li><li>次回確認日と催促の文案</li><li>決まった日程はカレンダーへ（取り消しも1回）</li><li>別のタスク表を持たなくてよい</li></ul>
       </div>
-      <div class="shot"><video class="stepvid" src="img/step3-sent.mp4" poster="img/step3-sent.png" autoplay muted loop playsinline preload="metadata" aria-label="下書きを送ると対応済みになり、相手にやってもらうことが1件残る様子。"><img src="img/step3-sent.png" alt="やってもらうことの画面。送った件が相手側のやることとして残る。"></video></div>
+      <div class="shot"><video class="stepvid" src="img/step3-sent.mp4" poster="img/step3-sent.png" autoplay muted loop playsinline preload="metadata" aria-label="下書きを送ると対応済みになり、相手にやってもらうことが1件残り、決まった日程がカレンダーに入る様子。"><img src="img/step3-sent.png" alt="送った会話の画面。カレンダーに入れた日程が上に出ている。"></video></div>
     </div>
   </div>
   <p class="cap">画面のやり取りは、すべて架空のデータです。「APIでつなげられる」入口と置き場は、使っているものを伺ってから、設置のときにつなぎます。</p>
+</div></section>
+
+<section class="soft"><div class="w">
+  <h2>ボタンを全部押すと、こうなる。</h2>
+  <p class="lead">一覧の絞り込みから、送信・対応済み・カレンダーまで。見本の画面のボタンを、最初から最後まで順に押していきます（約1分10秒）。</p>
+  <video class="tourvid" src="img/tour.mp4" poster="img/tour.png" controls playsinline preload="metadata" aria-label="見本の受信箱のボタンを順に押していく動画。画面の下に、押したボタンの名前と意味が出る。"><img src="img/tour.png" alt="見本の受信箱。会話を開き、AIが用意した下書きが入っている画面。"></video>
+  <p class="cap">画面の下の字幕とカーソルは、説明のために付けたものです。データはすべて架空です。</p>
 </div></section>
 
 <section><div class="w">

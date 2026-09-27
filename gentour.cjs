@@ -7,32 +7,21 @@
 const { HELPER, record, srv, puppeteer } = require("./genstepsvid.cjs");
 
 const TOUR = {
-  name: "tour", w: 714, h: 486, dsf: 1.4, crf: 27, maxMs: 110000, speed: 1.12, snapPoster: true,
+  name: "tour", w: 714, h: 529, dsf: 1.4, crf: 27, maxMs: 140000, speed: 1.2, snapPoster: true,
+  // 字幕の帯は、下に40px（書き出しで56px）の黒い余白を残して上げる。ページの再生コントロールに隠れないように。
+  caption: { font: 14.5, band: 40, lift: 40 },
   setup: `(async function () {
-    // 字幕の帯。画面の下40pxを空けて、そこに出す。
+    // 押した瞬間の光り。字幕の帯は CAPTION（genstepsvid.cjs）で入れる。
     var st = document.createElement("style");
-    st.textContent = "body{height:calc(100dvh - 40px)!important}"
-      + ".kh-cap{position:fixed;left:0;right:0;bottom:0;height:40px;background:#111;color:#fff;z-index:2147483645;"
-      + "display:flex;align-items:center;gap:12px;padding:0 18px;font:500 14.5px/1.2 'Noto Sans JP','Hiragino Sans','Yu Gothic UI','Meiryo',sans-serif;letter-spacing:.02em}"
-      + ".kh-cap b{font-weight:700;color:#fff}.kh-cap .g{font-size:10.5px;color:#9aa4b2;border:1px solid #3a3f47;border-radius:4px;padding:2px 7px;flex:none}"
-      + ".kh-cap .n{margin-left:auto;font-size:10.5px;color:#9aa4b2;flex:none}"
-      + ".kh-hit{outline:3px solid rgba(37,99,235,.85)!important;outline-offset:2px;box-shadow:0 0 0 7px rgba(37,99,235,.18)!important;transition:none}"
-      + "#toast{bottom:52px!important}";
+    st.textContent = ".kh-hit{outline:3px solid rgba(37,99,235,.85)!important;outline-offset:2px;box-shadow:0 0 0 7px rgba(37,99,235,.18)!important;transition:none}";
     document.head.appendChild(st);
-    var cap = document.createElement("div"); cap.className = "kh-cap"; document.body.appendChild(cap);
-    var n = 0;
-    KH.say = function (group, name, what) {
-      if (name) n++;
-      cap.innerHTML = '<span class="g">' + group + "</span>" + (name ? "<b>" + name + "</b>：" : "") + "<span>" + what + "</span>"
-        + (name ? '<span class="n">' + n + "</span>" : "");
-    };
     // 押した瞬間にボタンを光らせる（カーソルの波紋とあわせて）。
     KH.tap = async function (el, ms, fx, fy) {
       if (!el) { console.warn("no element"); return; }
       var r = el.getBoundingClientRect();
       var x = r.left + r.width * (fx == null ? .5 : fx), y = r.top + r.height * (fy == null ? .5 : fy);
-      await KH.move(x, y, ms || 320);
-      await KH.sleep(60);
+      await KH.move(x, y, ms || 420);
+      await KH.sleep(220);
       var rp = document.createElement("div"); rp.className = "kh-rip"; rp.style.left = x + "px"; rp.style.top = y + "px";
       document.body.appendChild(rp); setTimeout(function () { rp.remove(); }, 600);
       el.classList.add("kh-hit"); setTimeout(function () { el.classList.remove("kh-hit"); }, 650);
@@ -42,7 +31,7 @@ const TOUR = {
     KH.step = async function (group, name, what, el, wait, ms) {
       KH.say(group, name, what);
       if (el) await KH.tap(el, ms);
-      await KH.sleep(wait == null ? 800 : wait);
+      await KH.sleep(Math.round((wait == null ? 800 : wait) * 1.3));
     };
     // 送信・対応済みにしたあとの状態を足す（本番ではサーバーがやること）。
     var D = window.DEMO;

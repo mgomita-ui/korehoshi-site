@@ -48,7 +48,7 @@ window.KH = (function () {
   }
   function center(el, fx, fy) { var r = el.getBoundingClientRect(); return [r.left + r.width * (fx == null ? .5 : fx), r.top + r.height * (fy == null ? .5 : fy)]; }
   async function tap(el, ms, fx, fy) {
-    var p = center(el, fx, fy); await move(p[0], p[1], ms || 700); await sleep(140);
+    var p = center(el, fx, fy); await move(p[0], p[1], ms || 700); await sleep(KH.pre == null ? 140 : KH.pre);
     var r = document.createElement("div"); r.className = "kh-rip"; r.style.left = p[0] + "px"; r.style.top = p[1] + "px";
     document.body.appendChild(r); setTimeout(function () { r.remove(); }, 600);
     await sleep(90); el.click();
@@ -59,11 +59,37 @@ window.KH = (function () {
 })();
 `;
 
+// 動画の中の字幕の帯（黒地に白）。画面の下を空けて、そこに1行出す。
+//   font … 文字の大きさ（CSS px）、band … 帯の高さ、lift … 帯の下に残す黒の余白（再生コントロールに隠れないように）。
+const CAPTION = ({ font, band, lift = 0 }) => `
+(function () {
+  var st = document.createElement("style");
+  st.textContent = "body{height:calc(100dvh - ${band + lift}px)!important}"
+    + ".kh-cap{position:fixed;left:0;right:0;bottom:0;height:${band}px;padding-bottom:${lift}px;box-sizing:content-box;background:#111;color:#fff;z-index:2147483645;"
+    + "display:flex;align-items:center;gap:${Math.round(font * .8)}px;padding-left:${Math.round(font)}px;padding-right:${Math.round(font)}px;"
+    + "font:500 ${font}px/1.25 'Noto Sans JP','Hiragino Sans','Yu Gothic UI','Meiryo',sans-serif;letter-spacing:.02em;white-space:nowrap;overflow:hidden}"
+    + ".kh-cap b{font-weight:700;color:#fff}.kh-cap .g{font-size:${Math.round(font * .72 * 10) / 10}px;color:#9aa4b2;border:1px solid #3a3f47;border-radius:4px;padding:2px 7px;flex:none}"
+    + ".kh-cap .n{margin-left:auto;font-size:${Math.round(font * .72 * 10) / 10}px;color:#9aa4b2;flex:none}"
+    + "#toast{bottom:${band + lift + 10}px!important}";
+  document.head.appendChild(st);
+  var cap = document.createElement("div"); cap.className = "kh-cap"; document.body.appendChild(cap);
+  var n = 0;
+  // 1行の字幕。
+  KH.cap = function (text) { cap.textContent = text; };
+  // 区分・ボタン名・意味の字幕（通しの動画）。ボタン名があるときは番号を振る。
+  KH.say = function (group, name, what) {
+    if (name) n++;
+    cap.innerHTML = '<span class="g">' + group + "</span>" + (name ? "<b>" + name + "</b>：" : "") + "<span>" + what + "</span>"
+      + (name ? '<span class="n">' + n + "</span>" : "");
+  };
+})();
+`;
+
 // ── 3つの場面。setup で前の状態を作り、run を時間どおりに流す。KH.done = true で撮り終わり。
 const CLIPS = [
   {
     // 01 入ってくる：受信箱に2件届き、経路の絞り込みを押して戻す。
-    name: "step1-in", w: 543, h: 407, dsf: 1.4, cropSel: "#states",
+    name: "step1-in", w: 543, h: 407, dsf: 1.4, cropSel: "#states", pre: 500, caption: { font: 14.3, band: 36 },
     setup: `(async function () {
       var D = window.DEMO;
       window.__hold = D.threads.filter(function (t) { return t.id === "line:Uaoba001" || t.id === "chatwork:R1001"; });
@@ -77,24 +103,30 @@ const CLIPS = [
         D.threads.sort(function (a, b) { return window.__order.indexOf(a.id) - window.__order.indexOf(b.id); });
         return loadList().then(function () { KH.mark(document.querySelector('.thread[data-id="' + id + '"]')); });
       }
-      await KH.sleep(500);
+      KH.cap("受信箱：まだ返していないものだけが並ぶ");
+      await KH.sleep(1600);
+      KH.cap("LINEで届いた連絡が、受信箱に入る");
       await arrive("line:Uaoba001");
-      await KH.sleep(1000);
+      await KH.sleep(1900);
+      KH.cap("チャットワークの請求書PDFも、同じ受信箱に入る");
       await arrive("chatwork:R1001");
-      await KH.sleep(1200);
+      await KH.sleep(1900);
+      KH.cap("LINE：LINEで届いたものだけに絞る");
       await KH.tap(document.querySelector('#channels [data-c="line"]'), 700);
-      await KH.sleep(850);
-      await KH.tap(document.querySelector('#channels [data-c="chatwork"]'), 500);
-      await KH.sleep(850);
+      await KH.sleep(1400);
+      KH.cap("チャット：チャットワークで届いたものだけ");
+      await KH.tap(document.querySelector('#channels [data-c="chatwork"]'), 600);
+      await KH.sleep(1400);
+      KH.cap("すべて：入口をまたいで、1つの一覧で見る");
       await KH.tap(document.querySelector('#channels [data-c=""]'), 600);
-      await KH.move(innerWidth * 0.8, innerHeight * 0.8, 500);
-      await KH.sleep(400);
+      await KH.move(innerWidth * 0.8, innerHeight * 0.75, 500);
+      await KH.sleep(1300);
       KH.done = true;
     })()`,
   },
   {
     // 02 取りに行く：会話を開き、AIが読んだ中身（AIの読み）を見て、下書きが入る。
-    name: "step2-draft", w: 320, h: 499, dsf: 1.875,
+    name: "step2-draft", w: 320, h: 499, dsf: 1.875, pre: 500, caption: { font: 13.6, band: 34 },
     setup: `(async function () {
       // 開いた時点で本体が入れる先回りの下書きを、いったん空にしておき、あとで同じ文を流し込む。
       window.__draft = "";
@@ -112,33 +144,40 @@ const CLIPS = [
       }).observe(document.getElementById("detail"), { childList: true, subtree: true });
     })()`,
     run: `(async function () {
-      await KH.sleep(400);
+      KH.cap("ひまわり製作所の相談を開く");
+      await KH.sleep(700);
       await KH.tap(document.querySelector('.thread[data-id="line:Uaoba001"]'), 700, .45, .3);
-      await KH.sleep(250);
+      await KH.sleep(300);
+      KH.cap("やりとりと見積書PDFが並んでいる");
       var m = document.getElementById("msgs"); var end = m.scrollHeight - m.clientHeight;
-      m.scrollTop = 0; await KH.sleep(250);
+      m.scrollTop = 0; await KH.sleep(600);
       var t0 = performance.now();
-      await new Promise(function (res) { (function s(now) { var k = Math.min(1, (now - t0) / 900); m.scrollTop = end * k; if (k < 1) requestAnimationFrame(s); else res(); })(t0); });
-      await KH.sleep(150);
-      await KH.tap(document.querySelector('[data-p="ai"]'), 600);
-      await KH.sleep(1200);
-      await KH.tap(document.querySelector('[data-p="reply"]'), 500);
-      await KH.sleep(150);
+      await new Promise(function (res) { (function s(now) { var k = Math.min(1, (now - t0) / 1700); m.scrollTop = end * k; if (k < 1) requestAnimationFrame(s); else res(); })(t0); });
+      await KH.sleep(900);
+      KH.cap("AIの読み：要点とやることの候補");
+      await KH.tap(document.querySelector('[data-p="ai"]'), 700);
+      await KH.sleep(2400);
+      KH.cap("返信に戻ると、下書きが入る");
+      await KH.tap(document.querySelector('[data-p="reply"]'), 600);
+      await KH.sleep(500);
+      KH.cap("AIが会話と見積書を読み、下書きを入れた");
       var ta = document.getElementById("reply"), txt = window.__draft, i = 0;
       KH.move(innerWidth * .85, innerHeight * .97, 400);
       await new Promise(function (res) {
         var iv = setInterval(function () {
-          i = Math.min(txt.length, i + 6); ta.value = txt.slice(0, i); ta.scrollTop = ta.scrollHeight;
+          i = Math.min(txt.length, i + 4); ta.value = txt.slice(0, i); ta.scrollTop = ta.scrollHeight;
           if (i >= txt.length) { clearInterval(iv); res(); }
         }, 40);
       });
-      await KH.sleep(700);
+      await KH.sleep(900);
+      KH.cap("確かめて、送るのは人");
+      await KH.sleep(1500);
       KH.done = true;
     })()`,
   },
   {
     // 03 返すと残る：送信 → 宛先の確認 → 対応済み → やってもらうことに1件入る。
-    name: "step3-sent", w: 543, h: 407, dsf: 1.4,
+    name: "step3-sent", w: 543, h: 407, dsf: 1.4, pre: 500, caption: { font: 14.3, band: 36 },
     url: "/?thread=line%3AUaoba001",
     setup: `(async function () {
       var D = window.DEMO, id = "line:Uaoba001";
@@ -164,28 +203,38 @@ const CLIPS = [
       var ta = document.getElementById("reply"); try { ta.setSelectionRange(0, 0); } catch (e) {} ta.scrollTop = 0; ta.blur();
     })()`,
     run: `(async function () {
-      await KH.sleep(500);
+      KH.cap("AIの下書きを確かめて、送信を押す");
+      await KH.sleep(900);
       await KH.tap(document.getElementById("doSend"), 800);
-      await KH.sleep(850);
-      await KH.tap(document.querySelector(".ask [data-yes]"), 600);
-      await KH.sleep(1400);
+      await KH.sleep(700);
+      KH.cap("送る前に、宛先をもう一度確かめる");
+      await KH.sleep(1300);
+      KH.cap("送信する：ここだけは人が押す");
+      await KH.tap(document.querySelector(".ask [data-yes]"), 700);
+      await KH.sleep(700);
+      KH.cap("送った。この会話は対応済みになった");
+      await KH.sleep(1600);
+      KH.cap("やってもらうこと：相手待ちの一覧を開く");
       await KH.tap(document.getElementById("tabWaits"), 800);
       document.getElementById("main").classList.add("viewing");
       await KH.sleep(50);
       var row = KH.byText("#detail .task", "送料の扱い");
       KH.mark(row);
-      await KH.sleep(1500);
+      KH.cap("送料の確認が、相手待ちとして残った");
+      await KH.sleep(2200);
       // 送った会話に戻ると、決まった日程がカレンダーに入っている。
       window.__calOn();
+      KH.cap("会話に戻る");
       await KH.tap(row.querySelector("[data-open]"), 700);
       for (var i = 0; i < 40 && !document.querySelector("#calNote .calnote"); i++) await KH.sleep(50);
       var cn = document.querySelector("#calNote .calnote");
       KH.mark(cn);
       // 光ったあとも、入った1行は淡く色を残す（最後の場面＝ポスターでも分かるように）。
       if (cn) { cn.style.background = "#fff4c2"; cn.style.boxShadow = "inset 4px 0 0 #f5b400"; }
+      KH.cap("決まった打ち合わせが、カレンダーに入った");
       var u = document.getElementById("calUndo");
       if (u) { var r = u.getBoundingClientRect(); await KH.move(r.right + 14, r.bottom + 10, 700); }
-      await KH.sleep(2000);
+      await KH.sleep(2600);
       KH.done = true;
     })()`,
   },
@@ -211,6 +260,8 @@ async function record(b, clip) {
   const shot = o => p.screenshot(crop ? Object.assign({ clip: crop }, o) : o);
   await p.evaluate(() => { window.__order = window.DEMO.threads.map(t => t.id); });
   await p.evaluate(HELPER);
+  if (clip.caption) await p.evaluate(CAPTION(clip.caption));
+  if (clip.pre != null) await p.evaluate(v => { KH.pre = v; }, clip.pre);
   await p.evaluate(clip.setup);
   await sleep(400);
   const frames = [];
@@ -227,7 +278,7 @@ async function record(b, clip) {
     if (st.done) break;
     const wait = 125 - ((Date.now() - t0) - t);
     if (wait > 0) await sleep(wait);
-    if (t > (clip.maxMs || 20000)) { console.error("timeout", clip.name); break; }
+    if (t > (clip.maxMs || 30000)) { console.error("timeout", clip.name); break; }
   }
   const total = Date.now() - t0;
   // ポスター（動かさない人向けの1枚）は最後の場面。カーソルは消して撮る。
@@ -253,7 +304,7 @@ async function record(b, clip) {
   console.log(clip.name, frames.length + " frames", (total / 1000).toFixed(1) + "s", (fs.statSync(mp4).size / 1024).toFixed(0) + "KB");
 }
 
-module.exports = { HELPER, record, srv, puppeteer };
+module.exports = { HELPER, CAPTION, record, srv, puppeteer };
 if (require.main === module) (async () => {
   await new Promise(r => srv.listen(8811, "127.0.0.1", r));
   const b = await puppeteer.launch({ executablePath: "C:/Program Files/Google/Chrome/Application/chrome.exe", headless: "new", args: ["--no-sandbox"] });

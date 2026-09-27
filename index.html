@@ -214,20 +214,65 @@ h2 .b{color:var(--blue)}
 .cases2 li{background:#fff;border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;font-size:13.5px;color:var(--ink2);line-height:1.7}
 .cases2 li b{display:block;font-size:15px;color:var(--ink);margin-bottom:2px}
 .cases2 li em{font-style:normal;color:var(--blue);font-weight:700}
-/* 送るのは人 */
-.rule{margin-top:22px;background:#fff;border:2px solid var(--accent);border-radius:14px;padding:18px 20px;font-size:20px;font-weight:900;color:var(--accent);line-height:1.6}
-.rule small{display:block;font-size:14px;font-weight:400;color:var(--ink2);margin-top:6px}
+/* 送るのは人（図） */
+.gate{margin-top:26px;display:grid;grid-template-columns:1fr 64px 1.3fr 48px .7fr;gap:0;align-items:stretch}
+@media(max-width:860px){.gate{grid-template-columns:1fr}}
+.gate .box{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.gate .box h4{margin:0 0 8px;font-size:15px;color:var(--ink3);font-weight:700}
+.gate .box h4 b{display:block;font-size:20px;color:var(--ink);font-weight:900}
+.gate .ai ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:6px}
+.gate .ai li{font-size:13.5px;color:var(--ink2);background:#f4f6fa;border-radius:8px;padding:6px 10px}
+.gate .ai li:before{content:"AI";display:inline-block;font-size:10px;font-weight:900;color:#fff;background:var(--ink3);border-radius:4px;padding:0 5px;margin-right:8px;vertical-align:1px}
+.gate .ai .no{margin-top:10px;font-size:12.5px;color:var(--accent);font-weight:700}
+.gate .wall{position:relative;display:flex;align-items:center;justify-content:center}
+.gate .wall:before{content:"";position:absolute;left:50%;top:6px;bottom:6px;border-left:3px dashed var(--accent)}
+.gate .wall span{position:relative;background:#fff;color:var(--accent);font-size:11px;font-weight:900;line-height:1.3;text-align:center;padding:4px 2px;writing-mode:vertical-rl;letter-spacing:.1em}
+@media(max-width:860px){.gate .wall{height:44px}.gate .wall:before{left:6px;right:6px;top:50%;bottom:auto;border-left:0;border-top:3px dashed var(--accent)}.gate .wall span{writing-mode:horizontal-tb;padding:2px 10px}}
+.gate .me{border:2px solid var(--blue);background:var(--blue-soft)}
+.sset{background:#fff;border:1px solid var(--line);border-radius:10px;overflow:hidden;font-size:12.5px;color:var(--ink2)}
+.sset .r{display:flex;gap:10px;padding:7px 10px;border-bottom:1px solid var(--line)}
+.sset .r b{flex:none;width:3.2em;color:var(--ink3);font-weight:700}
+.sset .r i{display:block;height:6px;border-radius:3px;background:#dfe6f3;margin:5px 0}
+.sset .r i:nth-child(2){width:80%}.sset .r i:nth-child(3){width:55%}
+.sset .chk{padding:8px 10px;display:flex;gap:10px;flex-wrap:wrap;font-size:12px;color:var(--ink)}
+.sset .chk span:before{content:"✓";display:inline-block;width:14px;height:14px;line-height:14px;font-size:10px;text-align:center;color:#fff;background:var(--blue);border-radius:3px;margin-right:5px;vertical-align:1px}
+.sset .btn2{margin:0 10px 10px;background:var(--blue);color:#fff;font-weight:900;font-size:14px;text-align:center;border-radius:8px;padding:9px;box-shadow:0 6px 14px rgba(11,63,168,.25)}
+.sset .btn2 small{display:block;font-size:10.5px;font-weight:500;opacity:.9}
+.gate .arr{display:flex;align-items:center;justify-content:center;font-size:30px;font-weight:900;color:var(--blue)}
+@media(max-width:860px){.gate .arr{transform:rotate(90deg);height:40px}}
+.gate .to{display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}
+.gate .to .person{width:44px;height:44px;margin:0 0 6px;transform:scale(.7)}
+.gate .to p{margin:0;font-size:12.5px;color:var(--ink2);line-height:1.6}
 ul.rules{list-style:none;padding:0;margin:16px 0 0;display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
 @media(max-width:760px){ul.rules{grid-template-columns:1fr}}
-ul.rules li{background:#fff;border:1px solid var(--line);border-radius:10px;padding:12px 14px;font-size:14.5px;color:var(--ink2)}
+ul.rules li{background:#fff;border:1px solid var(--line);border-radius:10px;padding:12px 14px;font-size:14px;color:var(--ink2);line-height:1.7}
+ul.rules li b{display:block;color:var(--ink);font-size:14.5px}
 
-/* 価格 */
-.price{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:24px}
-@media(max-width:640px){.price{grid-template-columns:1fr}}
-.price div{background:#fff;border:1px solid var(--line);border-radius:14px;padding:22px}
-.price .t{font-size:13px;color:var(--blue);font-weight:900}
-.price .v{font-size:24px;font-weight:900;margin:4px 0 6px}
-.price p{margin:0;color:var(--ink2);font-size:14.5px}
+/* 価格（図） */
+.pricefig{margin-top:24px;display:grid;grid-template-columns:.9fr 1.4fr;gap:16px;align-items:stretch}
+@media(max-width:760px){.pricefig{grid-template-columns:1fr}}
+.tagp{background:#fff;border:1px solid var(--line);border-radius:14px;padding:22px;position:relative;display:flex;flex-direction:column;justify-content:center}
+.tagp .t{font-size:13px;color:var(--blue);font-weight:900}
+.tagp .v{font-size:40px;font-weight:900;line-height:1.2;margin:4px 0 2px;color:var(--ink);letter-spacing:-.01em}
+.tagp .v small{font-size:16px;margin-left:4px}
+.tagp .sub{font-size:13px;color:var(--ink2);margin:4px 0 12px}
+.tagp .badges{display:flex;flex-wrap:wrap;gap:6px}
+.tagp .badges span{font-size:12px;font-weight:700;color:var(--blue);background:var(--blue-soft);border-radius:999px;padding:2px 10px}
+.tagp .badges span.no{color:var(--ink2);background:#f1f3f7}
+.tagp p{margin:12px 0 0;font-size:13px;color:var(--ink3);line-height:1.7}
+.tl{background:#fff;border:1px solid var(--line);border-radius:14px;padding:22px}
+.tl .t{font-size:13px;color:var(--blue);font-weight:900}
+.tl .v{font-size:22px;font-weight:900;margin:4px 0 14px}
+.tl ol{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative}
+.tl ol:before{content:"";position:absolute;left:8%;right:8%;top:11px;border-top:3px solid #c9d5ee}
+.tl li{position:relative;text-align:center;padding:0 6px}
+.tl li i{display:block;width:22px;height:22px;border-radius:50%;background:#fff;border:3px solid var(--blue);margin:0 auto 8px;position:relative;z-index:1}
+.tl li:last-child i{background:var(--blue)}
+.tl li em{display:block;font-style:normal;font-size:12px;color:var(--blue);font-weight:900}
+.tl li b{display:block;font-size:13.5px;color:var(--ink);line-height:1.5}
+.tl li small{display:block;font-size:11.5px;color:var(--ink3);line-height:1.5;margin-top:2px}
+@media(max-width:560px){.tl ol{grid-template-columns:1fr;gap:12px}.tl ol:before{left:11px;right:auto;top:8px;bottom:8px;border-top:0;border-left:3px solid #c9d5ee}.tl li{display:grid;grid-template-columns:22px 1fr;gap:4px 12px;text-align:left}.tl li i{margin:0;grid-row:1/4}.tl li em,.tl li b,.tl li small{grid-column:2}}
+.tl p{margin:14px 0 0;font-size:13px;color:var(--ink2)}
 
 .last{background:linear-gradient(135deg,#0A3EA6,#071F57);color:#fff;padding:64px 0}
 .last h2{color:#fff;font-size:28px}
@@ -391,20 +436,41 @@ footer p{margin:4px 0}
 
 <section><div class="w">
   <h2>送るのは、人。ここだけは変えません。</h2>
-  <div class="rule">送る前に、必ず全文を見て、了承を得てから送る。<small>AIに送信の道具は渡していません。下書きができても、それだけで相手に届くことはありません。</small></div>
+  <p class="lead">AIは読んで、下書きまで。送信の道具は持っていません。宛先と全文を見て「送る」を押すのは、人だけです。</p>
+  <div class="gate">
+    <div class="box ai"><h4>ここまでがAI<b>読む・下書きする</b></h4>
+      <ul><li>会話と添付を読む</li><li>要点を3行に</li><li>返信の下書き</li><li>やること・催促文の用意</li></ul>
+      <div class="no">✕ 送信ボタンは持っていない</div></div>
+    <div class="wall"><span>AIはここを越えられない</span></div>
+    <div class="box me"><h4>ここからが人<b>見て、押す</b></h4>
+      <div class="sset"><div class="r"><b>宛先</b><span>ひまわり製作所　日向さん（LINE）</span></div><div class="r"><b>全文</b><div style="flex:1"><i></i><i></i><i></i></div></div>
+        <div class="chk"><span>宛先を確認</span><span>全文を確認</span><span>添付：見積書.pdf</span></div>
+        <div class="btn2">確認して送信<small>押すのは、人だけ</small></div></div></div>
+    <div class="arr">→</div>
+    <div class="box to"><div class="person"></div><h4><b>相手に届く</b></h4><p>送った内容と、次にやることが受信箱に残る</p></div>
+  </div>
   <ul class="rules">
-    <li>送信の口は、人が押すボタン1つだけ。宛先を必ず見せてから送る</li>
-    <li>接続用の鍵は本人の画面で入力し、データは本人のアカウントに置く</li>
-    <li>AIの読み取りや下書きにも誤りはあり得るので、送る前に人が確認する</li>
+    <li><b>送信の口は1つ</b>人が押すボタンだけ。宛先を必ず見せてから送る</li>
+    <li><b>鍵とデータは本人のもの</b>接続用の鍵は本人の画面で入力し、データは本人のアカウントに置く</li>
+    <li><b>AIも間違える前提</b>読み取りや下書きの誤りはあり得るので、送る前に人が確認する</li>
   </ul>
 </div></section>
 
 <section class="soft"><div class="w">
   <h2>価格</h2>
   <p class="lead">いまはテスト期間です。この期間に入っていただく方は、設定の費用だけで始められます。</p>
-  <div class="price">
-    <div><div class="t">設定（テスト期間）</div><div class="v">50,000円</div><p>使っている連絡手段と、返信・依頼の流れを伺って、つなぎます。作って動かしている本人が設置します。連携先のサービスの利用料が別にかかる場合は、事前にご説明します。</p></div>
-    <div><div class="t">導入にかかる時間</div><div class="v">ゼロからでも3時間</div><p>入口をつなぐ → 受信箱を開く → 最初の返事を一緒に送る、まで。特別な準備は要りません。</p></div>
+  <div class="pricefig">
+    <div class="tagp"><div class="t">設定（テスト期間）</div><div class="v">50,000<small>円</small></div><div class="sub">1回だけ。作って動かしている本人が設置します</div>
+      <div class="badges"><span>月額なし</span><span>使っている連絡手段に合わせる</span><span class="no">連携先サービスの利用料は別（事前に説明）</span></div>
+      <p>使っている連絡手段と、返信・依頼の流れを伺って、つなぎます。</p></div>
+    <div class="tl"><div class="t">導入にかかる時間</div><div class="v">ゼロからでも3時間</div>
+      <ol>
+        <li><i></i><em>0:00</em><b>流れを伺う</b><small>連絡手段と、返信・依頼の流れ</small></li>
+        <li><i></i><em>0:30</em><b>入口をつなぐ</b><small>鍵は本人の画面で入力</small></li>
+        <li><i></i><em>1:30</em><b>受信箱を開く</b><small>振り分けと文体を合わせる</small></li>
+        <li><i></i><em>3:00</em><b>最初の返事を一緒に送る</b><small>ここまでで、使える</small></li>
+      </ol>
+      <p>特別な準備は要りません。いつもの連絡手段が使えれば、そのまま始められます。</p></div>
   </div>
 </div></section>
 

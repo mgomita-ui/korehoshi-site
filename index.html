@@ -87,7 +87,7 @@ h1,h2,h3{margin:0;line-height:1.35;font-weight:900;letter-spacing:.01em}
 @keyframes hwL2{0%,29%{opacity:0}32%,100%{opacity:1}}
 @keyframes hwL3{0%,32%{opacity:0}35%,100%{opacity:1}}
 .hai .draft{animation:hwDraft 13s linear infinite both}
-@keyframes hwDraft{0%,37%{opacity:0;transform:translateY(6px)}41%,100%{opacity:1;transform:none}}
+@keyframes hwDraft{0%,37%{opacity:var(--hide,0);transform:translateY(6px)}41%,100%{opacity:1;transform:none}}
 .hw .hhu{animation-name:hwHu}
 @keyframes hwHu{0%,57%{opacity:0;transform:translateY(8px)}61%,97%{opacity:1;transform:none}100%{opacity:0}}
 .hhu .send{animation:hwSend 13s ease-in-out infinite}
@@ -125,6 +125,7 @@ h2 .b{color:var(--blue)}
 .aru-list{list-style:none;padding:0;margin:22px 0 0;display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
 @media(max-width:900px){.aru-list{grid-template-columns:1fr 1fr}}@media(max-width:600px){.aru-list{grid-template-columns:1fr}}
 .aru-list li{background:var(--blue-soft);border-radius:14px;padding:18px 18px 14px;display:flex;flex-direction:column}
+.aru-list li .pic{display:block;width:calc(100% + 36px);max-width:none;margin:-18px -18px 14px;aspect-ratio:3/2;object-fit:cover;border-radius:14px 14px 0 0;background:#fff;border-bottom:1px solid #dfe6f3}
 .aru-list li b{font-size:18px;line-height:1.5;color:var(--ink);font-weight:900}
 .aru-list li p{margin:6px 0 12px;font-size:13.5px;color:var(--ink2);line-height:1.7;flex:1}
 .aru-list li .so{border-top:1px dashed #c9d3e6;padding-top:10px;font-size:13.5px;color:var(--blue);font-weight:700;line-height:1.6}
@@ -196,7 +197,10 @@ h2 .b{color:var(--blue)}
 .app .inbox .lbl{position:absolute;left:8px;top:6px;background:#fff;padding:1px 6px;border:1px solid var(--line);border-radius:3px}
 .app .inbox img{width:100%;height:100%;object-fit:cover;object-position:top}
 @media(max-width:760px){.app .panes{grid-template-columns:1fr}.app .chat{border-right:0;border-bottom:1px solid var(--line)}.app .inbox{max-height:320px;overflow:hidden}}
-/* 02 どこでも扉：順番つきの図 */
+/* どこでも扉：順番つきの図（ヒーロー） */
+.hero .dd{--hide:.14;box-shadow:0 30px 60px rgba(0,0,0,.35);border:0}
+.hero .dd .lbl{font-size:12px}
+.hero .dd .bub,.hero .dd .ib{font-size:13.5px}
 .dd .bar{display:flex;flex-wrap:wrap;gap:4px 12px;align-items:center}
 .dd .bar .order{font-size:11px;color:var(--blue);font-weight:700}
 .dd .panes{grid-template-columns:1fr 1.25fr}
@@ -222,7 +226,7 @@ h2 .b{color:var(--blue)}
 .dd .ib.send .go{margin-left:auto;background:var(--blue);color:#fff;font-weight:900;font-size:12.5px;border-radius:7px;padding:6px 12px;white-space:nowrap}
 .dd .ib.send .who{font-size:11px;color:var(--accent);font-weight:700;width:100%}
 .dd .legend{list-style:none;padding:8px 12px 10px;margin:0;display:grid;grid-template-columns:repeat(5,1fr);gap:6px;border-top:1px solid var(--line);background:#f7f9fc}
-.act .dd .legend li{display:flex;align-items:center;gap:6px;padding:0;margin:0;font-size:11.5px;font-weight:700;color:var(--ink3);line-height:1.3}.act .dd .legend li:before{display:none}
+.dd .legend li{display:flex;align-items:center;gap:6px;padding:0;margin:0;font-size:11.5px;font-weight:700;color:var(--ink3);line-height:1.3}.dd .legend li:before{display:none}
 .dd .legend li i{flex:none;width:18px;height:18px;border-radius:50%;background:#d3d8e2;color:#fff;font-style:normal;font-size:11px;display:flex;align-items:center;justify-content:center}
 .dd .legend li.on{color:var(--ink)}
 .dd .legend li.on i{background:var(--accent)}
@@ -230,12 +234,12 @@ h2 .b{color:var(--blue)}
 /* 動き：14秒で1周。①0.5s ②3s ③5.5s ④8.5s ⑤11s */
 .dd .an{animation:14s linear infinite both}
 .dd .s1{animation-name:dd1}.dd .s2{animation-name:dd2}.dd .s3{animation-name:dd3}.dd .s3b{animation-name:dd3b}.dd .s4{animation-name:dd4}.dd .s5{animation-name:dd5}
-@keyframes dd1{0%,3%{opacity:0;transform:translateY(6px)}6%,97%{opacity:1;transform:none}100%{opacity:0}}
-@keyframes dd2{0%,21%{opacity:0;transform:translateY(6px)}24%,97%{opacity:1;transform:none}100%{opacity:0}}
-@keyframes dd3{0%,39%{opacity:0;transform:translateY(6px)}42%,97%{opacity:1;transform:none}100%{opacity:0}}
+@keyframes dd1{0%,3%{opacity:var(--hide,0);transform:translateY(6px)}6%,97%{opacity:1;transform:none}100%{opacity:0}}
+@keyframes dd2{0%,21%{opacity:var(--hide,0);transform:translateY(6px)}24%,97%{opacity:1;transform:none}100%{opacity:0}}
+@keyframes dd3{0%,39%{opacity:var(--hide,0);transform:translateY(6px)}42%,97%{opacity:1;transform:none}100%{opacity:0}}
 @keyframes dd3b{0%,43%{opacity:0}46%,60%{opacity:1}64%,100%{opacity:0}}
-@keyframes dd4{0%,60%{opacity:0;transform:translateY(6px)}63%,97%{opacity:1;transform:none}100%{opacity:0}}
-@keyframes dd5{0%,78%{opacity:0;transform:translateY(6px)}81%,97%{opacity:1;transform:none}100%{opacity:0}}
+@keyframes dd4{0%,60%{opacity:var(--hide,0);transform:translateY(6px)}63%,97%{opacity:1;transform:none}100%{opacity:0}}
+@keyframes dd5{0%,78%{opacity:var(--hide,0);transform:translateY(6px)}81%,97%{opacity:1;transform:none}100%{opacity:0}}
 .dd .legend .l1{animation:ddL1 14s linear infinite}.dd .legend .l2{animation:ddL2 14s linear infinite}.dd .legend .l3{animation:ddL3 14s linear infinite}.dd .legend .l4{animation:ddL4 14s linear infinite}.dd .legend .l5{animation:ddL5 14s linear infinite}
 .dd .legend li i{animation:14s linear infinite}
 .dd .legend .l1 i{animation-name:ddI1}.dd .legend .l2 i{animation-name:ddI2}.dd .legend .l3 i{animation-name:ddI3}.dd .legend .l4 i{animation-name:ddI4}.dd .legend .l5 i{animation-name:ddI5}
@@ -373,19 +377,21 @@ footer p{margin:4px 0}
     <div class="cta"><a class="btn" href="https://line.me/R/ti/p/@232zafzm">公式LINEで話を聞く</a><small>友だち追加して「これほしの話を聞きたい」と送ってください。</small></div>
   </div>
   <div class="hw">
-    <div class="hsteps"><span class="s1"><i>1</i>届く</span><span class="s2"><i>2</i>AIが読んで、下書き</span><span class="s3"><i>3</i>人が確かめて、送る</span></div>
-    <div class="hcard">
-      <div class="hhead"><b>受信箱</b><span>ひまわり製作所　日向さん</span><span class="via">LINE</span></div>
-      <div class="hrow hin an"><div class="who">相手</div><div><span class="tag">届いた</span><div class="msg">10月納品分を、2週間前倒しできますか。見積書を添付します。<br><span class="att">📎 見積書_20260925.pdf</span></div></div></div>
-      <div class="hrow hai an"><div class="who">AI</div><div><span class="tag">AIが読んで、下書き</span>
-        <div class="t">要点</div>
-        <ol><li>2週間の前倒しの希望</li><li>見積書の納期は10月20日。分納の条項なし</li><li>一部だけ先でも可、と言っている</li></ol>
-        <div class="t">返信の下書き</div>
-        <div class="draft">全量の前倒しは難しいため、分納でご提案します。送料の扱いをご確認ください。</div>
-      </div></div>
-      <div class="hrow hhu an"><div class="who">人</div><div><span class="tag">人が確かめて、送る</span>
-        <div class="bar"><span class="to">宛先　<b>ひまわり製作所　日向さん</b></span><span class="send">確認して送信</span></div>
-      </div></div>
+    <div class="app dd">
+      <div class="bar">どこでも扉 ― AIのブラウザで開ける受信箱<span class="order">順番：右に届く → 左で頼む → AIが右を読む → 右に下書き → 人が送る</span></div>
+      <div class="panes">
+        <div class="chat"><div class="lbl">左：<b>AI に頼む</b>（Claude・Codex など、ふだん使うAI）</div>
+          <div class="bub me an s2"><i class="num">2</i>この件、要点と返信の下書きを</div>
+          <div class="bub ai an s3"><i class="num">3</i>右の会話と見積書.pdfを読みました。前倒しは全量は難しく、分納なら可。下書きを右に入れました。</div>
+        </div>
+        <div class="inbox"><div class="lbl">右：<b>受信箱</b>（LINE・メール・チャットワークが集まる）</div>
+          <div class="ib msg an s1"><i class="num">1</i><div class="h">ひまわり製作所　日向さん（LINE）</div>10月納品分を、2週間前倒しできますか。見積書を添付します。<br><span class="att">📎 見積書_20260925.pdf</span></div>
+          <div class="ib read an s3b">← AIが、この会話と添付を読んでいます</div>
+          <div class="ib draft an s4"><i class="num">4</i><div class="h">返信の下書き（AIが入れた）</div>全量の前倒しは難しいため、分納でご提案します。送料の扱いをご確認ください。</div>
+          <div class="ib send an s5"><i class="num">5</i><span class="to">宛先　<b>日向さん</b></span><span class="go">確認して送信</span><span class="who">押すのは、人。AIは送れません</span></div>
+        </div>
+      </div>
+      <ol class="legend"><li class="l1"><i>1</i>右に届く</li><li class="l2"><i>2</i>左でAIに頼む</li><li class="l3"><i>3</i>AIが右を読む</li><li class="l4"><i>4</i>右に下書きが入る</li><li class="l5"><i>5</i>人が確かめて送る</li></ol>
     </div>
     <div class="hnote"><b>押すのは、人。</b>AIに送信の道具は渡していません。</div>
   </div>
@@ -395,12 +401,12 @@ footer p{margin:4px 0}
   <h2>こんなこと、ありませんか？</h2>
   <p class="lead">一つでも当てはまったら、このページはあなた向けです。</p>
   <ul class="aru-list">
-    <li><b>「後でやろう」が、そのまま消える。</b><p>置いておいたら、忘れていた。気づくのは催促が来てから。</p><span class="so">返した瞬間に「やること」と期日が残る。忘れても、受信箱が覚えている</span></li>
-    <li><b>軽いのから片づけて、重いのがたまる。</b><p>気持ちは楽になるが、重めのタスクは残り続けて、テンションが下がる。</p><span class="so">朝いちばんに「今日返すもの」だけが先頭に並ぶ</span></li>
-    <li><b>経緯を調べてから返す。だから遅い。</b><p>過去のやり取りや資料を確認してから回答するので、返事に時間がかかる。</p><span class="so">AIが先に過去の会話と資料を読み、要点と下書きを用意する</span></li>
-    <li><b>AIが作った文章が、読めない。</b><p>相手がAIで作った文章や資料は長くて濃く、読み解くのに時間がかかる。</p><span class="so">要点3行にしてから見せる。判断だけすればいい</span></li>
-    <li><b>AIにコピペする係になっている。</b><p>連絡のたびに、AIへコピペしてアップロードする役割が増えた。</p><span class="so">入口ごとに直接つなぐ。コピペもアップロードもいらない</span></li>
-    <li><b>分からなくなって、えいや。</b><p>AIの言っていること・やっていることが追えなくなり、確かめずに投げてしまう。</p><span class="so">AIがやったことは履歴に残る。送るボタンは、人だけが押す</span></li>
+    <li><img class="pic" src="img/aru/aru1.jpg" alt=""><b>「後でやろう」が、そのまま消える。</b><p>置いておいたら、忘れていた。気づくのは催促が来てから。</p><span class="so">返した瞬間に「やること」と期日が残る。忘れても、受信箱が覚えている</span></li>
+    <li><img class="pic" src="img/aru/aru2.jpg" alt=""><b>軽いのから片づけて、重いのがたまる。</b><p>気持ちは楽になるが、重めのタスクは残り続けて、テンションが下がる。</p><span class="so">朝いちばんに「今日返すもの」だけが先頭に並ぶ</span></li>
+    <li><img class="pic" src="img/aru/aru3.jpg" alt=""><b>経緯を調べてから返す。だから遅い。</b><p>過去のやり取りや資料を確認してから回答するので、返事に時間がかかる。</p><span class="so">AIが先に過去の会話と資料を読み、要点と下書きを用意する</span></li>
+    <li><img class="pic" src="img/aru/aru4.jpg" alt=""><b>AIが作った文章が、読めない。</b><p>相手がAIで作った文章や資料は長くて濃く、読み解くのに時間がかかる。</p><span class="so">要点3行にしてから見せる。判断だけすればいい</span></li>
+    <li><img class="pic" src="img/aru/aru5.jpg" alt=""><b>AIにコピペする係になっている。</b><p>連絡のたびに、AIへコピペしてアップロードする役割が増えた。</p><span class="so">入口ごとに直接つなぐ。コピペもアップロードもいらない</span></li>
+    <li><img class="pic" src="img/aru/aru6.jpg" alt=""><b>分からなくなって、えいや。</b><p>AIの言っていること・やっていることが追えなくなり、確かめずに投げてしまう。</p><span class="so">AIがやったことは履歴に残る。送るボタンは、人だけが押す</span></li>
   </ul>
 </div></section>
 
@@ -446,21 +452,17 @@ footer p{margin:4px 0}
         <ul><li>受信箱の中のやり取りと添付</li><li>メール・チャットワークの過去の履歴</li><li class="api">APIでつなげられる置き場：Googleドライブ／Google カレンダー／Notion／OneDrive・SharePoint など</li></ul>
         <p class="foot-note">1つのAIに全部を任せません。判定は軽いAI、読み取りと下書きは別のAI、批評はまた別のAI。仕事ごとに使い分けます。</p>
       </div>
-      <div class="app dd">
-        <div class="bar">どこでも扉 ― AIのブラウザで開ける受信箱<span class="order">順番：右に届く → 左で頼む → AIが右を読む → 右に下書き → 人が送る</span></div>
+      <div class="app">
+        <div class="bar">どこでも扉 ― AIのブラウザで開ける受信箱</div>
         <div class="panes">
-          <div class="chat"><div class="lbl">左：<b>AI に頼む</b>（Claude・Codex など、ふだん使うAI）</div>
-            <div class="bub me an s2"><i class="num">2</i>この件、要点と返信の下書きを</div>
-            <div class="bub ai an s3"><i class="num">3</i>右の会話と見積書.pdfを読みました。前倒しは全量は難しく、分納なら可。下書きを右に入れました。</div>
+          <div class="chat"><span class="lbl">AI（相談する）</span>
+            <div class="bub me">ひまわり製作所の納期の件、返答の要点を整理して</div>
+            <div class="bub ai">受信箱の会話と見積書を読みました。聞かれているのは前倒しの可否なので、先に結論（全量は難しいが分納なら可）を返します。分納の日程案を2行で添えて、下書きを右に用意しました。</div>
+            <div class="bub me">それで。送料の扱いの確認も1行足して</div>
+            <div class="bub ai">足しました。中身を確かめて、送信を押してください。</div>
           </div>
-          <div class="inbox"><div class="lbl">右：<b>受信箱</b>（LINE・メール・チャットワークが集まる）</div>
-            <div class="ib msg an s1"><i class="num">1</i><div class="h">ひまわり製作所　日向さん（LINE）</div>10月納品分を、2週間前倒しできますか。見積書を添付します。<br><span class="att">📎 見積書_20260925.pdf</span></div>
-            <div class="ib read an s3b">← AIが、この会話と添付を読んでいます</div>
-            <div class="ib draft an s4"><i class="num">4</i><div class="h">返信の下書き（AIが入れた）</div>全量の前倒しは難しいため、分納でご提案します。送料の扱いをご確認ください。</div>
-            <div class="ib send an s5"><i class="num">5</i><span class="to">宛先　<b>日向さん</b></span><span class="go">確認して送信</span><span class="who">押すのは、人。AIは送れません</span></div>
-          </div>
+          <div class="inbox"><span class="lbl">受信箱（確かめて送る）</span><video class="stepvid" src="img/step2-draft.mp4" poster="img/step2-draft.png" autoplay muted loop playsinline preload="metadata" aria-label="会話を開くと、AIの読みと返信の下書きが入る様子。"><img src="img/step2-draft.png" alt="受信箱の画面。届いた相談と、AIが用意した返信の下書き。"></video></div>
         </div>
-        <ol class="legend"><li class="l1"><i>1</i>右に届く</li><li class="l2"><i>2</i>左でAIに頼む</li><li class="l3"><i>3</i>AIが右を読む</li><li class="l4"><i>4</i>右に下書きが入る</li><li class="l5"><i>5</i>人が確かめて送る</li></ol>
       </div>
     </div>
     <div class="item">

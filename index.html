@@ -293,11 +293,52 @@ h2 .b{color:var(--blue)}
 .cases2 li{background:#fff;border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;font-size:15px;color:var(--ink2);line-height:1.7}
 .cases2 li b{display:block;font-size:15px;color:var(--ink);margin-bottom:2px}
 .cases2 li em{font-style:normal;color:var(--blue);font-weight:700}
+/* 04・05 の図 */
+.jev{display:flex;flex-direction:column;gap:6px}
+.jrow{display:grid;grid-template-columns:56px 1fr;gap:12px;align-items:center;background:var(--blue-soft);border-radius:12px;padding:12px 14px}
+.jrow.j3{background:#fdeceb}
+.jrow b{display:block;font-size:15.5px;color:var(--ink)}
+.jrow > div > span{display:block;font-size:13px;color:var(--ink2);line-height:1.6;margin-top:2px}
+.jb{width:56px;height:56px;border-radius:14px;background:var(--blue);color:#fff;font-weight:900;font-size:16px;display:flex;align-items:center;justify-content:center;letter-spacing:.02em}
+.jb.ai{background:#fff;color:var(--blue);border:2px solid var(--blue)}
+.jb.hu{background:var(--accent)}
+.jarrow{text-align:center;font-size:12.5px;font-weight:700;color:var(--blue);line-height:1.2}
+.logos{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.lg{display:inline-flex;align-items:center;gap:6px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:3px 12px 3px 4px;font-size:13.5px;font-weight:700;color:var(--ink)}
+.lg i{width:22px;height:22px;border-radius:50%;font-style:normal;font-size:11px;font-weight:900;color:#fff;display:flex;align-items:center;justify-content:center}
+.lg.claude i{background:#D97757}.lg.gpt i{background:#10A37F}.lg.gem i{background:linear-gradient(135deg,#4285F4,#9B72CB)}.lg.lite i{background:#8b93a1}
+.apps{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.tile{background:var(--blue-soft);border-radius:12px;padding:12px 12px 11px;display:grid;grid-template-columns:40px 1fr;gap:10px;align-items:center}
+.tile b{display:block;font-size:15px;color:var(--ink)}
+.tile > span:last-child{display:block;font-size:12.5px;color:var(--ink2);line-height:1.5;margin-top:1px}
+.tile.hu{background:#fdeceb}
+.ic{width:40px;height:40px;border-radius:10px;color:#fff;font-weight:900;font-size:18px;display:flex;align-items:center;justify-content:center;grid-row:span 2}
+.ic.ppt{background:#C43E1C}.ic.xls{background:#1D6F42}.ic.mail{background:#0B57D0}.ic.dsg{background:#7B3FE4}.ic.acc{background:#0F766E}.ic.hu{background:var(--accent);font-size:15px}
+.apps .cur{position:absolute;width:0;height:0;border-left:7px solid transparent;border-right:7px solid transparent;border-bottom:16px solid var(--ink);transform:rotate(-30deg);animation:cuTiles 10s ease-in-out infinite;filter:drop-shadow(0 1px 1px rgba(0,0,0,.3));pointer-events:none}
+@keyframes cuTiles{0%,8%{left:22%;top:20%}20%,28%{left:72%;top:20%}40%,48%{left:22%;top:52%}60%,68%{left:72%;top:52%}80%,88%{left:22%;top:84%}100%{left:22%;top:20%}}
+@media(prefers-reduced-motion:reduce){.apps .cur{animation:none;left:22%;top:20%}}
+@media(max-width:560px){.apps{grid-template-columns:1fr}}
+.act .fig{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px;box-shadow:0 18px 40px rgba(11,63,168,.10);display:flex;flex-direction:column;gap:12px}
+.act .fig .pic{display:block;width:100%;height:auto;border-radius:10px}
+.act .fig .relay{grid-template-columns:1fr;gap:6px}
+.act .fig .relay li{display:grid;grid-template-columns:76px 1fr;gap:10px;align-items:center;text-align:left;padding:8px 10px;margin:0}
+.act .fig .relay li:before{content:none}
+.act .fig .relay li:after{content:none}
+.act .fig .relay li i{margin:0;text-align:center;font-size:11px;padding:2px 0}
+.act .fig .relay li b{display:block;font-size:14.5px;margin:0}
+.act .fig .relay li span{display:block;font-size:12.5px;color:var(--ink2);line-height:1.5}
+.act .fig .relay li.hu{background:#fdeceb}.act .fig .relay li.hu i{background:var(--accent)}
+.act .fig ul.cudo{margin:0}
+.act .fig ul.cudo li{margin:0;padding:8px 10px 8px 34px;font-size:14px;color:var(--ink)}
+.act .fig ul.cudo li:before{content:"✓";position:absolute;left:10px;top:8px;width:18px;height:18px;border-radius:50%;background:var(--blue);color:#fff;font-size:11px;text-align:center;line-height:18px}
+.act .fig ul.cudo li.hu:before{content:"人";background:var(--accent)}
+@media(max-width:760px){.act .item .fig{order:2}}
 /* 複数のAI・コンピューターユース */
 .ai2{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:28px}
 @media(max-width:900px){.ai2{grid-template-columns:1fr}}
 .ai2 .col{background:#fff;border:1px solid var(--line);border-radius:16px;padding:22px 22px 20px}
 .ai2 .col h3{margin:0 0 6px;font-size:20px;color:var(--ink)}
+.act .item .fig .screen .form{padding:12px 12px 14px}
 .ai2 .col h3 small{display:block;font-size:12.5px;color:var(--blue);font-weight:900;margin-bottom:4px;letter-spacing:.04em}
 .ai2 .col > p{margin:0 0 14px;font-size:15px;color:var(--ink2);line-height:1.75}
 .relay{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(5,1fr);gap:6px;position:relative}
@@ -480,13 +521,13 @@ footer p{margin:4px 0}
 
 <section class="soft"><div class="w">
   <h2>これほしが、やること。</h2>
-  <p class="lead">3つの動作に畳んであります。入ってくる、取りに行く、返すと残る。</p>
+  <p class="lead">連絡を集めるところから仕事を進めるところまで、これほしが5つの動作で手伝います。</p>
   <div class="act">
     <div class="item">
       <div>
         <span class="n">01　入ってくる</span>
         <h3>入口の情報が、そのまま受信箱に入る</h3>
-        <p>届いたものは自動で受信箱に集まり、AIが振り分けて、PDFや画像も読んでおきます。<strong>コピペも、アップロードも、要りません。</strong>一覧に並ぶのは「まだ返していないものだけ」。</p>
+        <p>届いたものは自動で受信箱に集まり、判定専用のAI「Jev（ジェブ）」が振り分けて、PDFや画像も読んでおきます。<strong>コピペも、アップロードも、要りません。</strong>一覧に並ぶのは「まだ返していないものだけ」。</p>
         <ul><li>いま動いている入口：LINE公式アカウント／チャットワーク／メール／議事録</li><li class="api">APIでつなげられる入口：Slack／Microsoft Teams／Outlook／Googleカレンダー／Notion／kintone／Backlog／Zoomの録画 など</li></ul>
       </div>
       <div class="shot"><video class="stepvid" src="img/step1-in.mp4" poster="img/step1-in.png" autoplay muted loop playsinline preload="metadata" aria-label="受信箱の一覧に新しい連絡が届き、経路で絞り込む様子。まだ返していないものだけが並ぶ。"><img src="img/step1-in.png" alt="受信箱の一覧。まだ返していないものだけが並ぶ。"></video></div>
@@ -521,6 +562,46 @@ footer p{margin:4px 0}
       </div>
       <div class="shot"><video class="stepvid" src="img/step3-sent.mp4" poster="img/step3-sent.png" autoplay muted loop playsinline preload="metadata" aria-label="下書きを送ると対応済みになり、相手にやってもらうことが1件残り、決まった日程がカレンダーに入る様子。"><img src="img/step3-sent.png" alt="送った会話の画面。カレンダーに入れた日程が上に出ている。"></video></div>
     </div>
+    <div class="item">
+      <div>
+        <span class="n">04　役目で分担</span>
+        <h3>Jevが判断して、得意なAIに渡す</h3>
+        <p>まず判定専用のAI「Jev（ジェブ）」が、急ぎか・返信が要るか・誰の担当かを、はい・いいえで決めます。そのあと、読む・書く・見直すを、それぞれ得意なAIに渡します。いつものAIのブラウザで開くので、契約しているAIをそのまま使えます。</p>
+        <ul><li>Jevの判定は、速く安くぶれない</li><li>読み取りや下書きは、得意なAIへ</li><li>別のAIが、抜けや言いすぎを確認</li></ul>
+        <p class="foot-note">どのAIを何に使うかは、設定で決めます。名前は各社の商標です。</p>
+      </div>
+      <div class="fig">
+        <img class="pic" src="img/ai2.jpg" alt="">
+        <div class="jev">
+          <div class="jrow j1"><span class="jb">Jev</span><div><b>判断する</b><span>急ぎ？　返信は要る？　誰の担当？　を はい・いいえ で。文章は書かない</span></div></div>
+          <div class="jarrow">↓ 仕事に合わせて渡す</div>
+          <div class="jrow j2"><span class="jb ai">AI</span><div><b>得意なAIが、読む・書く・見直す</b>
+            <div class="logos"><span class="lg claude"><i>C</i>Claude</span><span class="lg gpt"><i>G</i>ChatGPT / Codex</span><span class="lg gem"><i>G</i>Gemini</span><span class="lg lite"><i>軽</i>軽量モデル</span></div></div></div>
+          <div class="jarrow">↓</div>
+          <div class="jrow j3"><span class="jb hu">人</span><div><b>確かめて、送る</b><span>押すのは人。AIに送信の道具は渡していない</span></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="item">
+      <div>
+        <span class="n">05　入力を進める</span>
+        <h3>パソコンのソフトも、AIが操作する</h3>
+        <p>パワポ・エクセル・メール・デザイン・会計ソフト。AIがパソコンの画面を見て、クリックと入力をします。資料づくりや入力を途中まで進め、保存・送信の前で止まって、人に引き継ぎます。</p>
+        <ul><li>連絡を読むだけでなく、入力も進める</li><li>いつもの仕事の画面を、AIが操作</li><li>送信や確定の前で、必ず人に引き継ぐ</li></ul>
+        <p class="foot-note">AIの画面操作（コンピューターユース）にも、間違いはあります。内容を確かめて、最後に押すのは人</p>
+      </div>
+      <div class="fig">
+        <div class="apps">
+          <div class="tile"><span class="ic ppt">P</span><b>パワポ</b><span>資料の下書き・図の差し替え</span></div>
+          <div class="tile"><span class="ic xls">X</span><b>エクセル</b><span>表の入力・集計・転記</span></div>
+          <div class="tile"><span class="ic mail">✉</span><b>メール</b><span>返信の下書き・添付の用意</span></div>
+          <div class="tile"><span class="ic dsg">◧</span><b>デザイン</b><span>バナー・チラシの文字差し替え</span></div>
+          <div class="tile"><span class="ic acc">¥</span><b>会計ソフト</b><span>請求書を見て、仕訳を入力</span></div>
+          <div class="tile hu"><span class="ic hu">人</span><b>保存・送信・支払</b><span>ここだけは、人が押す</span></div>
+          <div class="cur"></div>
+        </div>
+      </div>
+    </div>
   </div>
   <p class="cap">画面のやり取りは、すべて架空のデータです。「APIでつなげられる」入口と置き場は、使っているものを伺ってから、設置のときにつなぎます。</p>
 </div></section>
@@ -530,45 +611,6 @@ footer p{margin:4px 0}
   <p class="lead">一覧の絞り込みから、送信・対応済み・カレンダーまで。見本の画面のボタンを、最初から最後まで順に押していきます（約1分30秒）。</p>
   <video class="tourvid" src="img/tour.mp4" poster="img/tour.png" controls playsinline preload="metadata" aria-label="見本の受信箱のボタンを順に押していく動画。画面の下に、押したボタンの名前と意味が出る。"><img src="img/tour.png" alt="見本の受信箱。会話を開き、AIが用意した下書きが入っている画面。"></video>
   <p class="cap">画面の下の字幕とカーソルは、説明のために付けたものです。データはすべて架空です。</p>
-</div></section>
-
-<section><div class="w">
-  <h2>AIは1つじゃない。PCの仕事も、AIが進める。</h2>
-  <p class="lead">これほしはAIのブラウザの中で動くので、ふだん使っているAIをそのまま、しかも複数を役割ごとに使い分けられます。画面のある仕事なら、AIが操作して進めます。</p>
-  <div class="ai2">
-    <div class="col">
-      <h3><small>複数のAIを連動</small>1つの指示で、AIが順に回す</h3>
-      <p>判定は軽くて速いAI、PDFや画像の読み取りは得意なAI、下書きは文章のうまいAI、最後に別のAIが批評する。1つのAIに全部を任せないので、速くて、抜けが減ります。</p>
-      <ol class="relay">
-        <li><i>届く</i><b>連絡・添付</b>LINE・メール・チャット</li>
-        <li><i>AI 1</i><b>判定</b>急ぎか、誰の担当か</li>
-        <li><i>AI 2</i><b>読み取り</b>PDF・画像・過去の経緯</li>
-        <li><i>AI 3</i><b>下書き</b>要点と返信、やること</li>
-        <li><i>AI 4 → 人</i><b>批評して、人が送る</b>抜け・言い過ぎを指摘</li>
-      </ol>
-      <div class="models">使えるAIの例：<span>Claude</span><span>ChatGPT / Codex</span><span>Gemini</span><span>軽量モデル</span>契約しているものをそのまま。どれを何に使うかは、設定で決めます。</div>
-      <img class="pic" src="img/ai2.jpg" alt="">
-    </div>
-    <div class="col">
-      <h3><small>コンピューターユース</small>画面のある仕事を、AIが操作する</h3>
-      <p>AIがブラウザとPCの画面を見て、クリックと入力をします。連絡を読んで終わりではなく、その先の入力や登録まで進めて、確定の直前で止まります。</p>
-      <div class="cu">
-        <div class="screen"><div class="sb"><span></span><span></span><span></span></div>
-          <div class="form"><div class="fld">取引先<i></i></div><div class="fld">品目・金額<i></i></div><div class="fld">納期<i></i></div><div class="fld">備考<i></i></div></div>
-          <div class="cur"></div>
-          <div class="ok">ここまでAIが入力<small>保存・送信・支払は、人が押す</small></div></div>
-        <ul class="cudo">
-          <li>会計ソフトに、届いた請求書を仕訳で入力</li>
-          <li>見積書・発注書を、ひな形から作って保存</li>
-          <li>決まった日程を、カレンダーに登録</li>
-          <li>社内システムや共有フォルダを検索して、資料を集める</li>
-          <li>申請フォームや管理画面の入力を、途中まで</li>
-          <li class="hu">確定・送信・支払のボタンは、人</li>
-        </ul>
-      </div>
-      <p class="note">PCでする仕事のほとんどは画面の操作なので、対象はかなり広い。ただし、AIの操作にも誤りはあり得るので、確定の直前で必ず人が見ます。</p>
-    </div>
-  </div>
 </div></section>
 
 <section><div class="w">

@@ -1,0 +1,492 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8">
+<title>IFBOX／これほし ご提案書</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--b:#0B3FA8;--b2:#062B78;--bs:#EEF3FC;--ink:#111827;--ink2:#4b5563;--ink3:#8b93a1;--line:#e3e7ee;--acc:#E85B52;--gold:#B7791F;--gs:#FBF3E3;--lime:#DFF25A;--red:#B42318;--rs:#FDECEB;--grn:#0F766E;--gns:#E6F4F1}
+*{box-sizing:border-box}html,body{margin:0;background:#fff;color:var(--ink);font-family:"Noto Sans JP",system-ui,sans-serif;-webkit-font-smoothing:antialiased;line-height:1.55}
+@page{size:960pt 540pt;margin:0}
+.page{width:960pt;height:540pt;position:relative;overflow:hidden;page-break-after:always;background:#fff}.page:last-child{page-break-after:auto}
+.pad{position:absolute;inset:0;padding:22pt 34pt 22pt}
+/* 見出し帯 */
+.hd{display:flex;align-items:center;gap:12pt;border-bottom:2pt solid var(--b);padding-bottom:8pt;margin-bottom:12pt}
+.hd .tag{background:var(--b);color:#fff;font-size:9.5pt;font-weight:900;border-radius:4pt;padding:3pt 8pt;letter-spacing:.06em;white-space:nowrap}
+.hd h2{margin:0;font-size:19pt;font-weight:900;letter-spacing:-.01em}
+.hd .logo{margin-left:auto;font-weight:900;color:var(--b);font-size:11pt;letter-spacing:.02em}
+.hd .logo small{font-weight:500;color:var(--ink3);font-size:7.5pt;margin-left:6pt}
+/* 下段の帯 */
+.bar{position:absolute;left:34pt;right:34pt;bottom:20pt;background:var(--b);color:#fff;border-radius:8pt;padding:9pt 16pt;text-align:center}
+.bar b{display:block;font-size:12.5pt;font-weight:900}
+.bar span{display:block;font-size:8.5pt;color:#dfe6f8;margin-top:1pt}
+.pn{position:absolute;right:34pt;bottom:6pt;font-size:7pt;color:var(--ink3)}
+.src{position:absolute;left:34pt;bottom:6pt;font-size:7pt;color:var(--ink3)}
+/* 本文の枠 */
+.body{height:392pt;display:flex;flex-direction:column;gap:10pt}
+.body>.g{flex:1;min-height:0;align-items:stretch}
+.body>.g>div{display:flex;flex-direction:column;min-height:0}
+.body>.g>div>.pic{flex:1;min-height:0;height:auto !important;width:100%;object-fit:contain}
+.body>.g>div>*{flex:0 0 auto}
+.body>.g>div>.g{flex:0 0 auto}
+.body>.g>.card{display:flex;flex-direction:column}
+.body>.g.c4{flex:0 0 auto}
+.body>.g.c4>.card{display:block}
+/* 部品 */
+.g{display:grid;gap:10pt}
+.c2{grid-template-columns:1fr 1fr}.c3{grid-template-columns:1fr 1fr 1fr}.c4{grid-template-columns:repeat(4,1fr)}.c5{grid-template-columns:repeat(5,1fr)}
+.card{background:#fff;border:1pt solid var(--line);border-radius:8pt;padding:10pt 12pt;position:relative}
+.card.top{border-top:4pt solid var(--b)}
+.card .n{font-size:22pt;font-weight:900;color:var(--gold);line-height:1;margin-bottom:4pt}
+.card h3{margin:0 0 4pt;font-size:12.5pt;font-weight:900;line-height:1.35}
+.card p{margin:0;font-size:9.4pt;color:var(--ink2);line-height:1.6}
+.card .ar{margin-top:auto;padding-top:6pt;border-top:1pt dashed var(--line);font-size:9.2pt;font-weight:900;color:var(--b)}
+.card .ar:before{content:"→ "}
+.soft{background:var(--bs);border-color:transparent}
+.gold{background:var(--gs);border-color:transparent}
+.redb{background:var(--rs);border-color:transparent}
+.grnb{background:var(--gns);border-color:transparent}
+.pic{display:block;width:100%;object-fit:contain}
+.kv{display:flex;align-items:baseline;gap:6pt;flex-wrap:wrap}
+.kv b{font-size:20pt;font-weight:900;color:var(--b)}
+.kv b.r{color:var(--acc)}.kv b.g{color:var(--grn)}
+.kv span{font-size:8.5pt;color:var(--ink2)}
+.lbl{display:inline-block;font-size:7.5pt;font-weight:900;color:#fff;background:var(--b);border-radius:3pt;padding:1pt 6pt;margin-bottom:4pt}
+.lbl.r{background:var(--acc)}.lbl.g{background:var(--grn)}.lbl.k{background:var(--ink3)}.lbl.o{background:var(--gold)}
+table{width:100%;border-collapse:collapse;font-size:9.2pt}
+th{background:var(--b);color:#fff;text-align:left;padding:5pt 8pt;font-weight:900}
+td{padding:5pt 8pt;border-bottom:1pt solid var(--line);vertical-align:top;color:var(--ink2)}
+td.h{font-weight:900;color:var(--ink);background:#f7f9fc;width:78pt}
+td b{color:var(--ink)}
+.note{font-size:8.4pt;color:var(--ink3);line-height:1.55;margin-top:4pt}
+.flow{display:flex;align-items:center;gap:4pt}
+.flow span{background:var(--bs);border-radius:5pt;padding:6pt 8pt;font-size:9.2pt;font-weight:700;flex:1;text-align:center}
+.flow span.hu{background:var(--rs);color:var(--acc)}
+.flow i{font-style:normal;color:#9db4e8;font-weight:900}
+.ill{position:absolute;right:0;bottom:0}
+ul.li{margin:0;padding:0 0 0 12pt;font-size:9.4pt;color:var(--ink2);line-height:1.6}
+ul.li li{margin:2pt 0}ul.li b{color:var(--ink)}
+.q{border-left:4pt solid var(--acc);padding:4pt 10pt;font-size:12pt;font-weight:900;line-height:1.5;margin:0 0 8pt}
+.q small{display:block;font-size:9.2pt;font-weight:400;color:var(--ink2);margin-top:2pt}
+.chip{display:inline-block;font-size:8pt;font-weight:700;background:#fff;border:1pt solid var(--line);border-radius:999pt;padding:1pt 8pt;margin:0 3pt 3pt 0;color:var(--ink)}
+.chip.r{color:var(--acc);background:var(--rs);border-color:transparent}
+/* 表紙・裏表紙 */
+.cover .pad{display:grid;grid-template-columns:1fr 1fr;gap:20pt;align-items:center;padding:40pt 50pt}
+.cover .k{color:var(--b);font-weight:900;font-size:11pt;letter-spacing:.06em}
+.cover h1{font-size:46pt;line-height:1.15;margin:8pt 0 8pt;font-weight:900;color:var(--b);letter-spacing:-.02em}
+.cover .sub{font-size:16pt;font-weight:900;margin:0 0 10pt}
+.cover .rule{width:70pt;height:3pt;background:var(--gold);margin:6pt 0 12pt}
+.cover p{font-size:10pt;color:var(--ink2);line-height:1.8;margin:0}
+.cover .who{margin-top:22pt;font-size:8.5pt;color:var(--ink2);line-height:1.7}
+.cover .who b{font-size:12pt;color:var(--b);display:block;margin-bottom:2pt}
+.cover .pat{display:inline-block;font-size:8pt;font-weight:900;color:var(--b);border:1.2pt solid var(--b);border-radius:3pt;padding:1pt 6pt;margin-left:8pt;vertical-align:3pt}
+.cover .band{position:absolute;left:0;right:0;bottom:0;height:10pt;background:var(--b)}
+.end{background:var(--b);color:#fff}
+.end .pad{display:grid;grid-template-columns:1fr 1fr;gap:20pt;align-items:center;padding:40pt 60pt}
+.end h2{font-size:30pt;line-height:1.3;margin:0 0 12pt;color:#fff;font-weight:900}
+.end p{color:#dfe6f8;font-size:10pt;line-height:1.8;margin:0}
+.end .box{background:#fff;color:var(--ink);border-radius:10pt;padding:16pt 18pt}
+.end .box b{display:block;font-size:12pt;color:var(--b);margin-bottom:6pt}
+.end .box p{color:var(--ink2);font-size:9pt}
+.end .qr{display:grid;grid-template-columns:auto 1fr;gap:12pt;align-items:center;margin-top:10pt}
+.end .qr img{width:80pt;height:80pt}
+.end .ty{letter-spacing:.4em;font-size:9pt;color:#9db4e8;margin-bottom:10pt}
+</style></head><body>
+
+<!-- 1 表紙 -->
+<section class="page cover"><div class="pad">
+  <div>
+    <div class="k">もしを、揃う前から始める<span class="pat">特許出願中</span></div>
+    <h1>IFBOX と<br>これほし</h1>
+    <p class="sub">時代の解決策と、その第一弾。</p>
+    <div class="rule"></div>
+    <p>作るコストが消え、価値は「余っている時間とAIの余力」の側に移りました。<br>その余りに行き先を与える2つの市場（IFBOX・ドリフターズ）と、<br>市場が生む情報量をさばく最初の道具（これほし）をご提案します。</p>
+    <div class="who"><b>IFBOX ／ ドリフターズ ／ これほし　ご提案書</b>レリック社会保険労務士法人　代表社会保険労務士　五味田匡功<br>これほしの運営：社労士の私が、自分の実務のために作り、毎日使っています　　2026年9月</div>
+  </div>
+  <img class="pic" src="img6/p01.jpg" alt="" style="border-radius:12pt">
+  <div class="band"></div>
+</div></section>
+
+<!-- 2 はじめに -->
+<section class="page"><div class="pad">
+  <div class="hd"><span class="tag">はじめに</span><h2>今日お伝えしたいのは、6つです</h2><span class="logo">IFBOX<small>もしも箱</small></span></div>
+  <div class="body">
+  <div class="g c3" style="grid-template-rows:1fr 1fr">
+    <div class="card top"><div class="n">1</div><h3>時代背景</h3><p>誰もがAIで、できることが桁で増えた。払い済みで余る時間とトークンが手元にあり、作る原価はゼロに近づいた。作業より、判断が仕事になる。</p><div class="ar">余りに行き先を与えると、市場が生まれる</div></div>
+    <div class="card top"><div class="n">2</div><h3>時代の解決策としての IFBOX、ドリフターズ</h3><p>IFBOX＝消費者の「もし」を言う市場（ToC）。ドリフターズ＝経営者のつぶやきを、経営能力のある作り手が叶える市場（ToB）。基本無償か成功報酬。</p><div class="ar">強みは、早く人が集まり、みんなで作りこむことだけ</div></div>
+    <div class="card top"><div class="n">3</div><h3>ユニコーン企業を100社に。自らも宣言ユニコーンに</h3><p>集まった「もし」から事業を育て、宣言ごとに「評価額の根拠」と「中身はこれ」を必ず並べる。まず僕たちから旗を立てる。</p><div class="ar">時価総額とは何かを問う実演</div></div>
+    <div class="card top"><div class="n">4</div><h3>第一弾として生まれた、これほし</h3><p>経営者の連絡をAIが先に読み、人が確かめて送る受信箱。無償・改変配布自由の「フリー素材」として配り、デファクトの取り方を自ら実演する。</p><div class="ar">置き換わるものは、1回作って土台にする</div></div>
+    <div class="card top"><div class="n">5</div><h3>忙しい社長の「あったらいいな」を体現</h3><p>読む前に見るべきものが分かる。返事と、その先（やること・催促・日程）まで残る。AIは送らない、人が押す。</p><div class="ar">ゼロからでも3時間で使い始められる</div></div>
+    <div class="card top"><div class="n">6</div><h3>AX化の入り口になる</h3><p>毎日使う受信箱から、AIが準備し人が判断する仕事の流れへ。使う側になるか、設定と相談を担う側になるか。</p><div class="ar">まず一つ、困りごとをください</div></div>
+  </div>
+  </div>
+  <div class="bar"><b>市場を作るのが目的で、これほしは、その最初の実物です。</b><span>作り方は分からなくて大丈夫。最初に必要なのは「こうなったらいい」の一言だけ。</span></div>
+  <div class="pn">2 / 17</div>
+</div></section>
+
+<!-- 3 ①時代背景 -->
+<section class="page"><div class="pad">
+  <div class="hd"><span class="tag">時代背景 ①</span><h2>作るコストが消え、価値は「余り」の側に移った</h2><span class="logo">IFBOX<small>もしも箱</small></span></div>
+  <div class="body">
+  <div class="g c3">
+    <div class="card top"><div class="n">1</div><h3>誰もがAIで、できることが桁で増えた</h3><p>消費者も経営者も、AIで「できること」が一気に増えました。ただし当人は<b>やり方（プロセス）を知りません</b>。だから「作り方は分からないが、こうなったらいい」を、そのまま言える場が要ります。</p><div class="ar">仕様は書かせない。必須は一言だけ</div></div>
+    <div class="card top"><div class="n">2</div><h3>払い済みで余る資源が、手元にある</h3><p>消費者には<b>余暇時間</b>。経営者や作り手には、AIのサブスクで払い済みなのに使い切れない<b>余りトークン</b>。工場の未稼働時間と同じで、使わなければ消えます。</p><div class="ar">作る原価は、ほぼゼロに近づいた</div></div>
+    <div class="card top"><div class="n">3</div><h3>参入障壁が消え、乱立が始まる</h3><p>誰でも同じものが作れるので、利用料は取れません。サービスは<b>基本無償か、成功報酬</b>へ。安価なサービスの乱立と車輪の再発明が起き、時間を売る仕事は値崩れします。</p><div class="ar">残るのは「余力＋判断＋実績」で選ばれる形</div></div>
+  </div>
+  <div class="g c2" style="margin-top:10pt;grid-template-columns:1.25fr 1fr">
+    <div class="card soft"><span class="lbl">余りに、行き先を</span>
+      <table><tr><th>誰の余り</th><th>行き先</th><th>市場</th></tr>
+      <tr><td class="h">消費者の余暇時間</td><td>「こんなものがあったらいい」（もし）</td><td><b>IFBOX</b>（ToC・言う場）</td></tr>
+      <tr><td class="h">経営者・作り手の余りトークン</td><td>「困っているが、自分で作る時間はない」（つぶやき）</td><td><b>ドリフターズ</b>（ToB・叶える側）</td></tr>
+      <tr><td class="h">両方が生む情報量</td><td>連絡・提案・資料が桁で増える</td><td><b>これほし</b>（受信箱）</td></tr></table>
+      <div class="note">値段ではなく行き先を与える。運営の仕事は値付けや仲介ではなく、行き先と余りが出会う場を最も早く・大きく作ること。</div></div>
+    <img class="pic" src="img6/p01.jpg" alt="" style="height:118pt">
+  </div>
+  </div>
+  <div class="bar"><b>「これが、市場を作る」</b><span>余っている時間とトークンに、値段ではなく行き先（もし・困りごと）を与える。</span></div>
+  <div class="pn">3 / 17</div>
+</div></section>
+
+<!-- 4 ①作業より判断 -->
+<section class="page"><div class="pad">
+  <div class="hd"><span class="tag">時代背景 ②</span><h2>作業より、判断が仕事になる。飛脚の仕事は、走ることではなかった</h2><span class="logo">IFBOX<small>もしも箱</small></span></div>
+  <div class="body">
+  <div class="g" style="grid-template-columns:1fr 1.1fr">
+    <div>
+      <p class="q">「AIでそこまでできるなら、仕事はどうなるのか」<small>まさに、そこから考えています。走る役はAIに任せ、人は行き先を決める。その役割分担を、市場と道具の両方でつくります。</small></p>
+      <table><tr><th></th><th>これまで</th><th>これから</th></tr>
+      <tr><td class="h">文章の下書き・定型処理</td><td>人が手を動かす</td><td><b>AIと払い済みの余力</b>で賄われる</td></tr>
+      <tr><td class="h">作業代行（BPO）</td><td>人が作業を代わる</td><td><b>AIが処理し、人が品質を守る</b>。頼む側は仕上がりを承認するだけ</td></tr>
+      <tr><td class="h">連絡・提案・資料</td><td>人が全部読んで判断</td><td>量が桁で増え、<b>全部読む前提が壊れる</b></td></tr>
+      <tr><td class="h">人に残るもの</td><td>作業＋判断</td><td><b>判断と責任</b>。走るのはAI、行き先は人</td></tr></table>
+      <div class="note">労務管理・勤怠・給与計算を永年無料にするサービスや、月額定額・処理量無制限のAI BPOが出てきています。外注の意味そのものが変わっています。</div>
+    </div>
+    <div><img class="pic" src="img6/p02.jpg" alt="" style="height:230pt">
+      <div class="g c3" style="margin-top:8pt">
+        <div class="card soft" style="padding:8pt"><span class="lbl">走る</span><p><b>AI</b>。下書き・定型処理・読み取り・振り分け</p></div>
+        <div class="card soft" style="padding:8pt"><span class="lbl o">行き先</span><p><b>人</b>。何を送るか、何を頼むか、いくらで請けるか</p></div>
+        <div class="card redb" style="padding:8pt"><span class="lbl r">押す</span><p><b>人だけ</b>。送信・確定・支払のボタン</p></div>
+      </div></div>
+  </div>
+  </div>
+  <div class="bar"><b>「自らドリフターになるか、ドリフターを味方につけるかしないと、経営が成り立たない時代が来る」</b><span>ドリフター＝元の場所で活躍していた人が、AIという力を得て、新しい市場で活躍する人。</span></div>
+  <div class="pn">4 / 17</div>
+</div></section>
+
+<!-- 5 ②IFBOX -->
+<section class="page"><div class="pad">
+  <div class="hd"><span class="tag">解決策 ①</span><h2>IFBOX は、消費者が「もし」を言う市場です</h2><span class="logo">IFBOX<small>もしも箱</small></span></div>
+  <div class="body">
+  <div class="g" style="grid-template-columns:1.15fr 1fr">
+    <div>
+      <div class="card soft" style="margin-bottom:8pt"><span class="lbl">入口の原則</span><h3 style="margin:0 0 3pt;font-size:11pt">「こんなものがあったらいい」。その一言だけを入口にします</h3><p>仕様は書かせません。分からなくて大丈夫。発言した人を<b>発案者として残し、成功したら還元</b>します。発言の敷居を上げた瞬間に、人は来なくなります。</p></div>
+      <div class="flow"><span>「もし」を一言</span><i>›</i><span>同じ願いの人が集まる</span><i>›</i><span>試して、意見を出す</span><i>›</i><span>形になり、広まる</span><i>›</i><span class="hu">発案者に還元</span></div>
+      <table style="margin-top:8pt"><tr><th>例：消費者の「もし」</th><th>集まるもの</th><th>成立条件（例）</th></tr>
+      <tr><td>もし、家族の予定を一度で確認できたら</td><td>同じ願いの参加者と、作る人</td><td>参加10人</td></tr>
+      <tr><td>もし、月末の請求書づくりを丸ごと任せられたら</td><td>作る1人＋確かめる1人</td><td>申し込み20件</td></tr>
+      <tr><td>もし、議事録が会議の直後に届いたら</td><td>作る人＋広める人</td><td>金額5万円</td></tr></table>
+      <div class="note">似た「もし」は既存の計画に寄せます（Wikipedia の型）。申し込みは意向表明で、支払いは届いたあと。運営はお金を預かりません。</div>
+    </div>
+    <div>
+      <img class="pic" src="img6/p03.jpg" alt="" style="height:170pt">
+      <div class="g c3" style="margin-top:8pt">
+        <div class="card soft" style="padding:8pt;text-align:center"><div class="kv" style="justify-content:center"><b>0円</b></div><p>基本無償。人が集まることだけが堀</p></div>
+        <div class="card soft" style="padding:8pt;text-align:center"><div class="kv" style="justify-content:center"><b>1行</b></div><p>必須は「もし」の一言だけ</p></div>
+        <div class="card soft" style="padding:8pt;text-align:center"><div class="kv" style="justify-content:center"><b>4歩</b></div><p>集める→つくる→確かめる→届ける</p></div>
+      </div>
+    </div>
+  </div>
+  </div>
+  <div class="bar"><b>IFBOX ＝ 言う場。発言者が参加者に変わり、みんなで形にする。</b><span>まず、身近な「欲しい」から聞かせてください。</span></div>
+  <div class="pn">5 / 17</div>
+</div></section>
+
+<!-- 6 ②ドリフターズ -->
+<section class="page"><div class="pad">
+  <div class="hd"><span class="tag">解決策 ②</span><h2>困りごとは、ドリフターが叶えます</h2><span class="logo">IFBOX<small>もしも箱</small></span></div>
+  <div class="body">
+  <div class="g" style="grid-template-columns:1fr 1fr">
+    <div>
+      <div class="card soft" style="margin-bottom:8pt"><span class="lbl">ドリフターとは</span><h3 style="margin:0 0 3pt;font-size:11pt">経営能力のある、バイブコーダー＆クリエイター</h3><p>作れるだけ／経営だけの人ではなく、両方。選考は2段：<b>何かの現場で実績がある</b>＋<b>AIで自分の領域の外を作って動かしている</b>。困りごとを読み取って、チーム・進め方・金額を提案できる人。</p></div>
+      <div class="g c3">
+        <div class="card" style="text-align:center;padding:8pt"><b style="font-size:13pt">越境</b><p>活躍の場を変える</p></div>
+        <div class="card" style="text-align:center;padding:8pt"><b style="font-size:13pt">腕試し</b><p>力が外でも通じるか</p></div>
+        <div class="card" style="text-align:center;padding:8pt"><b style="font-size:13pt">雪辱</b><p>元の場所で果たせなかったことを晴らす</p></div>
+      </div>
+      <div class="note">ドリフターが来る動機は、この3つ。使うのは本業の外の余暇と、AIのサブスクで払い済みなのに余る「余暇トークン」。</div>
+      <img class="pic" src="img6/p04.jpg" alt="" style="margin-top:4pt;max-height:150pt">
+    </div>
+    <div>
+      <span class="lbl">流れ（例：AI BPO の立ち上げ）</span>
+      <table><tr><th>段階</th><th>誰が</th><th>中身</th></tr>
+      <tr><td class="h">会社のつぶやき</td><td>経営者</td><td>「請求書の発行と入金の確認を、人を増やさずに回したい。月30万円の定額なら、まるごと任せたい」</td></tr>
+      <tr><td class="h">提案</td><td>ドリフター</td><td>「AI BPO の立ち上げとして、請求書の発行・送付・入金確認をAIが下処理し、担当は確認だけにする仕組みを作ります」提示額 49.5万円</td></tr>
+      <tr><td class="h">採用 → 案件</td><td>会社が採用</td><td>7段階：依頼受付→作成中→確認中→納品済→<b>検収済</b>→請求済→入金済</td></tr>
+      <tr><td class="h">契約・お金</td><td>会社とドリフターの直接契約</td><td>運営は記録と閲覧だけ。検収・支払期限を記録。お金は預からない</td></tr></table>
+      <div class="card gold" style="margin-top:8pt;padding:8pt"><p><b>経営者はつぶやくだけ。</b>作る側には回りません。叶えるのはドリフター。だから選考と提案の仕組みを厚くします。消費者側とは入口・登録・契約を分けます。</p></div>
+    </div>
+  </div>
+  </div>
+  <div class="bar"><b>ドリフターズ ＝ 叶える側。「頼むならドリフター」という目印を、乱立の中に立てる。</b><span>まずは、会社の困りごとを一つ伺いたいです。</span></div>
+  <div class="pn">6 / 17</div>
+</div></section>
+
+<!-- 7 ②二つの車輪 -->
+<section class="page"><div class="pad">
+  <div class="hd"><span class="tag">解決策 ③</span><h2>強みは一つ。早く集まり、みんなで作りこみ、二つの車輪を回す</h2><span class="logo">IFBOX<small>もしも箱</small></span></div>
+  <div class="body">
+  <div class="g" style="grid-template-columns:1fr 1fr">
+    <div>
+      <table><tr><th></th><th>IFBOX（ToC）＝言う場</th><th>ドリフターズ（ToB）＝叶える側</th></tr>
+      <tr><td class="h">差し出す余り</td><td><b>消費者の余暇時間</b></td><td><b>経営者・作り手の余りトークン</b></td></tr>
+      <tr><td class="h">決める人と動機</td><td>消費者。「欲しい」。言った人が参加者に</td><td>経営者はつぶやくだけ。叶えるのはドリフター</td></tr>
+      <tr><td class="h">お金と契約</td><td>意向表明。届いたあとに支払い</td><td>直接契約。7段階で検収・支払期限</td></tr>
+      <tr><td class="h">信用の作り方</td><td><b>参加の量</b></td><td><b>選考の質</b></td></tr>
+      <tr><td class="h">乱立の受け止め</td><td>合流（似た「もし」を寄せる）</td><td>目印（頼むならドリフター）</td></tr>
+      <tr><td class="h">価格</td><td colspan="2">どちらも基本無償、または成功報酬に近い形。誰でもAIで同じものを作れるので利用料は取れない</td></tr></table>
+      <div class="note">橋は一方向：ToC で当たったものを ToB に持ち込む。画面・入口・登録・KPI・契約は混ぜず、共通にするのは土台（認証・履歴・同時更新・要対応）だけ。</div>
+    </div>
+    <div>
+      <div class="g c2">
+        <div class="card top"><span class="lbl">車輪 1</span><h3>インフラ化</h3><p>置き換わる仕組みは、IFBOX を軸に先に一度作って、社会の共通の土台にする。これほしは、その第1号。</p></div>
+        <div class="card top" style="border-top-color:var(--gold)"><span class="lbl o">車輪 2</span><h3>インキュベーション</h3><p>乱立を「当たりを見つける母数」として育てる。育成支援と、育った事業の株式価値を収益にする。</p></div>
+      </div>
+      <img class="pic" src="img6/p05.jpg" alt="" style="height:150pt;margin-top:8pt">
+      <div class="card redb" style="padding:8pt;margin-top:8pt"><p><b>必ず起きる副作用：</b>安価なサービスの乱立と、車輪の再発明。止めずに受け止める（合流／土台化／目印／母数）。乱立が始まってから軸を作っても寄せられない。だから急ぎます。</p></div>
+    </div>
+  </div>
+  </div>
+  <div class="bar"><b>作ったことだけでは守れない。人が集まっていること以外に、堀はない。</b><span>完成を待つより、まず集まって直す。勧誘・出資の線だけは、公開前に専門家と確認します。</span></div>
+  <div class="pn">7 / 17</div>
+</div></section>
+
+<!-- 8 ③ユニコーン100社 -->
+<section class="page"><div class="pad">
+  <div class="hd"><span class="tag">狙い ①</span><h2>ユニコーン企業を100社に。狙いは三段です</h2><span class="logo">IFBOX<small>もしも箱</small></span></div>
+  <div class="body">
+  <div class="g" style="grid-template-columns:1fr 1fr">
+    <div>
+      <div class="g c3">
+        <div class="card top"><div class="n">1</div><h3>ミニマム</h3><p>「面白いから」で人が集まり、各自の本業（社労士など）の受託につながる。</p></div>
+        <div class="card top"><div class="n">2</div><h3>ミドル</h3><p>自サービスの拡張。これほし・ゆとる・退職シミュレーション・運営ダッシュボード。</p></div>
+        <div class="card top" style="border-top-color:var(--gold)"><div class="n">3</div><h3>ビッグ</h3><p>プラットフォームとして大きな利益。人が集まった後にだけ生まれる。</p></div>
+      </div>
+      <div class="card gold" style="margin-top:8pt"><span class="lbl o">ビッグの中身＝インキュベーション</span>
+        <table><tr><td class="h">育てる</td><td>乱立の母数から「まだ無いもの」を拾って育てる。育てる過程のコンサルティングが収益</td></tr>
+        <tr><td class="h">投資</td><td>コンサル料30万円をそのまま出資に回して株式で持つ（受け入れは相手が決める）</td></tr>
+        <tr><td class="h">支援会員</td><td>一口50万円。エンジェル税制A。49人以下・6か月通算の私募の線を守る</td></tr>
+        <tr><td class="h">収益</td><td>市場の手数料ではなく、育てた計画の<b>株式価値</b>と育てる過程の<b>コンサル</b></td></tr></table></div>
+    </div>
+    <div>
+      <p class="q">「小さな便利を集めて、その先はどうするのか」<small>大きく育つ事業まで生み出したい。国の「ユニコーン100社」という目標に、僕たちなりの市場づくりで挑みます。育てた計画もそれぞれ宣言ユニコーンをして、形式上先に叶えてもいい。</small></p>
+      <img class="pic" src="img6/p06.jpg" alt="" style="height:175pt">
+      <div class="note">宣言の数と、実際に成長した企業の数は分けて示します。IFBOX ＝ 宣言ユニコーンを量産する市場であり、時価総額とは何かを世の中に問う実演。</div>
+    </div>
+  </div>
+  </div>
+  <div class="bar"><b>宣言ユニコーンを量産する市場。まず、自分たちから旗を立てる。</b><span>各計画に夢を付けて目立たせる仕掛け。目立つことが、デファクトの燃料。</span></div>
+  <div class="pn">8 / 17</div>
+</div></section>
+
+<!-- 9 ③宣言ユニコーンと守る線 -->
+<section class="page"><div class="pad">
+  <div class="hd"><span class="tag">狙い ②</span><h2>まず僕たちが宣言する。ただし、根拠と中身を必ず並べる</h2><span class="logo">IFBOX<small>もしも箱</small></span></div>
+  <div class="body">
+  <div class="g" style="grid-template-columns:1fr 1.15fr">
+    <div>
+      <p class="q">「宣言だけでユニコーンなのか」<small>その疑問も含め、時価総額とは何かを問う実演にしたい。将来への期待を先に掲げて注目を集め、参加と事業づくりにつなげる構想です。</small></p>
+      <div class="card soft"><span class="lbl">宣言に必ず並べるもの</span>
+        <ul class="li"><li><b>評価額の根拠</b>：一口50万円×口数、前提</li><li><b>中身はこれ</b>：現時点の事業・実績・画面</li><li>第三者が認めた企業価値や投資収益の<b>保証としては扱わない</b></li><li>表示と勧誘の線は、弁護士確認を経て守る</li></ul></div>
+      <img class="pic" src="img6/p07.jpg" alt="" style="margin-top:8pt;max-height:160pt">
+    </div>
+    <div>
+      <span class="lbl r">コンプライアンスを、きちんと引く。この座組みの面白さ</span>
+      <table><tr><th>線</th><th>今の設計</th><th>誰に</th></tr>
+      <tr><td class="h">金商法（私募・勧誘）</td><td>一口50万円、49人以下・6か月通算、エンジェル税制A</td><td>弁護士</td></tr>
+      <tr><td class="h">景表法（表示）</td><td>宣言ごとに「評価額の根拠」と「中身はこれ」を必ず並べる</td><td>弁護士</td></tr>
+      <tr><td class="h">資金決済</td><td>運営はお金を預からない。直接契約・直接支払い。申し込みは意向表明</td><td>弁護士</td></tr>
+      <tr><td class="h">契約・下請（DF）</td><td>7段階、双方の条件合意で成立。承認まで有償の受注確定は止める</td><td>弁護士</td></tr>
+      <tr><td class="h">個人情報</td><td>鍵は本人の画面。AIに送信の道具を渡さない。ログは本人のアカウント</td><td>弁護士</td></tr>
+      <tr><td class="h">商標・著作</td><td>これほし／どこでも扉を商標に。キャラクター・絵柄・固有名詞は使わない</td><td>弁理士</td></tr>
+      <tr><td class="h">税</td><td>エンジェル税制Aの要件、コンサル料→出資の課税関係</td><td>税理士</td></tr></table>
+      <div class="note">線を引くこと自体が、社労士の私のホームグラウンドで、乱立の中の目印になります。走り出す前に、弁護士・弁理士・税理士に見てもらう一覧を持っています。</div>
+    </div>
+  </div>
+  </div>
+  <div class="bar"><b>線を引かないと成立しないものばかり。だから、線を引くことが面白い。</b><span>そのうえで、「中身はこれです」と見せる第一弾に進みます。</span></div>
+  <div class="pn">9 / 17</div>
+</div></section>
+
+<!-- 10 ④第一弾これほし -->
+<section class="page"><div class="pad">
+  <div class="hd"><span class="tag">第一弾</span><h2>第一弾が、これほしです。連絡をAIが先に読み、人が確かめて送る受信箱</h2><span class="logo">これほし<small>これが欲しかった</small></span></div>
+  <div class="body">
+  <div class="g" style="grid-template-columns:1fr 1.05fr">
+    <div>
+      <p class="q">「まず、何が使えるのか」<small>僕自身の実務で、連絡を読み、返事を考えるために毎日使っている受信箱です。大きな構想の説明だけでなく、まず社長の一日の中で役に立つかを見てください。</small></p>
+      <div class="flow"><span>① 右に届く<br><small style="font-weight:400">LINE・メール・チャット</small></span><i>›</i><span>② 左で頼む<br><small style="font-weight:400">ふだん使うAI</small></span><i>›</i><span>③ AIが右を読む<br><small style="font-weight:400">会話・添付・経緯</small></span><i>›</i><span>④ 右に下書き<br><small style="font-weight:400">やること・催促も</small></span><i>›</i><span class="hu">⑤ 人が送る</span></div>
+      <table style="margin-top:8pt"><tr><th>3点セット</th><th>役目</th></tr>
+      <tr><td class="h">IFBOX</td><td>消費者の市場。「もし」を言う場</td></tr>
+      <tr><td class="h">ドリフターズ</td><td>経営者の市場。つぶやきを叶える側</td></tr>
+      <tr><td class="h"><b>これほし</b></td><td>2つの市場が生む情報量をさばく<b>「経営者の受信箱」</b>。市場を作る前に、まずこれを配る</td></tr></table>
+      <div class="note">乱立は連絡・提案・資料の量を桁で増やします。相手もAIで書き、AIで資料を作る。「人が全部読んで判断する」前提が壊れ、返す側だけが人のままになる。だからDFは、これほしとセットでないと機能しません。</div>
+    </div>
+    <div><img class="pic" src="img/hero-card.jpg" alt="" style="height:300pt;border:1pt solid var(--line);border-radius:8pt"><div class="note" style="text-align:center">これほしの画面（架空データ）。右：受信箱、左：AIに頼む</div></div>
+  </div>
+  </div>
+  <div class="bar"><b>置き換わるものは、1回作って土台にする。その第1号がこれほし。</b><span>市場が生む情報量をさばく道具として、IFBOX・ドリフターズと組み合わせて広げます。</span></div>
+  <div class="pn">10 / 17</div>
+</div></section>
+
+<!-- 11 ④フリー素材 -->
+<section class="page"><div class="pad">
+  <div class="hd"><span class="tag">第一弾 ②</span><h2>売り切らず、みんなの土台に。デファクトの取り方を自ら実演します</h2><span class="logo">これほし<small>これが欲しかった</small></span></div>
+  <div class="body">
+  <div class="g" style="grid-template-columns:1.15fr 1fr">
+    <div>
+      <div class="g c2">
+        <div class="card top"><span class="lbl">1 配る</span><h3>中身は無償・改変配布自由</h3><p>「フリー素材」にする方針。名前（これほし／どこでも扉）だけ商標で守り、「AIは送らない・人が押す」を名乗る条件にする。</p></div>
+        <div class="card top"><span class="lbl">2 仕事にする</span><h3>導入支援・業種調整・追加機能</h3><p>ライセンス料ではなく、DFの案件として依頼者との直接契約で。DFの最初の商材であり、腕試しの場。</p></div>
+        <div class="card top"><span class="lbl">3 還流</span><h3>改良・派生は「もし」に集める</h3><p>使う人の声をIFBOXの「もし」として集め、本体に取り込む。IFBOX が育て、DF が広げる。</p></div>
+        <div class="card top" style="border-top-color:var(--acc)"><span class="lbl r">条件</span><h3>安全な初期設定のまま配る</h3><p>鍵は本人の画面で入力。AIに送信の道具を渡さない。ログは本人のアカウントに。今の試験導入は配布の予行。</p></div>
+      </div>
+      <div class="note" style="margin-top:6pt">株主特典は独占ではなく「先に・手厚く」（導入支援）。ライセンスの形は弁理士確認と一緒に整えます。</div>
+    </div>
+    <div>
+      <img class="pic" src="img6/p09.jpg" alt="" style="height:190pt">
+      <div class="card gold" style="margin-top:8pt;padding:8pt"><p><b>「便利なら、利用料を取るのでは」</b>。僕たちは、まず圧倒的に使われる土台にしたいんです。無償だから人が集まり、集まることだけが堀になる。</p></div>
+    </div>
+  </div>
+  </div>
+  <div class="bar"><b>これほしは IFBOX の象徴。ドリフターズが育てて広げる、フリー素材。</b><span>置き換わるものは1回作って土台にする、の第1号。デファクトの取り方を自ら実演します。</span></div>
+  <div class="pn">11 / 17</div>
+</div></section>
+
+<!-- 12 ⑤あるある -->
+<section class="page"><div class="pad">
+  <div class="hd"><span class="tag">あったらいいな ①</span><h2>こんなこと、ありませんか？ 一つでも当てはまれば、この提案は社長向けです</h2><span class="logo">これほし<small>これが欲しかった</small></span></div>
+  <div class="body">
+  <div class="g c3" style="grid-template-rows:1fr 1fr">
+    <div class="card soft"><h3>「後でやろう」が、そのまま消える。</h3><p>置いておいたら、忘れていた。気づくのは催促が来てから。</p><div class="ar">返した瞬間に「やること」と期日が残る。忘れても受信箱が覚えている</div></div>
+    <div class="card soft"><h3>軽いのから片づけて、重いのがたまる。</h3><p>気持ちは楽になるが、重めのタスクは残り続けて、テンションが下がる。</p><div class="ar">朝いちばんに「今日返すもの」だけが先頭に並ぶ</div></div>
+    <div class="card soft"><h3>経緯を調べてから返す。だから遅い。</h3><p>過去のやり取りや資料を確認してから回答するので、返事に時間がかかる。</p><div class="ar">AIが先に過去の会話と資料を読み、要点と下書きを用意する</div></div>
+    <div class="card soft"><h3>AIが作った文章が、読めない。</h3><p>相手がAIで作った文章や資料は長くて濃く、読み解くのに時間がかかる。</p><div class="ar">要点3行にしてから見せる。判断だけすればいい</div></div>
+    <div class="card soft"><h3>AIにコピペする係になっている。</h3><p>連絡のたびに、AIへコピペしてアップロードする役割が増えた。</p><div class="ar">入口ごとに直接つなぐ。コピペもアップロードもいらない</div></div>
+    <div class="card soft"><h3>分からなくなって、えいや。</h3><p>AIの言っていること・やっていることが追えなくなり、確かめずに投げてしまう。</p><div class="ar">AIがやったことは履歴に残る。送るボタンは、人だけが押す</div></div>
+  </div>
+  </div>
+  <div class="bar"><b>「メールもチャットも、開くだけで一日が終わる」。まず、この負担を減らしたいんです。</b><span>相手もAIで書く。ラリーは速く、1通は濃く、入口は増え続ける。返す側だけが、人のまま。</span></div>
+  <div class="pn">12 / 17</div>
+</div></section>
+
+<!-- 13 ⑤読む前に -->
+<section class="page"><div class="pad">
+  <div class="hd"><span class="tag">あったらいいな ②</span><h2>読む前に、見るべきものが分かる。返事と、その先まで用意する</h2><span class="logo">これほし<small>これが欲しかった</small></span></div>
+  <div class="body">
+  <div class="g" style="grid-template-columns:1fr 1fr 1fr">
+    <div><span class="lbl">01 入ってくる</span><img class="pic" src="img/act01.jpg" alt="" style="border:1pt solid var(--line);border-radius:6pt;object-fit:cover;object-position:top"><p style="font-size:8.6pt;color:var(--ink2);margin:6pt 0 0">入口の情報がそのまま受信箱に入る。判定専用のAI「Jev（ジェブ）」が、急ぎか・返信が要るか・誰の担当かを、はい・いいえで決める。一覧に並ぶのは「まだ返していないものだけ」。</p></div>
+    <div><span class="lbl">02 取りに行く</span><img class="pic" src="img/act03.jpg" alt="" style="border:1pt solid var(--line);border-radius:6pt;object-fit:cover;object-position:top"><p style="font-size:8.6pt;color:var(--ink2);margin:6pt 0 0">どのAIからでも開けて、そのグループの文脈で答える。過去のやり取り・届いた資料・置き場（Googleドライブ・Notion など）の資料を踏まえた下書きが出る。</p></div>
+    <div><span class="lbl">03 返すと、残る</span><img class="pic" src="img6/p11.jpg" alt="" style="object-fit:cover"><p style="font-size:8.6pt;color:var(--ink2);margin:6pt 0 0">返信と管理が同時に行われる。自分のやること・相手にやってもらうこと・催促どき・日程が会話ごとに残り、決まった打ち合わせはカレンダーへ。</p></div>
+  </div>
+  <div class="g c4" style="margin-top:8pt">
+    <div class="card soft" style="padding:7pt"><p><b>Jev が判断</b>して、読み取り・下書き・見直しは得意なAIへ（Claude・ChatGPT/Codex・Gemini）</p></div>
+    <div class="card soft" style="padding:7pt"><p><b>パソコンのソフトも操作</b>：パワポ・エクセル・メール・会計ソフト。保存・送信・支払は人</p></div>
+    <div class="card soft" style="padding:7pt"><p><b>入口</b>：LINE公式・チャットワーク・メール・議事録。APIでつなげる：Slack・Teams・Outlook・Notion など</p></div>
+    <div class="card soft" style="padding:7pt"><p><b>カスタマイズ</b>：振り分けの基準・返事の書き方・資料の置き場・催促のタイミング・使うAI</p></div>
+  </div>
+  </div>
+  <div class="bar"><b>「返事はしたけれど、頼まれたことが抜ける」。そこまで含めて減らします。</b><span>将来は、読まなくてよいものを入口で足切りし、件数だけ確認する比重が高まると考えています。</span></div>
+  <div class="src">画面は見本（架空データ）を操作して撮ったものです</div>
+  <div class="pn">13 / 17</div>
+</div></section>
+
+<!-- 14 ⑤送るのは人 -->
+<section class="page"><div class="pad">
+  <div class="hd"><span class="tag">あったらいいな ③</span><h2>AIは送らない。人が押す。ここだけは変えません</h2><span class="logo">これほし<small>これが欲しかった</small></span></div>
+  <div class="body">
+  <div class="g" style="grid-template-columns:1.2fr 1fr">
+    <div><img class="pic" src="img/rule.jpg" alt="" style="height:255pt;border:1pt solid var(--line);border-radius:8pt"></div>
+    <div>
+      <p class="q">「勝手に送られるのは困る」<small>そこは、便利さと引き換えにしません。AIに任せるのは下読みと下書きまで。送信の道具はAIに渡していません。</small></p>
+      <table><tr><th>決まり</th><th>中身</th></tr>
+      <tr><td class="h">送信の口は1つ</td><td>人が押すボタンだけ。宛先を必ず見せてから送る</td></tr>
+      <tr><td class="h">鍵とデータは本人のもの</td><td>接続用の鍵は本人の画面で入力。データは本人のアカウントに置く</td></tr>
+      <tr><td class="h">AIも間違える前提</td><td>読み取りや下書きの誤りはあり得るので、送る前に人が確認する</td></tr>
+      <tr><td class="h">履歴</td><td>AIがやったことは履歴に残る。「分からなくなって、えいや」を無くす</td></tr></table>
+      <div class="note">このやり取り自体も、これほしで下書きを作り、目を通して直してから送っています。AIに任せるのは下書きまでで、何を送るかを決めるのは人、という使い方です。</div>
+    </div>
+  </div>
+  </div>
+  <div class="bar"><b>送るのは、人。</b><span>そのうえで、どこまで準備を任せるかを、普段の仕事に合わせて決めましょう。</span></div>
+  <div class="pn">14 / 17</div>
+</div></section>
+
+<!-- 15 ⑥AXの入り口 -->
+<section class="page"><div class="pad">
+  <div class="hd"><span class="tag">AX化の入り口 ①</span><h2>受信箱から、会社のAXへ。AIが準備し、人が判断する流れに変える</h2><span class="logo">これほし<small>これが欲しかった</small></span></div>
+  <div class="body">
+  <div class="g" style="grid-template-columns:1fr 1fr">
+    <div>
+      <p class="q">「AIは入れたいけれど、何から始めればいいのか」<small>毎日使う受信箱からなら、試しやすいと考えています。AXは、AIを一つ追加することではなく、AIを前提に仕事の流れと役割を組み替えること。</small></p>
+      <div class="flow"><span>受信箱<br><small style="font-weight:400">読む・返す</small></span><i>›</i><span>論点整理・引き継ぎ<br><small style="font-weight:400">会話から仕事へ</small></span><i>›</i><span>ソフトの操作<br><small style="font-weight:400">パワポ・エクセル・会計</small></span><i>›</i><span>複数AIの分担<br><small style="font-weight:400">Jev→得意なAI</small></span><i>›</i><span class="hu">人が決める場所</span></div>
+      <table style="margin-top:8pt"><tr><th>見るもの</th><th>変化</th></tr>
+      <tr><td class="h">読む時間</td><td>要点3行と件数で見る。全部読まない</td></tr>
+      <tr><td class="h">返事までの時間</td><td>下書きが先に入っている。確かめて押す</td></tr>
+      <tr><td class="h">対応漏れ</td><td>やること・相手待ち・催促どきが会話に残る</td></tr>
+      <tr><td class="h">広げる仕事</td><td>一つの業務で確かめてから、次を一緒に選ぶ</td></tr></table>
+    </div>
+    <div>
+      <img class="pic" src="img/act05.jpg" alt="" style="height:170pt;border:1pt solid var(--line);border-radius:6pt">
+      <div class="g c2" style="margin-top:8pt">
+        <div class="card soft" style="padding:8pt"><span class="lbl">いきなり全社は変えない</span><p>人が決める場所を残し、一つの業務から確かめる。</p></div>
+        <div class="card soft" style="padding:8pt"><span class="lbl">AI BPO へ</span><p>請求書処理・記帳・メール一次対応。AIが処理し、人が品質を守る形へ地続き。</p></div>
+      </div>
+    </div>
+  </div>
+  </div>
+  <div class="bar"><b>走るのはAI。行き先を決めるのは人。その入り口が、受信箱です。</b><span>読む時間・返事までの時間・対応漏れを見て、次に広げる仕事を一緒に選びましょう。</span></div>
+  <div class="pn">15 / 17</div>
+</div></section>
+
+<!-- 16 ⑥設定と相談・価格 -->
+<section class="page"><div class="pad">
+  <div class="hd"><span class="tag">AX化の入り口 ②</span><h2>設定と相談を、次の仕事に。使う側か、支える側か</h2><span class="logo">これほし<small>これが欲しかった</small></span></div>
+  <div class="body">
+  <div class="g" style="grid-template-columns:1fr 1fr">
+    <div>
+      <p class="q">「初期設定や相談をする側にもなれそう」<small>まさに、そこに一緒に試せる仕事があります。連絡経路をつなぎ、業種に合わせて調整し、人が判断する手順まで整える仕事です。</small></p>
+      <div class="g c2">
+        <div class="card top"><span class="lbl">使う側</span><h3>自社の連絡で試す</h3><p>いつもの連絡手段が使えれば、そのまま始められる。まず一つの連絡経路で、読む・返す・約束を残すところまで。</p></div>
+        <div class="card top" style="border-top-color:var(--gold)"><span class="lbl o">支える側</span><h3>導入支援・業種調整を担う</h3><p>ドリフターとして、他社の設定と相談を仕事にする。依頼者との直接契約。作業範囲・検収・費用は事前に明らかに。</p></div>
+      </div>
+      <img class="pic" src="img6/p14.jpg" alt="" style="margin-top:8pt;max-height:150pt">
+    </div>
+    <div>
+      <div class="card soft"><span class="lbl">価格（テスト期間）</span>
+        <div class="kv"><b>50,000<small style="font-size:10pt">円</small></b><span>設定。1回だけ。作って動かしている本人が設置します</span></div>
+        <div style="margin-top:4pt"><span class="chip">月額なし</span><span class="chip">使っている連絡手段に合わせる</span><span class="chip">連携先サービスの利用料は別（事前に説明）</span></div></div>
+      <div class="card soft" style="margin-top:8pt"><span class="lbl">導入にかかる時間</span>
+        <div class="kv"><b>ゼロからでも3時間</b></div>
+        <table style="margin-top:4pt"><tr><td class="h">0:00</td><td>流れを伺う（連絡手段と、返信・依頼の流れ）</td></tr>
+        <tr><td class="h">0:30</td><td>入口をつなぐ（鍵は本人の画面で入力）</td></tr>
+        <tr><td class="h">1:30</td><td>受信箱を開く（振り分けと文体を合わせる）</td></tr>
+        <tr><td class="h">3:00</td><td>最初の返事を一緒に送る。ここまでで、使える</td></tr></table></div>
+      <div class="note">LINEは公式アカウントを1つしか入れられないので、接続の範囲は普段の使い方を伺ってから決めます。同じことはチャットワークでも可能です。</div>
+    </div>
+  </div>
+  </div>
+  <div class="bar"><b>「自らドリフターになるか、ドリフターを味方につけるか」。まず、どちらから関わるのがよいか相談させてください。</b><span>僕たちもドリフターとして、作るだけでなく、現場で動かすところまで担います。</span></div>
+  <div class="pn">16 / 17</div>
+</div></section>
+
+<!-- 17 次の一歩 -->
+<section class="page end"><div class="pad">
+  <div>
+    <div class="ty">NEXT STEP</div>
+    <h2>まず一つ、<br>困りごとをください。</h2>
+    <p>「うちなら、どこで使えるか」。まず、普段いちばん困っている連絡を一つ教えてください。作り方は分からなくて大丈夫です。最初に必要なのは、「こうなったらいい」の一言だけ。<br><br>次回は「試す業務」「本人が確認する場所」「使う側か支える側か」の三点を決めましょう。一つ試し、直し、次へ広げる。その最初の一件をご一緒できればと思っています。</p>
+  </div>
+  <div class="box"><b>詳しくは、公式LINEで</b><p>友だち追加して「これほし」と送ると、詳しい案内が届きます。試す前に、接続できる範囲、情報の扱い、導入支援費や外部サービス費の有無を確認します。</p>
+    <div class="qr"><img src="../img/line-qr.png" alt=""><div style="font-size:8.5pt;color:var(--ink2);line-height:1.7"><b style="display:inline;font-size:9.5pt">公式LINE</b><br>https://line.me/R/ti/p/@232zafzm<br><b style="display:inline;font-size:9.5pt">Web</b><br>https://mgomita-ui.github.io/korehoshi-site/</div></div>
+    <p style="margin-top:10pt;font-size:8pt;color:var(--ink3)">これほし（これが欲しかった）／どこでも扉　運営：社会保険労務士 五味田匡功（レリック社会保険労務士法人）　特許出願中</p></div>
+</div></section>
+
+</body></html>

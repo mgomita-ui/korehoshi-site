@@ -1,0 +1,227 @@
+{
+  "pages": [
+    {
+      "no": 1,
+      "chapter": "①時代背景",
+      "title": "余りに行き先をつくる",
+      "lead": "余っている時間とAIの余力に、「こうなったらいい」という行き先を与えることで、市場が生まれると考えています。",
+      "body": [
+        "「作り方は分からないけれど、これが欲しい」。まず、その一言があれば十分です。",
+        "例えば、誰かの空いた30分と、使い切れていないAIの余力を、その願いに向ける。",
+        "作るコストが下がるほど、余っている資源をどこに向けるかが大事になると考えています。",
+        "その行き先を、消費者と経営者それぞれに用意するのが、今回の提案です。"
+      ],
+      "image": "An office worker stands on the right, placing a speech bubble containing a picture of a desired desk organizer into an open box at the center. From the left, three people contribute spare clock segments, while two laptops release unused battery-like units into the same box. A completed desk organizer emerges from the front of the box. Show the incoming resources and the finished object clearly separated.",
+      "image_note": "余暇時間とAIの余力が、一人の「欲しい」に集まって具体物になる原点を描く。"
+    },
+    {
+      "no": 2,
+      "chapter": "①時代背景",
+      "title": "作業より、判断が仕事になる",
+      "lead": "AIで作れるものが増えるほど、標準的な作業は値下がりし、人は判断と責任を担う側へ移ると考えています。",
+      "body": [
+        "「AIでそこまでできるなら、仕事はどうなるのか」。まさに、そこから考えています。",
+        "例えば、文章の下書きや定型処理は、AIと払い済みの余力で賄われる場面が増えると考えています。",
+        "一方で、連絡や提案も増え、経営者が全部読んで判断するのは難しくなると考えています。",
+        "走る役はAIに任せ、人は行き先を決める。その役割分担を、市場と道具の両方でつくります。"
+      ],
+      "image": "A running courier carrying one envelope moves along the left side of a road. Beside the courier, a small robot pulls a cart piled with envelopes and document folders. On the right, the office worker stands at a fork in the road, holding an unfolded map and pointing toward one route. The robot turns toward the selected route while the worker remains at the junction.",
+      "image_note": "運ぶ量はAIが引き受け、人が行き先を判断する役割の変化を具体化する。"
+    },
+    {
+      "no": 3,
+      "chapter": "②時代の解決策としてのIFBOX、ドリフターズ",
+      "title": "IFBOXは「もし」を言う市場",
+      "lead": "IFBOXは、消費者が余暇時間で「欲しい」を言い出し、みんなで確かめ、形にして広める市場です。",
+      "body": [
+        "「こんなものがあったらいい」。IFBOXでは、その一言だけを入口にします。",
+        "例えば「家族の予定を一度で確認したい」に、同じ願いを持つ人が集まり、試して意見を出す。",
+        "仕様は書かせません。分からなくて大丈夫ですし、言った人も、つくる仲間になれます。",
+        "発言した人を発案者として残し、成功したら還元する設計にします。",
+        "似た「もし」は既存の計画に寄せます。まず、身近な欲しいものから聞かせてください。"
+      ],
+      "image": "The office worker stands at the left of a shared worktable, offering a speech bubble containing a family calendar pictogram. Four participants gather around one tablet prototype at the center: one assembles it, one tests it, one points to a problem, and one invites another person over. Two matching idea cards are placed together beside the prototype. A small portrait token of the original worker stays attached to the project tray.",
+      "image_note": "一言の発案が、参加・試作・検証・普及へ進み、発案者も残る場を描く。"
+    },
+    {
+      "no": 4,
+      "chapter": "②時代の解決策としてのIFBOX、ドリフターズ",
+      "title": "困りごとはドリフターが叶える",
+      "lead": "ドリフターズは、経営者の困りごとを、経営能力のあるバイブコーダー＆クリエイターが形にする市場です。",
+      "body": [
+        "「困っているけれど、自分で作る時間はない」。経営者は、つぶやくだけで構いません。",
+        "例えば「見積もりの返事が追いつかない」に、作り手がチーム・進め方・金額を提案します。",
+        "担い手は、現場の実績があり、自分でAIプロダクトを作って動かし、経営も分かる人を選びます。",
+        "使うのは本業の外の余暇と、AIのサブスクで払い済みなのに余る「余暇トークン」です。",
+        "消費者側とは入口・登録・契約を分けます。まずは、会社の困りごとを一つ伺いたいです。"
+      ],
+      "image": "The office worker sits behind a desk on the left with a pile of unanswered quotation folders, speaking to two makers on the right. One maker presents three pictorial cards showing a team, a sequence of steps, and a coin stack. The other demonstrates a working application on a laptop. Beside the makers, unused units from a laptop resource tray and a spare clock segment feed into their workbench. The worker does not build the application.",
+      "image_note": "経営者は困りごとを伝え、経営も分かる作り手が余力を使って実装する違いを示す。"
+    },
+    {
+      "no": 5,
+      "chapter": "②時代の解決策としてのIFBOX、ドリフターズ",
+      "title": "早く集まり、二つの車輪を回す",
+      "lead": "強みは、早くデファクトを取り、みんなで作りこみ、圧倒的に人が集まることだけです。",
+      "body": [
+        "「同じものをAIで作れるのでは」。その通りで、作ったことだけでは守れないと考えています。",
+        "だから、基本無償、または成功報酬に近い形を考えています。参加の敷居を下げ、早く公開します。",
+        "一つ目の車輪は、置き換わる仕組みを一度作って共通の土台にする、インフラ化です。",
+        "二つ目は、まだないアイデアを育てるインキュベーションで、育成支援と育った事業の株式価値を収益につなげる考えです。",
+        "完成を待つより、まず集まって直す。ただし、勧誘・出資などの守る線は公開前に専門家と確認します。"
+      ],
+      "image": "A large two-wheeled construction cart moves from left to right, pushed by the office worker and six participants. Above the left wheel, people assemble one reusable foundation panel that supports several small buildings. Above the right wheel, people nurture three distinct miniature business prototypes on separate workbenches. More participants approach the cart from the background, carrying matching components that fit the shared construction. Both wheels visibly support the same platform.",
+      "image_note": "人が集まる一つの場で、共通基盤づくりと新規事業育成の二輪が回る姿を描く。"
+    },
+    {
+      "no": 6,
+      "chapter": "③ユニコーン企業を100社にする、自らも宣言ユニコーンとなる",
+      "title": "ユニコーン企業を100社へ",
+      "lead": "僕たちは、集まった「もし」から事業を育て、ユニコーン企業を100社にすることを目指します。",
+      "body": [
+        "「小さな便利を集めて、その先はどうするのか」。大きく育つ事業まで生み出したいんです。",
+        "例えば、一つの困りごとの解決が、多くの会社や生活者に必要とされる事業になる。",
+        "乱立を無駄だけで終わらせず、まだない価値を見つける母数として育てます。",
+        "国の「ユニコーン100社」という目標に、僕たちなりの市場づくりで挑みたいと考えています。",
+        "ただし、宣言の数と実際に成長した企業の数は分けて示します。まず、自分たちから旗を立てます。"
+      ],
+      "image": "Exactly one hundred small unicorns stand in ten rows of ten on a broad path leading toward a cluster of growing businesses. The office worker stands beside the front row, raising a blank flag and looking back toward the group. Along the path, three visible workshops contain a rough prototype, a working product, and a product being used by several customers. Keep the unicorn group distinct from these real business-development scenes.",
+      "image_note": "100社への大きな目標と、実際の事業育成が必要な道のりを一枚に置く。"
+    },
+    {
+      "no": 7,
+      "chapter": "③ユニコーン企業を100社にする、自らも宣言ユニコーンとなる",
+      "title": "まず僕たちが宣言する",
+      "lead": "自ら「宣言ユニコーン」を掲げ、夢だけでなく、評価額の根拠と事業の中身を同じ場所に示します。",
+      "body": [
+        "「宣言だけでユニコーンなのか」。その疑問も含め、時価総額とは何かを問う実演にしたいと考えています。",
+        "将来への期待を先に掲げて注目を集め、参加と事業づくりにつなげる構想です。",
+        "宣言には、出資条件・口数・評価額の算定方法と、現時点の事業・実績を必ず並べます。",
+        "宣言を、第三者が認めた企業価値や投資収益の保証としては扱いません。",
+        "表示と勧誘の線は弁護士確認を経て守ります。そのうえで、「中身はこれです」と見せる第一弾に進みます。"
+      ],
+      "image": "The office worker raises a blank flag beside a single unicorn at the center. Directly in front of them, one open display table holds two equally prominent trays: the left contains a calculator, measured stacks of coins, and a counting frame; the right contains a working laptop prototype, customer folders, and a small workshop model. Two visitors inspect both trays closely. Nothing is hidden behind the flag or unicorn.",
+      "image_note": "宣言の旗のすぐ前に、算定根拠と事業の実物を同じ重さで並べる。"
+    },
+    {
+      "no": 8,
+      "chapter": "④第一弾として生まれたのがこれほし",
+      "title": "第一弾が、これほしです",
+      "lead": "その考えを実物にした第一弾が、経営者の連絡をAIが先に読み、人が確かめて送る受信箱「これほし」です。",
+      "body": [
+        "「まず、何が使えるのか」。ここで見ていただきたいのが、これほしです。",
+        "僕自身の実務で、連絡を読み、返事を考えるために使っている受信箱です。",
+        "例えば、メールやチャットの経緯をAIが読み、返事の下書きを用意する。僕は直してから送ります。",
+        "市場が生む情報量をさばく道具として、IFBOX・ドリフターズと組み合わせて広げます。",
+        "大きな構想の説明だけでなく、まず社長の一日の中で、役に立つかを見てください。"
+      ],
+      "image": "Three streams of incoming items approach a desk from the left: envelopes, chat bubbles, and attached document folders. They converge into one desktop inbox. A small robot beside the inbox opens the items and arranges a short draft sheet. The office worker sits on the right, reviewing the draft with a pen. A separate send control is positioned directly under the worker's hand, away from the robot.",
+      "image_note": "複数の連絡経路が一つに集まり、AIの下読みから本人の確認へ進む実物像を見せる。"
+    },
+    {
+      "no": 9,
+      "chapter": "④第一弾として生まれたのがこれほし",
+      "title": "売り切らず、みんなの土台に",
+      "lead": "これほしは、無償で使い、改良して広げられる共通の土台として、デファクトの取り方を自ら実演します。",
+      "body": [
+        "「便利なら、利用料を取るのでは」。僕たちは、まず圧倒的に使われる土台にしたいんです。",
+        "中身は無償・改変配布自由の「フリー素材」にする方針で、具体的なライセンス条件は専門家と整えます。",
+        "ドリフターは導入支援・業種調整・追加機能を担い、その仕事は依頼者との直接契約にします。",
+        "改良や派生の声はIFBOXの「もし」に集め、本体に取り込みます。",
+        "名前を使う条件に「AIは送らない・人が押す」を置き、安全な初期設定のまま配ります。"
+      ],
+      "image": "One central laptop sits on a shared workbench. Three makers carry copies of its application toward three separate office desks around it. At each desk, a maker adjusts a different attachment for the local worker. Small improved components travel back from those desks into one collection tray beside the central laptop, where the office worker fits them into the original application. All three local desks retain a human-operated send control.",
+      "image_note": "無償の共通基盤を配り、導入の仕事と改良の還流を生む構造を描く。"
+    },
+    {
+      "no": 10,
+      "chapter": "⑤忙しい社長のあったらいいなを体現",
+      "title": "読む前に、見るべきものが分かる",
+      "lead": "「全部読む時間がない」に対して、AIが先に読み、人が見るべき連絡に絞れる入口を目指します。",
+      "body": [
+        "「メールもチャットも、開くだけで一日が終わる」。まず、この負担を減らしたいんです。",
+        "連絡と添付を受信箱に集め、AIが経緯を読めるようにするのが出発点です。",
+        "例えば、今日判断が必要な相談と、確認だけでよい案内を分けて見る。",
+        "将来は、読まなくてよいものを入口で足切りし、件数だけ確認する比重が高まると考えています。",
+        "どの連絡を後回しにできるかは会社ごとに違うので、まず実際の受信内容から相談させてください。"
+      ],
+      "image": "A large pile of envelopes and folders enters a sorting station on the left. A small robot separates them into two physical trays: a compact tray containing three items is placed directly before the office worker, while a larger covered tray stays to the side with a simple bead counter attached. The worker studies the three selected items. A small lifting handle on the covered tray remains within the worker's reach for inspection.",
+      "image_note": "全件を読む負担から、見るべき連絡を選んで確認する体験への変化を描く。"
+    },
+    {
+      "no": 11,
+      "chapter": "⑤忙しい社長のあったらいいなを体現",
+      "title": "返事と、その先まで用意する",
+      "lead": "「返事を書いて終わり」ではなく、打ち合わせの準備や約束した仕事まで、会話からつなげます。",
+      "body": [
+        "「返事はしたけれど、頼まれたことが抜ける」。そこまで含めて減らしたいんです。",
+        "例えば、日程相談のやり取りから、返信の下書きと打ち合わせの論点を用意する。",
+        "僕自身も、会話をもとにした論点整理や日程の依頼に使っています。",
+        "自分のやること、相手待ち、日程を会話と一緒に残し、次の仕事につなげる設計です。",
+        "まず一つの会話でお見せして、標準でできる範囲と個別設定が要る範囲を確認しましょう。"
+      ],
+      "image": "An open conversation folder rests on the left side of a desk. A small robot uses its contents to prepare three objects arranged across the center: a reply sheet, a meeting agenda folder with three pictorial tabs, and a calendar with one highlighted square. Beside them sits a task tray divided between the worker's portrait token and another person's portrait token. The office worker reviews the reply while keeping the agenda and task tray within reach.",
+      "image_note": "一つの会話が、返事・会議準備・約束の管理までつながる具体的な使い方を見せる。"
+    },
+    {
+      "no": 12,
+      "chapter": "⑤忙しい社長のあったらいいなを体現",
+      "title": "AIは送らない。人が押す",
+      "lead": "忙しさを減らしても、何を誰に送るかを決めるのは人であり、この線は変えません。",
+      "body": [
+        "「勝手に送られるのは困る」。そこは、便利さと引き換えにしません。",
+        "AIに任せるのは下読みや下書きまで。送信の道具はAIに渡しません。",
+        "人が宛先・本文・添付を確かめ、最後に送信を押します。",
+        "鍵は本人の画面で扱い、ログは本人のアカウントに残します。安全な初期設定のまま配ります。",
+        "そのうえで、どこまで準備を任せるかを、普段の仕事に合わせて決めましょう。"
+      ],
+      "image": "A desk is divided into two clear work areas by a low partition. On the left, a robot places an unfinished draft onto a pass-through tray; there is no send control on that side. On the right, the office worker checks a recipient portrait, a document, and an attachment before pressing a single send control. A key rests beside the worker's monitor, and a personal logbook sits in the worker's own drawer.",
+      "image_note": "AIの準備領域と、人だけが送信できる領域を物理的に分けて安全原則を示す。"
+    },
+    {
+      "no": 13,
+      "chapter": "⑥AX化の入り口になる",
+      "title": "受信箱から、会社のAXへ",
+      "lead": "これほしを入口に、AIが準備し、人が判断する仕事の流れへ変えることが、会社のAXにつながると考えています。",
+      "body": [
+        "「AIは入れたいけれど、何から始めればいいのか」。毎日使う受信箱からなら、試しやすいと考えています。",
+        "例えば、一件の相談から、論点整理、返信、担当者への引き継ぎまでをつなぐ。",
+        "AXは、AIを一つ追加するだけでなく、AIを前提に仕事の流れと役割を組み替えることです。",
+        "いきなり全社を変えません。人が決める場所を残し、一つの業務から確かめます。",
+        "読む時間・返事までの時間・対応漏れを見て、次に広げる仕事を一緒に選びましょう。"
+      ],
+      "image": "The office worker opens an office entrance door beside a small inbox pedestal in the foreground. Through the doorway, three connected workstations are visible: a robot organizes incoming documents, a human reviews a prepared decision folder, and another human assigns a task card to a colleague. One continuous conveyor carries the same folder through all three stations. The worker is stepping across the threshold while looking toward this complete workflow.",
+      "image_note": "受信箱という小さな入口の先に、会社の仕事全体の役割分担が変わる景色を置く。"
+    },
+    {
+      "no": 14,
+      "chapter": "⑥AX化の入り口になる",
+      "title": "設定と相談を、次の仕事に",
+      "lead": "自分でドリフターになるか、ドリフターを味方につけるかが、これからの経営で重要になると考えています。",
+      "body": [
+        "「初期設定や相談をする側にもなれそう」。まさに、そこに一緒に試せる仕事があります。",
+        "例えば、連絡経路をつなぎ、業種に合わせて調整し、人が判断する手順まで整える仕事です。",
+        "僕たちもドリフターとして、作るだけでなく、現場で動かすところまで担います。",
+        "導入支援は依頼者との直接契約にし、作業範囲・検収・費用を事前に明らかにします。",
+        "自社で使う側か、他社の導入を支える側か。まず、どちらから関わるのがよいか相談させてください。"
+      ],
+      "image": "The office worker and a maker sit together at one company desk, connecting an inbox application to two communication devices and arranging a human review checkpoint. On the table lie a toolkit and two matching contract folders, one held by each person. In the background, a second company desk awaits installation. The maker gestures toward it while the worker considers whether to stay as a user or join the next installation.",
+      "image_note": "利用者としての導入から、設定・業種調整・運用相談を担う仕事への広がりを描く。"
+    },
+    {
+      "no": 15,
+      "chapter": "次の一手",
+      "title": "まず一つ、困りごとをください",
+      "lead": "次の打ち合わせでは、実際の困りごとを一つ選び、試す範囲と関わり方を一緒に決めさせてください。",
+      "body": [
+        "「うちなら、どこで使えるか」。まず、普段いちばん困っている連絡を一つ教えてください。",
+        "作り方は分からなくて大丈夫です。最初に必要なのは、「こうなったらいい」の一言だけです。",
+        "試す前に、接続できる範囲、情報の扱い、導入支援費や外部サービス費の有無を確認します。",
+        "次回は「試す業務」「本人が確認する場所」「使う側か支える側か」の三点を決めましょう。",
+        "一つ試し、直し、次へ広げる。その最初の一件をご一緒できればと思っています。"
+      ],
+      "image": "The office worker and a business owner sit across a small consultation table. The owner places one troublesome envelope at the center. Beside it, three physical cards show a work tray, a human-operated approval button, and two people installing a laptop. The worker points to the envelope, ready to begin. In the background, one empty trial desk waits with a closed laptop and a single inbox tray.",
+      "image_note": "抽象的な参加募集で終わらせず、実際の一件を持ち寄って試す相談へ着地させる。"
+    }
+  ]
+}

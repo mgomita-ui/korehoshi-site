@@ -21,6 +21,9 @@ h1,h2,h3{margin:0;line-height:1.35;font-weight:900;letter-spacing:.01em}
 .top .w{display:flex;align-items:center;height:64px}
 .logo{font-weight:900;font-size:20px;text-decoration:none;color:var(--blue)}
 .logo small{font-weight:500;color:var(--ink3);font-size:12px;margin-left:10px}
+.pat{display:inline-block;font-size:11.5px;font-weight:900;color:var(--blue);border:1.5px solid var(--blue);border-radius:4px;padding:1px 7px;margin-left:10px;letter-spacing:.06em;vertical-align:2px}
+.hero .pat{color:#fff;border-color:rgba(255,255,255,.8);margin-left:8px;vertical-align:4px}
+@media(max-width:600px){.top .pat{display:none}}
 .top .cta{margin-left:auto;font-size:14px;font-weight:700;text-decoration:none;background:var(--blue);color:#fff;border-radius:999px;padding:9px 18px;white-space:nowrap}
 @media(max-width:640px){.logo small{display:none}.top .cta{font-size:13px;padding:8px 14px}.top .cta .long{display:none}}
 .btn{display:inline-flex;align-items:center;gap:8px;background:var(--blue);color:#fff;text-decoration:none;font-weight:900;font-size:16px;padding:15px 28px;border-radius:999px;box-shadow:0 10px 24px rgba(11,63,168,.25)}
@@ -452,13 +455,13 @@ footer p{margin:4px 0}
 <body>
 
 <header class="top"><div class="w">
-  <a class="logo" href="#">これほし<small>これが欲しかった</small></a>
+  <a class="logo" href="#">これほし<small>これが欲しかった</small><span class="pat">特許出願中</span></a>
   <a class="cta" href="https://line.me/R/ti/p/@232zafzm">詳細は<span class="long">公式</span>LINEで</a>
 </div></header>
 
 <section class="hero"><div class="w">
   <div>
-    <span class="kicker">AI時代の連絡大爆発</span>
+    <span class="kicker">AI時代の連絡大爆発</span><span class="pat">特許出願中</span>
     <h1>解決策は、<br>やはり<span class="q">「AI」</span>。</h1>
     <p class="sub">返信の準備はAI。送るのは、私。</p>
     <p class="p">LINE・チャットワーク・メールの連絡が1か所に集まり、届いた時点でAIが読んで、要点と返信の下書きを済ませておく「連絡の受信箱」です。必ず「これ欲しかった」と言われるので、「これほし」と名付けました。</p>
@@ -695,7 +698,7 @@ footer p{margin:4px 0}
 
 <footer><div class="w">
   <p>これほし（これが欲しかった）／どこでも扉　運営：社会保険労務士 五味田匡功（レリック社会保険労務士法人）。社労士の私が、自分の実務のために作り、毎日使っています。</p>
-  <p>掲載している画面はすべて架空のデータです。</p>
+  <p>掲載している画面はすべて架空のデータです。これほし／どこでも扉の仕組みは特許出願中です。</p>
 </div></footer>
 
 <script src="steps-anim.js" defer></script>

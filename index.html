@@ -449,6 +449,28 @@ ul.rules li b{display:block;color:var(--ink);font-size:14.5px}
 .last .btn{margin-top:22px;background:#fff;color:var(--blue)}
 footer{padding:26px 0 44px;font-size:12.5px;color:var(--ink3)}
 footer p{margin:4px 0}
+
+/* 漫画 */
+.manga .lead{margin-bottom:22px}
+.mg-strip{display:flex;gap:14px;overflow-x:auto;padding:4px 4px 16px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch}
+.mg-strip::-webkit-scrollbar{height:8px}
+.mg-strip::-webkit-scrollbar-thumb{background:var(--line);border-radius:999px}
+.mg-strip button{flex:0 0 auto;width:150px;padding:0;border:1px solid var(--line);background:#fff;border-radius:12px;overflow:hidden;cursor:pointer;scroll-snap-align:start;position:relative;box-shadow:0 2px 8px rgba(17,24,39,.05);transition:transform .15s,box-shadow .15s}
+.mg-strip button:hover{transform:translateY(-3px);box-shadow:0 10px 22px rgba(11,63,168,.16)}
+.mg-strip button img{width:100%;aspect-ratio:2/3;object-fit:cover;object-position:top}
+.mg-strip button i{position:absolute;right:6px;bottom:6px;font-style:normal;font-size:11px;font-weight:900;color:#fff;background:rgba(17,24,39,.72);border-radius:999px;padding:1px 8px}
+.mg-open{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:6px}
+.mg-open small{color:var(--ink3);font-size:13px}
+@media(max-width:640px){.mg-strip button{width:118px}}
+/* 読む画面 */
+.mg-view{position:fixed;inset:0;z-index:60;background:rgba(10,20,40,.94);display:none;align-items:center;justify-content:center}
+.mg-view.on{display:flex}
+.mg-view img{max-width:min(94vw,700px);max-height:88vh;border-radius:6px;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.mg-view .nav{position:absolute;top:0;bottom:0;width:26%;border:0;background:transparent;cursor:pointer;color:#fff;font-size:34px;font-weight:900;opacity:.55}
+.mg-view .nav:hover{opacity:1;background:linear-gradient(90deg,rgba(255,255,255,.08),transparent)}
+.mg-view .prev{left:0}.mg-view .next{right:0;background-image:linear-gradient(270deg,rgba(255,255,255,.08),transparent)}
+.mg-view .cnt{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);color:#fff;font-size:13px;font-weight:700;background:rgba(0,0,0,.4);border-radius:999px;padding:4px 14px}
+.mg-view .cls{position:absolute;top:12px;right:14px;border:0;background:rgba(255,255,255,.14);color:#fff;font-size:20px;font-weight:900;border-radius:999px;width:40px;height:40px;cursor:pointer}
 </style>
 <link rel="stylesheet" href="steps-anim.css">
 </head>
@@ -500,6 +522,61 @@ footer p{margin:4px 0}
     <li><img class="pic" src="img/aru/aru6.jpg" alt=""><b>分からなくなって、えいや。</b><p>AIの言っていること・やっていることが追えなくなり、確かめずに投げてしまう。</p><span class="so">AIがやったことは履歴に残る。送るボタンは、人だけが押す</span></li>
   </ul>
 </div></section>
+
+
+<section class="soft manga"><div class="w">
+  <h2>漫画で読む。</h2>
+  <p class="lead">未返信24件の夜から、翌朝までの16ページ。リフォーム会社の社長・堂島みゆきの話です。</p>
+  <div class="mg-strip" id="mgStrip"></div>
+  <div class="mg-open">
+    <a class="btn" href="#" id="mgStart">1ページ目から読む</a>
+    <small>画像をクリックすると大きく開きます。← → で move、Esc で閉じます。</small>
+  </div>
+</div></section>
+
+<div class="mg-view" id="mgView" aria-hidden="true">
+  <button class="cls" id="mgCls" aria-label="閉じる">×</button>
+  <button class="nav next" id="mgNext" aria-label="次のページ">‹</button>
+  <img id="mgImg" src="" alt="">
+  <button class="nav prev" id="mgPrev" aria-label="前のページ">›</button>
+  <div class="cnt" id="mgCnt">1 / 16</div>
+</div>
+
+<script>
+(function(){
+  var N=16, i=0;
+  var src=function(n){return 'img/manga/p'+String(n+1).padStart(2,'0')+'.jpg';};
+  var strip=document.getElementById('mgStrip');
+  for(var k=0;k<N;k++){(function(k){
+    var b=document.createElement('button');
+    b.innerHTML='<img loading="lazy" src="'+src(k)+'" alt="漫画 '+(k+1)+'ページ目"><i>'+(k+1)+'</i>';
+    b.onclick=function(){open(k);};
+    strip.appendChild(b);
+  })(k);}
+  var view=document.getElementById('mgView'), img=document.getElementById('mgImg'), cnt=document.getElementById('mgCnt');
+  function show(){img.src=src(i);cnt.textContent=(i+1)+' / '+N;}
+  function open(k){i=k;show();view.classList.add('on');view.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';}
+  function close(){view.classList.remove('on');view.setAttribute('aria-hidden','true');document.body.style.overflow='';}
+  function go(d){i=(i+d+N)%N;show();}
+  document.getElementById('mgStart').onclick=function(e){e.preventDefault();open(0);};
+  document.getElementById('mgCls').onclick=close;
+  document.getElementById('mgPrev').onclick=function(){go(-1);};
+  document.getElementById('mgNext').onclick=function(){go(1);};
+  view.addEventListener('click',function(e){if(e.target===view)close();});
+  document.addEventListener('keydown',function(e){
+    if(!view.classList.contains('on'))return;
+    if(e.key==='Escape')close();
+    if(e.key==='ArrowLeft')go(1);
+    if(e.key==='ArrowRight')go(-1);
+  });
+  var x0=null;
+  view.addEventListener('touchstart',function(e){x0=e.touches[0].clientX;},{passive:true});
+  view.addEventListener('touchend',function(e){
+    if(x0===null)return; var dx=e.changedTouches[0].clientX-x0; x0=null;
+    if(Math.abs(dx)>40) go(dx>0?1:-1);
+  },{passive:true});
+})();
+</script>
 
 <section><div class="w">
   <h2>連絡は、<span class="b">AI</span>で加速している。</h2>

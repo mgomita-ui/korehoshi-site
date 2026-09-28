@@ -466,11 +466,16 @@ footer p{margin:4px 0}
 .mg-view{position:fixed;inset:0;z-index:60;background:rgba(10,20,40,.94);display:none;align-items:center;justify-content:center}
 .mg-view.on{display:flex}
 .mg-view img{max-width:min(94vw,700px);max-height:88vh;border-radius:6px;box-shadow:0 20px 60px rgba(0,0,0,.5)}
-.mg-view .nav{position:absolute;top:0;bottom:0;width:26%;border:0;background:transparent;cursor:pointer;color:#fff;font-size:34px;font-weight:900;opacity:.55}
+.mg-view .nav{position:absolute;z-index:1;top:64px;bottom:0;width:26%;border:0;background:transparent;cursor:pointer;color:#fff;font-size:34px;font-weight:900;opacity:.55}
 .mg-view .nav:hover{opacity:1;background:linear-gradient(90deg,rgba(255,255,255,.08),transparent)}
 .mg-view .prev{left:0}.mg-view .next{right:0;background-image:linear-gradient(270deg,rgba(255,255,255,.08),transparent)}
 .mg-view .cnt{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);color:#fff;font-size:13px;font-weight:700;background:rgba(0,0,0,.4);border-radius:999px;padding:4px 14px}
-.mg-view .cls{position:absolute;top:12px;right:14px;border:0;background:rgba(255,255,255,.14);color:#fff;font-size:20px;font-weight:900;border-radius:999px;width:40px;height:40px;cursor:pointer}
+.mg-view .cls{position:absolute;z-index:3;top:12px;right:14px;border:0;background:rgba(255,255,255,.14);color:#fff;font-size:20px;font-weight:900;border-radius:999px;width:40px;height:40px;cursor:pointer}
+
+.qrbox{display:flex;align-items:center;gap:12px;margin-top:16px}
+.qrbox img{width:104px;height:104px;background:#fff;border-radius:10px;padding:6px;border:1px solid var(--line)}
+.qrbox span{font-size:13px;color:var(--ink3)}
+.last .qrbox span{color:rgba(255,255,255,.75)}
 </style>
 <link rel="stylesheet" href="steps-anim.css">
 </head>
@@ -529,8 +534,9 @@ footer p{margin:4px 0}
   <p class="lead">未返信24件の夜から、翌朝までの16ページ。リフォーム会社の社長・堂島みゆきの話です。</p>
   <div class="mg-strip" id="mgStrip"></div>
   <div class="mg-open">
-    <a class="btn" href="#" id="mgStart">1ページ目から読む</a>
-    <small>画像をクリックすると大きく開きます。← → で move、Esc で閉じます。</small>
+    <a class="btn" href="manga/">全画面で読む（16ページ）</a>
+    <a class="btn w" href="#" id="mgStart">ここで1ページ目から</a>
+    <small>画像をクリックすると大きく開きます。← → でめくり、Esc で閉じます。</small>
   </div>
 </div></section>
 
@@ -769,6 +775,7 @@ footer p{margin:4px 0}
   <p>売り込みはしません。使っている連絡手段と、返信・依頼の流れを伺って、合うかどうかから一緒に考えます。</p>
   <div class="how">友だち追加して「これほし」と送ると、詳しい案内が届きます。自社なら、どの連絡をまとめるか。そこから一緒に考えます。</div>
   <a class="btn" href="https://line.me/R/ti/p/@232zafzm">詳細は公式LINEにて</a>
+  <div class="qrbox"><img src="img/line-qr.png" alt="公式LINEの友だち追加QRコード" width="360" height="360"><span>スマホのカメラで読み取れます</span></div>
   </div>
   <img class="pic" src="img/cta.jpg" alt="">
 </div></section>

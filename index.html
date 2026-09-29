@@ -9,7 +9,7 @@
 <meta property="og:description" content="返信の準備はAI。送るのは、私。">
 <meta property="og:image" content="img/og.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@600;700;800&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
 <style>
 :root{--blue:#0B3FA8;--blue2:#062B78;--blue-soft:#EEF3FC;--ink:#111827;--ink2:#4b5563;--ink3:#8b93a1;--line:#e3e7ee;--accent:#E85B52;--white:#fff;--lime:#DFF25A}
 *{box-sizing:border-box}html{scroll-behavior:smooth}
@@ -476,6 +476,78 @@ footer p{margin:4px 0}
 .qrbox img{width:104px;height:104px;background:#fff;border-radius:10px;padding:6px;border:1px solid var(--line)}
 .qrbox span{font-size:13px;color:var(--ink3)}
 .last .qrbox span{color:rgba(255,255,255,.75)}
+
+/* ===== テイスト変更（2026-09-29）：白×淡い青、紺の明朝、金の強調 ===== */
+:root{--blue:#0B2A5B;--blue2:#081E42;--blue-soft:#EEF4FC;--sky:#1F5FBF;--ink:#16223a;--ink2:#46536b;--ink3:#7d889b;--line:#dfe6f1;
+  --gold:#C2922F;--gold-deep:#7A5510;--gold-soft:#F7F0DF;--goldgrad:linear-gradient(135deg,#D9B257 0%,#B5842A 45%,#8C6214 100%);
+  --mincho:"Shippori Mincho B1","Noto Serif JP","Yu Mincho",serif}
+h1,h2{font-family:var(--mincho);font-weight:700;letter-spacing:.03em;color:var(--blue)}
+h2{font-size:34px}
+@media(max-width:640px){h2{font-size:25px}}
+/* ヘッダー */
+.top .w{height:68px}
+.logo{font-family:var(--mincho);font-size:27px;font-weight:800;color:var(--blue);display:flex;align-items:baseline;gap:6px;letter-spacing:.04em}
+.logo small{order:-1;margin:0;font-family:"Noto Sans JP",sans-serif;font-size:12px;color:var(--blue);font-weight:700}
+.logo small:before{content:"＼";margin-right:2px}.logo small:after{content:"！"}
+.logo .pat{align-self:center}
+.top .cta{background:var(--goldgrad);padding:11px 22px;box-shadow:0 6px 16px rgba(140,98,20,.28);letter-spacing:.04em}
+.top .cta:after{content:"　→"}
+.btn{background:var(--goldgrad);box-shadow:0 10px 24px rgba(140,98,20,.30);letter-spacing:.05em}
+.btn:after{content:"→";margin-left:6px}
+.btn:hover{background:var(--goldgrad);filter:brightness(1.06)}
+/* ヒーロー：明るい写真の上に */
+.hero{position:relative;color:var(--ink);background:#F4F8FD url(img/line/hero-bg.jpg) right center/cover no-repeat}
+.hero:before{content:"";position:absolute;inset:0;background:linear-gradient(100deg,rgba(255,255,255,.97) 0%,rgba(255,255,255,.93) 42%,rgba(255,255,255,.55) 70%,rgba(255,255,255,.25) 100%)}
+.hero:after{content:"";position:absolute;left:-140px;top:-210px;width:440px;height:440px;background:linear-gradient(135deg,#0B2A5B,#1F5FBF);opacity:.13;transform:rotate(30deg);border-radius:60px;box-shadow:24px 24px 0 -21px rgba(194,146,47,.9)}
+.hero .w{position:relative;z-index:1;padding-top:50px;padding-bottom:60px}
+@media(min-width:861px){.hero .w{grid-template-columns:.95fr 1.05fr}}
+@media(max-width:860px){.hero .w{grid-template-columns:1fr;gap:26px;padding-top:34px;padding-bottom:44px}.hero:before{background:rgba(255,255,255,.9)}}
+.hero .kicker{background:none;border:0;border-radius:0;padding:0;color:var(--blue);font-size:16px;font-weight:500;display:inline-flex;align-items:center;gap:12px;letter-spacing:.06em;margin-bottom:10px}
+.hero .kicker:before{content:"";width:46px;height:2px;background:var(--blue)}
+.hero .pat{color:var(--blue);border-color:var(--blue)}
+.hero h1{color:var(--blue);font-size:50px;line-height:1.35}
+.hero h1 .q{color:transparent;background:var(--goldgrad);-webkit-background-clip:text;background-clip:text;font-size:1.2em}
+.hero .sub{color:var(--blue);font-family:var(--mincho);font-size:23px;margin-top:10px;display:inline-block;background:linear-gradient(transparent 82%,rgba(194,146,47,.35) 82%)}
+.hero .p{color:var(--ink2);font-size:15px;line-height:1.9}
+.checks{list-style:none;padding:0;margin:18px 0 0;display:flex;flex-direction:column;gap:9px}
+.checks li{position:relative;padding-left:40px;font-size:15.5px;line-height:1.65;color:var(--ink)}
+.checks li:before{content:"✓";position:absolute;left:0;top:0;width:28px;height:28px;border-radius:50%;background:var(--goldgrad);color:#fff;font-weight:900;font-size:15px;display:grid;place-items:center;box-shadow:0 4px 10px rgba(140,98,20,.25)}
+.checks b{color:var(--sky);font-weight:900;font-size:1.12em;background:linear-gradient(transparent 80%,rgba(194,146,47,.32) 80%)}
+.hero .cta small{color:var(--ink2)}
+.hero .cta .btn{background:var(--goldgrad);color:#fff;box-shadow:0 10px 24px rgba(140,98,20,.30)}
+.hero .cta .btn:hover{background:var(--goldgrad)}
+.badges{display:flex;gap:10px;justify-content:flex-end;margin:0 0 14px}
+.badges span{width:108px;height:108px;border-radius:50%;background:#fff;border:2px solid var(--gold);box-shadow:0 8px 20px rgba(11,42,91,.14),inset 0 0 0 4px #fff,inset 0 0 0 5px rgba(194,146,47,.35);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;font-family:var(--mincho);font-weight:700;color:var(--blue);font-size:15px;line-height:1.3}
+.badges svg{width:28px;height:28px;stroke:var(--sky);fill:none;stroke-width:1.800;stroke-linecap:round;stroke-linejoin:round;margin-bottom:3px}
+.hero .dd{box-shadow:0 30px 60px rgba(11,42,91,.25);border:8px solid #1a2233;border-radius:14px}
+.hero .hnote{color:var(--ink2)}.hero .hnote b{color:var(--blue)}
+@media(max-width:860px){.hero h1{font-size:34px}.badges{justify-content:center;flex-wrap:nowrap;gap:6px}.badges span{width:78px;height:78px;font-size:11.5px}.badges svg{width:20px;height:20px}.hero .dd{border-width:5px}}
+/* 節の見出し：金の線つきの英字 */
+.kk{display:flex;align-items:center;justify-content:center;gap:14px;color:var(--gold);font-size:13px;font-weight:700;letter-spacing:.24em;margin-bottom:6px}
+.kk:before,.kk:after{content:"";width:60px;height:1.5px;background:var(--gold)}
+.aru{background:linear-gradient(180deg,#F6F9FE 0%,#fff 100%)}
+.aru h2{text-align:center;font-size:42px}
+.aru .lead{text-align:center;letter-spacing:.14em}
+@media(max-width:640px){.aru h2{font-size:27px}.kk:before,.kk:after{width:30px}}
+/* あるある：番号＋線画＋解決の枠 */
+.aru-list{counter-reset:aru;gap:18px;margin-top:34px}
+.aru-list li{counter-increment:aru;position:relative;background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:0 10px 26px rgba(11,42,91,.07);padding:20px 16px 14px;grid-template-columns:46% 1fr;column-gap:12px;grid-row:span 3}
+.aru-list li:before{content:"0" counter(aru);position:absolute;left:10px;top:10px;width:38px;height:38px;border-radius:50%;background:var(--blue);color:#fff;font-family:var(--mincho);font-size:16px;display:grid;place-items:center;z-index:1;box-shadow:0 0 0 3px #fff}
+.aru-list li .pic{grid-column:1;grid-row:1/3;width:100%;margin:0;aspect-ratio:auto;object-fit:contain;border:0;border-radius:0;background:none;align-self:center}
+.aru-list li b{grid-column:2;grid-row:1;font-family:var(--mincho);font-size:17.5px;padding-top:6px;color:var(--blue);align-self:end;line-height:1.5}
+.aru-list li p{grid-column:2;grid-row:2;font-size:13px;margin:4px 0 10px;line-height:1.65}
+.aru-list li .so{grid-column:1/-1;grid-row:3;border-top:0;background:var(--blue-soft);border-radius:10px;padding:10px 12px 10px 46px;position:relative;color:var(--blue);font-size:14.5px;align-self:stretch}
+.aru-list li .so:before{content:"";position:absolute;left:10px;top:50%;transform:translateY(-50%);width:28px;height:28px;border-radius:50%;background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23C2922F' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 18h6M10 21h4M12 3a6 6 0 0 0-4 10.500c.700.700 1 1.500 1 2.500h6c0-1 .300-1.800 1-2.500A6 6 0 0 0 12 3z'/%3E%3C/svg%3E") center/18px no-repeat;border:1.5px solid var(--gold);padding:0;margin:0}
+@supports not (grid-template-rows:subgrid){.aru-list li{display:grid}}
+@media(max-width:600px){.aru-list li{grid-template-columns:36% 1fr}}
+/* そのほか */
+section.soft{background:linear-gradient(180deg,#F3F7FD 0%,#fff 100%)}
+.last{background:linear-gradient(135deg,#0B2A5B 0%,#123C7E 100%)}
+.last .btn{background:var(--goldgrad);color:#fff}
+.last h2{color:#fff}
+.act .n{background:var(--blue);color:#fff;border-radius:999px;padding:3px 14px}
+.act h3{font-family:var(--mincho);color:var(--blue)}
+.tagp .v,.tl .v{font-family:var(--mincho);color:var(--blue)}
 </style>
 <link rel="stylesheet" href="steps-anim.css">
 </head>
@@ -492,9 +564,11 @@ footer p{margin:4px 0}
     <h1>解決策は、<br>やはり<span class="q">「AI」</span>。</h1>
     <p class="sub">返信の準備はAI。送るのは、私。</p>
     <p class="p">LINE・チャットワーク・メールの連絡が1か所に集まり、届いた時点でAIが読んで、要点と返信の下書きを済ませておく「連絡の受信箱」です。必ず「これ欲しかった」と言われるので、「これほし」と名付けました。</p>
+    <ul class="checks"><li>LINEやメール・チャットワークなど、<b>あらゆる連絡を一括管理</b>。</li><li>AIで<b>整理・タスク化・返信準備・資料作成</b>まで支えます。</li><li>抜け漏れを防ぎ、<b>正確さ</b>と<b>推進力</b>を高めます。</li></ul>
     <div class="cta"><a class="btn" href="https://line.me/R/ti/p/@232zafzm">詳細は公式LINEにて</a><small>友だち追加すると、詳しい案内と相談の窓口が届きます。</small></div>
   </div>
   <div class="hw">
+    <div class="badges" aria-hidden="true"><span><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>抜け漏れ<br>防止</span><span><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>返信時間を<br>短縮</span><span><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg>タスク<br>自動整理</span><span><svg viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6zM14 3v5h5M9 12h7M9 16h7"/></svg>資料準備を<br>効率化</span></div>
     <div class="app dd">
       <div class="bar">どこでも扉 ― AIのブラウザで開ける受信箱<span class="order">順番：右に届く → 左で頼む → AIが右を読む → 右に下書き → 人が送る</span></div>
       <div class="panes">
@@ -516,15 +590,16 @@ footer p{margin:4px 0}
 </div></section>
 
 <section class="aru"><div class="w">
+  <div class="kk">PROBLEM</div>
   <h2>こんなこと、ありませんか？</h2>
-  <p class="lead">一つでも当てはまったら、このページはあなた向けです。</p>
+  <p class="lead">一つでも当てはまるなら、これほしが力になります。</p>
   <ul class="aru-list">
-    <li><img class="pic" src="img/aru/aru1.jpg" alt=""><b>「後でやろう」が、そのまま消える。</b><p>置いておいたら、忘れていた。気づくのは催促が来てから。</p><span class="so">返した瞬間に「やること」と期日が残る。忘れても、受信箱が覚えている</span></li>
-    <li><img class="pic" src="img/aru/aru2.jpg" alt=""><b>軽いのから片づけて、重いのがたまる。</b><p>気持ちは楽になるが、重めのタスクは残り続けて、テンションが下がる。</p><span class="so">朝いちばんに「今日返すもの」だけが先頭に並ぶ</span></li>
-    <li><img class="pic" src="img/aru/aru3.jpg" alt=""><b>経緯を調べてから返す。だから遅い。</b><p>過去のやり取りや資料を確認してから回答するので、返事に時間がかかる。</p><span class="so">AIが先に過去の会話と資料を読み、要点と下書きを用意する</span></li>
-    <li><img class="pic" src="img/aru/aru4.jpg" alt=""><b>AIが作った文章が、読めない。</b><p>相手がAIで作った文章や資料は長くて濃く、読み解くのに時間がかかる。</p><span class="so">要点3行にしてから見せる。判断だけすればいい</span></li>
-    <li><img class="pic" src="img/aru/aru5.jpg" alt=""><b>AIにコピペする係になっている。</b><p>連絡のたびに、AIへコピペしてアップロードする役割が増えた。</p><span class="so">入口ごとに直接つなぐ。コピペもアップロードもいらない</span></li>
-    <li><img class="pic" src="img/aru/aru6.jpg" alt=""><b>分からなくなって、えいや。</b><p>AIの言っていること・やっていることが追えなくなり、確かめずに投げてしまう。</p><span class="so">AIがやったことは履歴に残る。送るボタンは、人だけが押す</span></li>
+    <li><img class="pic" src="img/line/a1.jpg" alt=""><b>「後でやろう」が、そのまま消える。</b><p>置いておいたら、忘れていた。気づくのは催促が来てから。</p><span class="so">返した瞬間に「やること」と期日が残る。忘れても、受信箱が覚えている</span></li>
+    <li><img class="pic" src="img/line/a2.jpg" alt=""><b>軽いのから片づけて、重いのがたまる。</b><p>気持ちは楽になるが、重めのタスクは残り続けて、テンションが下がる。</p><span class="so">朝いちばんに「今日返すもの」だけが先頭に並ぶ</span></li>
+    <li><img class="pic" src="img/line/a3.jpg" alt=""><b>経緯を調べてから返す。だから遅い。</b><p>過去のやり取りや資料を確認してから回答するので、返事に時間がかかる。</p><span class="so">AIが先に過去の会話と資料を読み、要点と下書きを用意する</span></li>
+    <li><img class="pic" src="img/line/a4.jpg" alt=""><b>AIが作った文章が、読めない。</b><p>相手がAIで作った文章や資料は長くて濃く、読み解くのに時間がかかる。</p><span class="so">要点3行にしてから見せる。判断だけすればいい</span></li>
+    <li><img class="pic" src="img/line/a5.jpg" alt=""><b>AIにコピペする係になっている。</b><p>連絡のたびに、AIへコピペしてアップロードする役割が増えた。</p><span class="so">入口ごとに直接つなぐ。コピペもアップロードもいらない</span></li>
+    <li><img class="pic" src="img/line/a6.jpg" alt=""><b>分からなくなって、えいや。</b><p>AIの言っていること・やっていることが追えなくなり、確かめずに投げてしまう。</p><span class="so">AIがやったことは履歴に残る。送るボタンは、人だけが押す</span></li>
   </ul>
 </div></section>
 

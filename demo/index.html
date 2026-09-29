@@ -2982,7 +2982,9 @@ async function renderFeatures() {
     ["weekly", "週次の見直し", "［やること］の［見直し］に、締切超過・長い相手待ち・保留・止まった要対応を並べる"],
     ["autoCalendar", "日程が決まったら聞く", "会話で日時が決まったら、カレンダーに入れるかをポップアップで聞く（相手は招待しない）"],
     ["autoDest", "行き先をAIが決める", "返信不要・自分がやる・振る・相手待ちは、AIが判断してそのまま片付ける。返信する・保留は人が決める。控えは「今日の自動処理」から取り消せる"],
-    ["aiPrep", "AIに準備させる", "会話の行き先に［日程の予定案］［催促の送信セット］を出す。登録・送信は人が押す"]
+    ["aiPrep", "AIに準備させる", "会話の行き先に［日程の予定案］［催促の送信セット］を出す。登録・送信は人が押す"],
+    ["morning", "朝の3問と今日の段取り", "朝いちばんに、寝た時間といまの頭の状態をボタンだけで聞き、今日の予定の空きに合わせて、大事な判断・瞑想・仮眠の時間を提案する。予定に入れるのは人が押したときだけ。答えは本人だけに残る"],
+    ["morningDrink", "朝の3問：昨夜のお酒も聞く", "切ると、寝た時間と頭の状態の2問になる（社員に配るときは切っておくのがおすすめ）"]
   ];
   $("#detail").innerHTML = '<div class="dhead"><b>機能</b></div><div id="msgs" style="display:block">'
     + '<p class="hint">使わない機能は切ると画面から消えます。送信は、どの設定でも必ず人が確認して押します。</p>'
@@ -3197,6 +3199,7 @@ $("#digest").onclick = async function () {
     + '<span class="hint">30分は同じものを表示します。</span></div></div>';
 
   $("#msgs").innerHTML = h;
+  if (window.morningMount) morningMount($("#msgs"));
   $("#msgs").onclick = function (ev) {
     var b = ev.target.closest("[data-open]");
     if (b) { $("#tabInbox").click(); openThread(b.dataset.open); return; }
@@ -3547,5 +3550,6 @@ setInterval(async function () {
   openThread(state.current);
 }, 30000);
 </script>
+<script src="morning.js"></script>
 <script src="demo-view.js"></script>
 </body></html>

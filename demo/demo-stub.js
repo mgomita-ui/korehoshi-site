@@ -44,7 +44,18 @@
     return m ? decodeURIComponent(m[1].replace(/\+/g, " ")) : null;
   }
 
-  function route(path, query, method) {
+  function route(path, query, method, body) {
+    // 朝の3問。答えはこの画面を開いているあいだだけ覚えておく（見本なので保存しない）。
+    if (path === "/morning") {
+      if (method === "GET") {
+        var M = D.morning;
+        return { answer: D.morningAnswer || null, last: M.last, lastSent: M.lastSent, guess: M.guess,
+                 events: M.events, decisions: M.decisions };
+      }
+      try { D.morningAnswer = JSON.parse(body || "{}"); } catch (e) {}
+      return { ok: true };
+    }
+    if (path === "/calendar/add") return { ok: true };
     if (path === "/threads") {
       return {
         threads: D.threads, tasks: D.tasks, categories: D.categories,
@@ -159,7 +170,7 @@
     var query = q < 0 ? "" : rest.slice(q);
     var data;
     try {
-      data = route(path, query, method);
+      data = route(path, query, method, init && init.body);
     } catch (e) {
       data = { error: "見本のデータを組み立てられませんでした" };
     }

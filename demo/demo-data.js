@@ -17,6 +17,25 @@
   var FEATURES = {
     hold: true, bulk: true, senderRule: false, checkDays: 3, aiPrep: true,
     nextStep: false, today: true, dayMinutes: 240, close: true, weekly: true, weeklyDay: 5,
+    morning: true, morningDrink: true,
+  };
+
+  // 朝の3問（2026-09-30）。昨夜の最後の予定と、最後に返信を確定した時刻から、答えを先に推測しておく。
+  var MORNING = {
+    last: { title: "ミナト商事 取引先との懇親会", end: "21:30" },
+    lastSent: "23:48",
+    guess: { drink: "some", bed: 24.5 },
+    events: [
+      { start: "09:30", end: "10:00", title: "社内朝礼" },
+      { start: "11:00", end: "12:00", title: "【WEB】ひまわり製作所 日向さま 定例" },
+      { start: "14:00", end: "15:30", title: "ミナト商事 桜井さま 打ち合わせ", note: "来期の採用方針を決める" },
+      { start: "16:00", end: "16:30", title: "山吹物流 山吹さん 月次の確認" },
+    ],
+    decisions: [
+      { id: "k1", label: "来期の採用方針を決める", at: "14:00", from: "予定：桜井さま 打ち合わせ" },
+      { id: "k2", label: "支払条件の変更に返事する", at: null, from: "要対応：山吹物流 山吹さん" },
+      { id: "k3", label: "展示会の当日スタッフの割り当て", at: null, from: "やること" },
+    ],
   };
 
   var CATEGORIES = ["問い合わせ", "見積・料金", "日程調整", "資料・書類", "手続き依頼",
@@ -444,5 +463,6 @@
   window.DEMO = {
     at: at, accounts: ACCOUNTS, features: FEATURES, categories: CATEGORIES, tones: TONES,
     threads: THREADS, tasks: TASKS, quieted: QUIETED, detail: DETAIL, prepset: PREPSET,
+    morning: MORNING,
   };
 })();

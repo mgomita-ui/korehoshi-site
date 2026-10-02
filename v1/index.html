@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
+<base href="../">
+<meta name="robots" content="noindex">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>これほし｜AI時代の連絡大爆発。解決策は、やはり「AI」。</title>
@@ -616,71 +618,6 @@ strong,.act p strong{background:linear-gradient(transparent 72%,rgba(194,146,47,
 .last .pic{background:#fff;border-radius:14px;padding:10px;box-shadow:0 20px 44px rgba(0,0,0,.25)}
 .last .how{border-color:rgba(194,146,47,.7);background:rgba(255,255,255,.08)}
 footer{background:#081E42;color:rgba(255,255,255,.72);padding:26px 0 40px}
-
-/* ===== 改定（2026-10-02）：朝の段取り・日程調整・任せ具合・取り替えられるAI ===== */
-/* トップの「新しく」 */
-.newrow{display:flex;flex-wrap:wrap;align-items:center;gap:6px 8px;margin:14px 0 0}
-.newrow b{font-size:11.5px;font-weight:900;letter-spacing:.12em;color:#fff;background:var(--goldgrad);border-radius:999px;padding:2px 10px}
-.newrow span{font-size:13px;font-weight:700;color:var(--blue);background:#fff;border:1px solid var(--line);border-radius:999px;padding:2px 11px}
-/* 01 朝の段取り：LINEに届く1枚 */
-.morn{display:flex;flex-direction:column;gap:8px}
-.morn .hd{display:flex;align-items:center;justify-content:space-between;font-size:12px;color:var(--ink3)}
-.morn .hd b{font-family:var(--mincho);font-size:17px;color:var(--blue)}
-.morn .hd b:before{content:"☀";color:var(--gold);margin-right:6px}
-.morn .row{display:grid;grid-template-columns:92px 1fr auto;gap:10px;align-items:center;background:var(--blue-soft);border-radius:10px;padding:9px 12px;font-size:13.5px;color:var(--ink);line-height:1.5}
-.morn .row i{font-style:normal;font-size:11px;font-weight:700;color:var(--blue);background:#fff;border:1px solid #c9d6ea;border-radius:999px;text-align:center;padding:1px 0}
-.morn .row small{font-size:11.5px;color:var(--ink3);white-space:nowrap}
-.morn .row.hu{background:#fdeceb}.morn .row.hu i{color:#b23b33;border-color:#efb9b4}
-.morn .row .go{font-size:11.5px;font-weight:700;color:#fff;background:var(--goldgrad);border-radius:6px;padding:3px 8px;white-space:nowrap}
-.morn .ft{font-size:12px;color:var(--ink3);text-align:right}
-@media(max-width:480px){.morn .row{grid-template-columns:78px 1fr}.morn .row small,.morn .row .go{grid-column:2;justify-self:start}}
-/* 03 読む：3行の要点 */
-.pts{display:flex;flex-direction:column;gap:6px;margin-top:2px}
-.pts div{display:grid;grid-template-columns:96px 1fr;gap:10px;align-items:center;font-size:13.5px;color:var(--ink);background:var(--blue-soft);border-radius:8px;padding:7px 10px}
-.pts div b{font-size:11.5px;color:var(--gold-deep);letter-spacing:.06em}
-/* 04 日程を合わせる */
-.sched{display:flex;flex-direction:column;gap:6px}
-.sched .hd{font-size:12px;color:var(--ink3)}
-.sched .hd b{font-family:var(--mincho);font-size:16px;color:var(--blue);margin-right:8px}
-.sched .slot{display:grid;grid-template-columns:28px 1fr auto;gap:10px;align-items:center;border:1px solid var(--line);border-radius:10px;padding:8px 12px;font-size:14px;color:var(--ink);background:#fff}
-.sched .slot i{font-style:normal;width:24px;height:24px;border-radius:50%;background:var(--blue);color:#fff;font-size:12px;display:grid;place-items:center;font-family:var(--mincho)}
-.sched .slot small{font-size:11.5px;color:var(--ink3)}
-.sched .slot.hold small{color:var(--gold-deep);font-weight:700}
-.sched .out{display:flex;flex-wrap:wrap;gap:6px;margin-top:2px}
-.sched .out span{font-size:12px;color:var(--ink2);background:#f1f3f7;border-radius:999px;padding:2px 10px;text-decoration:line-through;text-decoration-color:rgba(70,83,107,.5)}
-.sched .ft{font-size:12px;color:var(--ink3)}
-/* 06 部署に渡す */
-.seats{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:2px}
-.seats span{font-size:12.5px;font-weight:700;color:var(--blue);background:#fff;border:1px dashed #b9c7df;border-radius:8px;text-align:center;padding:6px 4px}
-.seats span.on{border:1.5px solid var(--gold);background:var(--gold-soft);color:var(--gold-deep)}
-/* 任せ具合：はしご */
-.trust{margin-top:34px;display:grid;grid-template-columns:1fr 34px 1fr 34px 1fr;align-items:stretch}
-.trust .st{background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:0 10px 26px rgba(11,42,91,.07);padding:18px 18px 16px}
-.trust .st em{display:block;font-style:normal;font-size:12px;font-weight:700;letter-spacing:.14em;color:var(--gold-deep)}
-.trust .st b{display:block;font-family:var(--mincho);font-size:20px;color:var(--blue);margin:4px 0 6px}
-.trust .st p{margin:0;font-size:14px;color:var(--ink2);line-height:1.7}
-.trust .st.on{background:var(--blue-soft);border:1.5px solid var(--blue)}
-.trust .ar{display:grid;place-items:center;color:var(--gold);font-size:22px}
-.trust-back{margin:12px auto 0;max-width:760px;text-align:center;font-size:14px;color:var(--ink2)}
-.trust-back b{color:#b23b33}
-.kinds{margin:22px auto 0;max-width:860px;display:flex;flex-wrap:wrap;justify-content:center;gap:8px}
-.kinds span{font-size:13.5px;color:var(--blue);background:#fff;border:1px solid var(--line);border-radius:999px;padding:4px 14px}
-.kinds span.no{color:#b23b33;border-color:#efb9b4;background:#fdeceb;font-weight:700}
-@media(max-width:860px){.trust{grid-template-columns:1fr;gap:6px}.trust .ar{transform:rotate(90deg);height:28px}}
-/* 取り替えられるAI */
-.parts{margin-top:44px;padding-top:34px;border-top:1px solid var(--line)}
-.parts h3{text-align:center;font-family:var(--mincho);font-size:28px;color:var(--blue);margin:0}
-.parts .lead{text-align:center;margin-left:auto;margin-right:auto}
-.parts ul{list-style:none;padding:0;margin:24px 0 0;display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-.parts li{background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:0 10px 26px rgba(11,42,91,.07);padding:16px 18px}
-.parts li b{display:block;font-family:var(--mincho);font-size:17px;color:var(--blue);margin-bottom:4px}
-.parts li span{display:block;font-size:14px;color:var(--ink2);line-height:1.7}
-@media(max-width:760px){.parts ul{grid-template-columns:1fr}.parts h3{font-size:22px}}
-/* 送るのは人：裏付けの一言 */
-.proof{margin:26px auto 0;max-width:820px;display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:center;background:var(--gold-soft);border:1px solid rgba(194,146,47,.45);border-radius:14px;padding:16px 20px}
-.proof i{font-style:normal;width:40px;height:40px;border-radius:50%;background:var(--goldgrad);color:#fff;font-weight:900;display:grid;place-items:center;font-family:var(--mincho)}
-.proof p{margin:0;font-size:15px;color:var(--ink);line-height:1.75}
-.proof p b{font-family:var(--mincho);color:var(--blue);font-size:16.5px;display:block;margin-bottom:2px}
 </style>
 <link rel="stylesheet" href="steps-anim.css">
 </head>
@@ -699,7 +636,6 @@ footer{background:#081E42;color:rgba(255,255,255,.72);padding:26px 0 40px}
     <p class="p">連絡が1か所に集まり、届いた時点でAIが読んで、要点と返信の下書きを済ませておく受信箱です。<br>必ず「これ欲しかった」と言われるので、「これほし」と名付けました。</p>
     <ul class="checks"><li><small>LINEやメール・チャットワークなど、</small><b>あらゆる連絡を一括管理。</b></li><li><small>AIが先に読み、人は確かめるだけ。</small><b>整理・タスク化・返信準備まで。</b></li><li><small>抜け漏れを防ぎ、</small><b>正確さと推進力を高めます。</b></li></ul>
     <div class="cta"><a class="btn" href="https://line.me/R/ti/p/@232zafzm">詳細は公式LINEにて</a><small>友だち追加すると、詳しい案内と相談の窓口が届きます。</small></div>
-    <div class="newrow"><b>NEW</b><span>朝6時の段取り</span><span>日程調整ボタン</span><span>部署ごとのAIへ渡す</span></div>
   </div>
   <div class="hw">
     <div class="badges" aria-hidden="true"><span><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>抜け漏れ<br>防止</span><span><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>返信時間を<br>短縮</span><span><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg>タスク<br>自動整理</span><span><svg viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6zM14 3v5h5M9 12h7M9 16h7"/></svg>資料準備を<br>効率化</span></div>
@@ -729,7 +665,7 @@ footer{background:#081E42;color:rgba(255,255,255,.72);padding:26px 0 40px}
   <p class="lead">一つでも当てはまるなら、これほしが力になります。</p>
   <ul class="aru-list">
     <li><img class="pic" src="img/line/a1.jpg" alt=""><b>「後でやろう」が、そのまま消える。</b><p>置いておいたら、忘れていた。気づくのは催促が来てから。</p><span class="so">返した瞬間に「やること」と期日が残る。忘れても、受信箱が覚えている</span></li>
-    <li><img class="pic" src="img/line/a2.jpg" alt=""><b>軽いのから片づけて、重いのがたまる。</b><p>気持ちは楽になるが、重めのタスクは残り続けて、テンションが下がる。</p><span class="so">朝6時に「今日やること・決めること」が1枚で届く</span></li>
+    <li><img class="pic" src="img/line/a2.jpg" alt=""><b>軽いのから片づけて、重いのがたまる。</b><p>気持ちは楽になるが、重めのタスクは残り続けて、テンションが下がる。</p><span class="so">朝いちばんに「今日返すもの」だけが先頭に並ぶ</span></li>
     <li><img class="pic" src="img/line/a3.jpg" alt=""><b>経緯を調べてから返す。だから遅い。</b><p>過去のやり取りや資料を確認してから回答するので、返事に時間がかかる。</p><span class="so">AIが先に過去の会話と資料を読み、要点と下書きを用意する</span></li>
     <li><img class="pic" src="img/line/a4.jpg" alt=""><b>AIが作った文章が、読めない。</b><p>相手がAIで作った文章や資料は長くて濃く、読み解くのに時間がかかる。</p><span class="so">要点3行にしてから見せる。判断だけすればいい</span></li>
     <li><img class="pic" src="img/line/a5.jpg" alt=""><b>AIにコピペする係になっている。</b><p>連絡のたびに、AIへコピペしてアップロードする役割が増えた。</p><span class="so">入口ごとに直接つなぐ。コピペもアップロードもいらない</span></li>
@@ -819,31 +755,11 @@ footer{background:#081E42;color:rgba(255,255,255,.72);padding:26px 0 40px}
 <section class="soft"><div class="w">
   <div class="kk">FEATURES</div>
   <h2>これほしが、やること。</h2>
-  <p class="lead">朝の段取りから、連絡を集めて、返して、仕事を進めるところまで。これほしの1日を、7つの動作でご紹介します。</p>
+  <p class="lead">連絡を集めるところから仕事を進めるところまで、これほしが5つの動作で手伝います。</p>
   <div class="act">
     <div class="item">
       <div>
-        <span class="n">01　朝いちばん</span>
-        <h3>今日やること・決めることが、朝6時に届く</h3>
-        <p>毎朝、受信箱が前の日までのやり取りと今日の予定を見て、<strong>今日の段取りを1枚にしてLINEに届けます。</strong>自分で「本日中に」「後ほど」と言ったことも拾います。忘れていた約束は、朝のうちに見つかります。</p>
-        <ul><li>今日が期限の約束（自分で言ったことも）</li><li>今日の予定と、その前に読んでおく会話</li><li>予定の重なりと、返事の要る持ちかけ</li><li>支払いの失敗・折り返しの電話など、本人にしかできないこと</li></ul>
-        <p class="foot-note">返事が要るものは、下書きを用意しておきます。送るのは、確かめてから人が押します。</p>
-      </div>
-      <div class="fig">
-        <div class="morn">
-          <div class="hd"><b>今朝の段取り</b><span>10月6日（月）6:00</span></div>
-          <div class="row"><i>期限の約束</i><span>見積の修正版を送る（金曜に「月曜中に」と返信）</span><small>本日中</small></div>
-          <div class="row"><i>今日の予定</i><span>10:00 ひまわり製作所　前に読む：納期の会話</span><small>未返信1</small></div>
-          <div class="row"><i>重なり</i><span>14:00 来客と、別の会話で出た「14時に伺います」</span><span class="go">確かめて送る</span></div>
-          <div class="row hu"><i>本人だけ</i><span>カードの支払いが失敗。10/13までに更新</span><small>メール</small></div>
-          <div class="row hu"><i>折り返し</i><span>年金事務所 担当者様から電話（折り返し要）</span><small>2日前</small></div>
-          <div class="ft">［済み］で消え、［今日はやらない］で明日また出ます</div>
-        </div>
-      </div>
-    </div>
-    <div class="item">
-      <div>
-        <span class="n">02　入ってくる</span>
+        <span class="n">01　入ってくる</span>
         <h3>入口の情報が、そのまま受信箱に入る</h3>
         <p>届いたものは自動で受信箱に集まり、判定専用のAI「Jev（ジェブ）」が振り分けて、PDFや画像も読んでおきます。<strong>コピペも、アップロードも、要りません。</strong>一覧に並ぶのは「まだ返していないものだけ」。</p>
         <ul><li>いま動いている入口：LINE公式アカウント／チャットワーク／メール／議事録</li><li class="api">APIでつなげられる入口：Slack／Microsoft Teams／Outlook／Googleカレンダー／Notion／kintone／Backlog／Zoomの録画 など</li></ul>
@@ -852,12 +768,11 @@ footer{background:#081E42;color:rgba(255,255,255,.72);padding:26px 0 40px}
     </div>
     <div class="item">
       <div>
-        <span class="n">03　読む・取りに行く</span>
+        <span class="n">02　取りに行く</span>
         <h3>どのAIからでも開けて、そのグループの文脈で答える</h3>
         <p>受信箱はAIのブラウザの中で開きます。開いている会話を、AIがそのまま読める。過去のやり取り、届いた資料、頼んだ仕事を踏まえて、<strong>「あの資料のあの話」を前提にした下書き</strong>が出ます。必要な資料は、AIが置き場まで取りに行きます。</p>
         <ul><li>受信箱の中のやり取りと添付</li><li>メール・チャットワークの過去の履歴</li><li class="api">APIでつなげられる置き場：Googleドライブ／Google カレンダー／Notion／OneDrive・SharePoint など</li></ul>
-        <ul><li><b>要点を3行に</b>してから見せる。長い連絡も、判断だけすればいい</li><li><b>別のAIが下書きを見直す</b>。抜け・言いすぎ・日付や名前の食い違いを挙げる</li><li><b>個人情報の多い添付は、先に読まない</b>。人が［読む］を押してから</li></ul>
-        <p class="foot-note">1つのAIに全部を任せません。判定は軽いAI、読み取りと下書きは別のAI、見直しはまた別のAI。仕事ごとに使い分けます。</p>
+        <p class="foot-note">1つのAIに全部を任せません。判定は軽いAI、読み取りと下書きは別のAI、批評はまた別のAI。仕事ごとに使い分けます。</p>
       </div>
       <div class="app">
         <div class="bar">どこでも扉 ― AIのブラウザで開ける受信箱</div>
@@ -874,28 +789,7 @@ footer{background:#081E42;color:rgba(255,255,255,.72);padding:26px 0 40px}
     </div>
     <div class="item">
       <div>
-        <span class="n">04　日程を合わせる</span>
-        <h3>候補出しも、候補への返事も、ボタン1つ</h3>
-        <p>返信欄の［日程調整］を押すと、カレンダーの空きから<strong>候補を5つ、日をばらして</strong>返信欄に入れます。相手から候補が届いたときは、カレンダーと照らして取れる枠を選び、返事の文を入れておきます。</p>
-        <ul><li>土日・祝日・年末年始・ふさがっている予定は外す</li><li>ほかの相手に出している候補とは重ならない</li><li>決まったら聞いてからカレンダーに入れ、Zoomの案内文まで用意</li></ul>
-        <p class="foot-note">文を入れるのは返信欄まで。送るのは、人です。</p>
-      </div>
-      <div class="fig">
-        <div class="sched">
-          <div class="hd"><b>日程の候補</b>来週・再来週／オンライン1時間</div>
-          <div class="slot"><i>1</i><span>10月7日（火）10:00〜11:00</span><small>空き</small></div>
-          <div class="slot"><i>2</i><span>10月8日（水）13:00〜14:00</span><small>空き</small></div>
-          <div class="slot"><i>3</i><span>10月13日（月）11:00〜12:00</span><small>空き</small></div>
-          <div class="slot hold"><i>4</i><span>10月14日（火）14:00〜15:00</span><small>ほかの会話の候補を避けた</small></div>
-          <div class="slot"><i>5</i><span>10月16日（木）10:00〜11:00</span><small>空き</small></div>
-          <div class="out"><span>10/6 移動</span><span>10/9 終日の予定</span><span>10/12 スポーツの日</span></div>
-          <div class="ft">外した日と理由も見えるので、そのまま確かめられます</div>
-        </div>
-      </div>
-    </div>
-    <div class="item">
-      <div>
-        <span class="n">05　返すと、残る</span>
+        <span class="n">03　返すと、残る</span>
         <h3>返信と、管理が、同時に行われる</h3>
         <p>返事を送った瞬間に、「自分のやること」「相手にやってもらうこと」「催促どき」「日程」が会話ごとに残ります。決まった打ち合わせはカレンダーに入り、相手待ちのものは確認日に戻ってきて、催促の文案までAIが用意する。<strong>誰に何をいつまでに、が消えません。</strong></p>
         <ul><li>やること／やってもらうこと</li><li>次回確認日と催促の文案</li><li>決まった日程はカレンダーへ（取り消しも1回）</li><li>別のタスク表を持たなくてよい</li></ul>
@@ -904,11 +798,10 @@ footer{background:#081E42;color:rgba(255,255,255,.72);padding:26px 0 40px}
     </div>
     <div class="item">
       <div>
-        <span class="n">06　役目で分担</span>
-        <h3>Jevが判断して、得意なAIに渡す。部署にも渡せる</h3>
+        <span class="n">04　役目で分担</span>
+        <h3>Jevが判断して、得意なAIに渡す</h3>
         <p>まず判定専用のAI「Jev（ジェブ）」が、急ぎか・返信が要るか・誰の担当かを、はい・いいえで決めます。そのあと、読む・書く・見直すを、それぞれ得意なAIに渡します。いつものAIのブラウザで開くので、契約しているAIをそのまま使えます。</p>
-        <ul><li>Jevの判定は、速く安くぶれない</li><li>読み取りや下書きは、得意なAIへ</li><li><b>会話を、営業・納品・管理など部署ごとのAIに渡せる</b>。部下に仕事を振る感覚で、いくつもの会話を同時に進める</li></ul>
-        <p class="foot-note">部署に渡すのも、人が押したときだけ。AIどうしが勝手に仕事を回すことはしません。</p>
+        <ul><li>Jevの判定は、速く安くぶれない</li><li>読み取りや下書きは、得意なAIへ</li><li>別のAIが、抜けや言いすぎを確認</li></ul>
         <p class="foot-note">どのAIを何に使うかは、設定で決めます。名前は各社の商標です。</p>
       </div>
       <div class="fig">
@@ -920,13 +813,12 @@ footer{background:#081E42;color:rgba(255,255,255,.72);padding:26px 0 40px}
             <div class="logos"><span class="lg claude"><i>C</i>Claude</span><span class="lg gpt"><i>G</i>ChatGPT / Codex</span><span class="lg gem"><i>G</i>Gemini</span><span class="lg lite"><i>軽</i>軽量モデル</span></div></div></div>
           <div class="jarrow">↓</div>
           <div class="jrow j3"><span class="jb hu">人</span><div><b>確かめて、送る</b><span>押すのは人。AIに送信の道具は渡していない</span></div></div>
-          <div class="seats" aria-label="部署の例"><span>営業</span><span class="on">納品</span><span>管理</span></div>
         </div>
       </div>
     </div>
     <div class="item">
       <div>
-        <span class="n">07　入力を進める</span>
+        <span class="n">05　入力を進める</span>
         <h3>パソコンのソフトも、AIが操作する</h3>
         <p>パワポ・エクセル・メール・デザイン・会計ソフト。AIがパソコンの画面を見て、クリックと入力をします。資料づくりや入力を途中まで進め、保存・送信の前で止まって、人に引き継ぎます。</p>
         <ul><li>連絡を読むだけでなく、入力も進める</li><li>いつもの仕事の画面を、AIが操作</li><li>送信や確定の前で、必ず人に引き継ぐ</li></ul>
@@ -958,7 +850,6 @@ footer{background:#081E42;color:rgba(255,255,255,.72);padding:26px 0 40px}
       <div class="knob"><i>差し替え可</i><b>振り分けの基準</b><small>急ぎ／判断が要る／返信不要、担当の割り当て</small></div>
       <div class="knob"><i>差し替え可</i><b>返事の書き方</b><small>自分の文体・決まり文句・敬称の使い方を覚えさせる</small></div>
       <div class="knob"><i>差し替え可</i><b>読ませる資料の置き場</b><small>Googleドライブ・Notion・社内のマニュアル など</small></div>
-      <div class="knob"><i>入り・切り</i><b>タスク管理</b><small>使わないなら切れる。今あるものは消さずにしまうだけ</small></div>
     </div>
     <div class="hub">
       <h4>受信箱の骨組みは、共通</h4>
@@ -972,7 +863,6 @@ footer{background:#081E42;color:rgba(255,255,255,.72);padding:26px 0 40px}
       <div class="knob"><i>差し替え可</i><b>催促のタイミングと文面</b><small>3営業日、1週間、月末 など</small></div>
       <div class="knob"><i>差し替え可</i><b>使うAIの組み合わせ</b><small>判定・下書き・読み取り・批評を分ける</small></div>
       <div class="knob"><i>差し替え可</i><b>見せない情報</b><small>個人情報の塊は先に読まない。隠したものは件数で</small></div>
-      <div class="knob"><i>選べる</i><b>見せる画面</b><small>経営者向け（設定まで全部）／担当者向け（迷わず返す画面だけ）</small></div>
     </div>
   </div>
   <div class="cases2">
@@ -983,7 +873,7 @@ footer{background:#081E42;color:rgba(255,255,255,.72);padding:26px 0 40px}
       <li><b>建設・不動産</b>現場の写真とPDFを読み取り、<em>確認事項だけ</em>を要点に。急ぎを先頭に</li>
       <li><b>医療・介護</b>予約・家族・業者の連絡を分け、<em>返信不要なものは件数だけ</em></li>
       <li><b>営業チーム</b>問い合わせを担当に自動で振り分け、<em>下書きと次回確認日</em>を残す</li>
-      <li><b>経営者個人</b>LINE・メール・チャットを1つに。朝いちばんに<em>今日の段取りが朝6時に</em>届く</li>
+      <li><b>経営者個人</b>LINE・メール・チャットを1つに。朝いちばんに<em>「今日返すもの」だけ</em></li>
     </ul>
   </div>
 </div></section>
@@ -1009,35 +899,9 @@ footer{background:#081E42;color:rgba(255,255,255,.72);padding:26px 0 40px}
     <li><b>鍵とデータは本人のもの</b>接続用の鍵は本人の画面で入力し、データは本人のアカウントに置く</li>
     <li><b>AIも間違える前提</b>読み取りや下書きの誤りはあり得るので、送る前に人が確認する</li>
   </ul>
-  <div class="proof"><i>証</i><p><b>この受信箱を作ったAIでさえ、確認なしに送る機能は作れませんでした。</b>お客様への自動返信を作ろうとしたとき、作る側のAIの安全確認で止められました。送るのは人、は飾りの決まりではありません。</p></div>
 </div></section>
 
 <section class="soft"><div class="w">
-  <div class="kk">TRUST</div>
-  <h2>使うほど、<span class="b">任せられる</span>。</h2>
-  <p class="lead">最初は、AIの判断をすべて人が確かめます。AIの判断と人の操作が合い続けた種類だけ、自動にしていきます。</p>
-  <div class="trust">
-    <div class="st"><em>はじめ</em><b>確かめる</b><p>AIは「返信不要」「自分がやる」などを勧めるだけ。決めるのは人</p></div>
-    <div class="ar">→</div>
-    <div class="st"><em>使いながら</em><b>合っているかを数える</b><p>AIの勧めと、そのあと人がした操作が合ったかを、種類ごと・会話ごとに記録</p></div>
-    <div class="ar">→</div>
-    <div class="st on"><em>合い続けたら</em><b>任せる</b><p>続けて合った種類だけ自動に。自動にした日も、取り消しは1回で</p></div>
-  </div>
-  <p class="trust-back"><b>1回でも外れたら、確かめる形に戻ります。</b>任せ具合は、種類ごとに自分で固定もできます。</p>
-  <div class="kinds"><span>返信不要</span><span>相手待ち</span><span>人に振る</span><span>相槌として外す</span><span>やることの片付け</span><span class="no">送信は、自動にならない</span></div>
-
-  <div class="parts">
-    <h3>AIは、取り替えられる部品。</h3>
-    <p class="lead">中心は受信箱です。AIは、その時いちばん良いものに入れ替えます。</p>
-    <ul>
-      <li><b>どのAIでも動く</b><span>Claude・ChatGPTのほか、パソコンで契約しているAIでも動きます。APIの利用料を抑えられます。</span></li>
-      <li><b>AIが止まっても、止まらない</b><span>AIが使えない日も、決まりで拾えるものは拾い、「AIの判断なし」と示して届けます。</span></li>
-      <li><b>何をAIに任せるかは、自分で選ぶ</b><span>裏で動く仕事を種類ごとに入り・切り。画面で人が押したものは止めません。</span></li>
-    </ul>
-  </div>
-</div></section>
-
-<section><div class="w">
   <div class="kk">PRICE</div>
   <h2>価格</h2>
   <p class="lead">いまはテスト期間です。この期間に入っていただく方は、設定の費用だけで始められます。</p>
@@ -1069,7 +933,7 @@ footer{background:#081E42;color:rgba(255,255,255,.72);padding:26px 0 40px}
 
 <footer><div class="w">
   <p>これほし（これが欲しかった）／どこでも扉　運営：社会保険労務士 五味田匡功（レリック社会保険労務士法人）。社労士の私が、自分の実務のために作り、毎日使っています。</p>
-  <p>掲載している画面はすべて架空のデータです。これほしは特許出願中です。<a href="v1/" style="color:inherit">第一弾のページ（2026年9月29日公開）</a></p>
+  <p>掲載している画面はすべて架空のデータです。これほし／どこでも扉の仕組みは特許出願中です。</p>
 </div></footer>
 
 <script src="steps-anim.js" defer></script>

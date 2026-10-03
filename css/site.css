@@ -308,3 +308,39 @@ footer p{margin:4px 0}
   .cmp{font-size:13.5px}.cmp th,.cmp td{padding:9px 8px}
   .boot{grid-template-columns:1fr;text-align:left}
 }
+
+/* 動き（2026-10-03）：見本の画面を、実際の操作の順に動かす。動きを減らす設定の人には止めた絵のまま */
+@media (prefers-reduced-motion: no-preference){
+  /* さばく：右→左→上→下の順にはじいて戻る（12秒で一巡） */
+  .swipe .sc{animation:flick 12s ease-in-out infinite}
+  @keyframes flick{
+    0%,4%{transform:none;opacity:1}
+    9%,15%{transform:translateX(80px) rotate(9deg);opacity:.45}
+    20%,29%{transform:none;opacity:1}
+    34%,40%{transform:translateX(-80px) rotate(-9deg);opacity:.45}
+    45%,54%{transform:none;opacity:1}
+    59%,65%{transform:translateY(-64px);opacity:.45}
+    70%,79%{transform:none;opacity:1}
+    84%,90%{transform:translateY(64px);opacity:.45}
+    95%,100%{transform:none;opacity:1}
+  }
+  .swipe .dir i{animation:lit 12s ease-in-out infinite}
+  .swipe .dir.r i{animation-delay:0s}
+  .swipe .dir.l i{animation-delay:3s}
+  .swipe .dir.up i{animation-delay:6s}
+  .swipe .dir.dn i{animation-delay:9s}
+  @keyframes lit{0%,4%{transform:none;box-shadow:none}9%,15%{transform:scale(1.25);box-shadow:0 0 0 9px rgba(194,146,47,.3)}20%,100%{transform:none;box-shadow:none}}
+  /* トップのカード：右にはじく気配だけ、ゆっくり */
+  .hero .sc{animation:nudge 5s ease-in-out infinite}
+  @keyframes nudge{0%,60%,100%{transform:rotate(-2deg)}75%{transform:translateX(26px) rotate(4deg)}}
+  /* 画面に入ったら、1つずつ出す */
+  .rv{opacity:0;transform:translateY(14px);transition:opacity .6s ease,transform .6s ease}
+  .rv.in{opacity:1;transform:none}
+  .lt .bts span.main{animation:glow 2.6s ease-in-out infinite}
+  @keyframes glow{0%,100%{box-shadow:none}50%{box-shadow:0 0 0 5px rgba(194,146,47,.25)}}
+  /* 確認画面：日付に印が付き、送信ボタンが押される */
+  .cf .body em{animation:mark 6s ease-in-out infinite}
+  @keyframes mark{0%,15%{background:transparent}25%,100%{background:#fff3c4}}
+  .cf .sendb{animation:press 6s ease-in-out infinite}
+  @keyframes press{0%,55%{transform:none;filter:none}62%{transform:scale(.95);filter:brightness(.9)}70%,100%{transform:none;filter:none}}
+}

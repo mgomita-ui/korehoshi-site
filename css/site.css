@@ -344,3 +344,28 @@ footer p{margin:4px 0}
   .cf .sendb{animation:press 6s ease-in-out infinite}
   @keyframes press{0%,55%{transform:none;filter:none}62%{transform:scale(.95);filter:brightness(.9)}70%,100%{transform:none;filter:none}}
 }
+
+/* ブートキャンプ → これほし → フォロー の道すじ（2026-10-03） */
+.path{max-width:980px;margin:36px auto 0;display:grid;grid-template-columns:1fr 36px 1.15fr 36px 1fr;align-items:stretch}
+.path .pstep{background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:0 10px 26px rgba(11,42,91,.07);padding:20px 18px;text-align:center}
+.path .pstep.main{border:2px solid var(--gold);background:linear-gradient(180deg,#FFFCF4 0%,#fff 70%)}
+.path .pstep .t{font-size:13px;font-weight:700;letter-spacing:.1em;color:var(--gold-deep)}
+.path .pstep b{display:block;font-family:var(--mincho);font-size:21px;color:var(--blue);margin-top:4px;line-height:1.4}
+.path .pstep .v{font-family:var(--mincho);font-size:26px;color:var(--blue);margin-top:6px}
+.path .pstep .v small{font-size:14px;margin-left:2px}
+.path .pstep p{margin-top:8px;font-size:14px;color:var(--ink2);line-height:1.6}
+.path .par{display:grid;place-items:center;color:var(--gold);font-size:24px}
+.map{max-width:900px;margin:28px auto 0;display:flex;flex-direction:column;gap:10px}
+.map .r{display:grid;grid-template-columns:1fr 40px 1fr;align-items:center}
+.map .r>div{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 16px;font-size:15px;color:var(--ink2)}
+.map .r>div b{display:block;font-size:16px;color:var(--blue)}
+.map .r>div.k{background:var(--soft);border-color:#c9d6ea}
+.map .r .ar{text-align:center;color:var(--gold);font-size:22px;background:none;border:0;padding:0}
+.map .h{display:grid;grid-template-columns:1fr 40px 1fr;font-size:13px;font-weight:700;color:var(--gold-deep);letter-spacing:.1em;text-align:center}
+@media(max-width:860px){
+  .path{grid-template-columns:1fr}
+  .path .par{transform:rotate(90deg);height:34px}
+  .map .r,.map .h{grid-template-columns:1fr 28px 1fr}
+  .map .r>div{padding:10px 10px;font-size:13.5px}
+  .map .r>div b{font-size:14.5px}
+}

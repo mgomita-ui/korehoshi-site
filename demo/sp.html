@@ -427,9 +427,9 @@ function renderTalk(focus) {
     + '<button type="button" data-act="today">' + ICON.today + "今日やること</button>"
     + '<button type="button" data-act="swipe">' + ICON.reply + "返事が必要</button>"
     + '<button type="button" data-act="instr">' + ICON.draft + "下書きを見る</button>"
-    + '<button type="button" data-act="na">' + ICON.search + "相手を探す</button>"
-    + '<button type="button" data-act="na">' + ICON.later + "あとで見る</button>"
-    + '<button type="button" data-act="na">' + ICON.help + "使い方</button></div>";
+    + '<button type="button" data-act="search">' + ICON.search + "相手を探す</button>"
+    + '<button type="button" data-act="later">' + ICON.later + "あとで見る</button>"
+    + '<button type="button" data-act="help">' + ICON.help + "使い方</button></div>";
   $("#screen").innerHTML = html;
   var talk = $("#talk");
   var ready = Object.keys(S.instr).filter(function (k) { return S.instr[k].state === "ready" && !S.sent[k]; });
@@ -533,7 +533,8 @@ function decide(d) {
   var id = S.deck[0]; if (!id) return;
   if (d === "right") { openPresets(id); return; }
   if (d === "up") { openOptions(id); return; }
-  commit(id, d, null, d === "left" ? "対応不要にしました" : "明日の朝に、もう一度出します");
+  if (d === "down") { S.later = S.later || {}; S.later[id] = true; }
+  commit(id, d, null, d === "left" ? "対応不要にしました" : "明日の朝に、もう一度出します（公式LINEの［あとで見る］からも戻せます）");
 }
 // はじいた答えは7秒待ってから反映する（その間は取り消せる）
 function commit(id, d, instr, text) {
@@ -569,12 +570,15 @@ function openPresets(id) {
   var t = TH[id];
   sheet('<div class="sh">' + esc(t.name) + ' への返事</div><div class="ss">大枠を選ぶだけで、AIが下書きを作っておきます（送りません）。</div>'
     + PRESETS.map(function (p) { return '<button type="button" class="opt' + (t.rec === p[0] ? " rec" : "") + '" data-p="' + p[0] + '">' + (t.rec === p[0] ? '<span class="tag">おすすめ</span>' : "") + esc(p[1]) + "</button>"; }).join("")
-    + '<textarea rows="2" placeholder="ひと言そえる（なくてもよい）。例：金曜までに出すと伝える"></textarea><button class="cancel" type="button" data-close>やめる</button>',
+    + '<textarea rows="2" id="pnote" placeholder="ひと言そえる（なくてもよい）。例：金曜までに出すと伝える"></textarea><p class="ss" style="margin-top:-2px">ひと言は、下書きに書き足します。</p><button class="cancel" type="button" data-close>やめる</button>',
     function (el, close) {
       el.addEventListener("click", function (ev) {
         var b = ev.target.closest("[data-p]"); if (!b) return;
+        var note = (($("#pnote") || {}).value || "").trim();
         el.remove();
-        commit(id, "right", b.textContent.replace("おすすめ", ""), "下書きを作ります：" + b.textContent.replace("おすすめ", ""));
+        var lab = b.textContent.replace("おすすめ", "");
+        if (note) S.variant[id] = noteDraft(id, note);
+        commit(id, "right", lab + (note ? "・" + note : ""), "下書きを作ります：" + lab + (note ? "（ひと言を書き足します）" : ""));
       });
     });
 }
@@ -583,14 +587,19 @@ function openOptions(id) {
   var opts = t.options || [{ tag: "返す", label: "AIのおすすめどおりに返す" }, { tag: "自分で", label: "返事はせず、自分のやることにする" }, { tag: "任せる", label: "穐山さんに任せる" }];
   sheet('<div class="sh">' + esc(t.name) + ' の対応</div><div class="ss">AIが先に考えておいた案です。押すだけで決まります（送りません）。</div>'
     + opts.map(function (o, i) { return '<button type="button" class="opt' + (i === 0 ? " rec" : "") + '" data-o="' + i + '"><span class="tag">' + esc(o.tag) + "</span>" + esc(o.label) + "</button>"; }).join("")
-    + '<textarea rows="2" placeholder="その他：ふだんの言葉で指示（キーボードのマイクで話しても入ります）"></textarea><button class="cancel" type="button" data-close>やめる</button>',
+    + '<div class="ss" style="margin:10px 0 4px">その他（ふだんの言葉で指示）</div><textarea rows="2" id="fnote" placeholder="例：金曜までに見積もりを出すと返して／穐山さんに任せて／先方の返事を待つ（キーボードのマイクで話しても入ります）"></textarea>'
+    + '<button type="button" class="opt rec" data-free style="text-align:center;font-weight:700">この指示で決める</button><button class="cancel" type="button" data-close>やめる</button>',
     function (el) {
       el.addEventListener("click", function (ev) {
+        if (ev.target.closest("[data-free]")) {
+          var v = (($("#fnote") || {}).value || "").trim();
+          if (!v) { toast("指示を入れてください"); return; }
+          el.remove(); decideFree(id, v); return;
+        }
         var b = ev.target.closest("[data-o]"); if (!b) return;
         var o = opts[+b.getAttribute("data-o")];
         el.remove();
-        if (+b.getAttribute("data-o") === 0) commit(id, "up", o.label, "指示を受け付けました");
-        else commit(id, "up", null, "体験版では、おすすめの1番目だけ下書きまで進みます");
+        doOption(id, o);
       });
     });
 }
@@ -633,9 +642,9 @@ function renderInstr() {
   if (!ids.length) html += '<div class="empty">まだ指示を出したものはありません。「さばく」で右か上にはじくと、ここに並びます。</div>';
   ids.forEach(function (id) {
     var x = S.instr[id], t = TH[id];
-    var st = S.sent[id] ? '<span class="st sent">送りました（体験版）</span>' : x.state === "ready" ? '<span class="st ok">下書きができました</span>' : '<span class="st"><span class="spin"></span>作っています…</span>';
+    var st = x.outcome ? '<span class="st ok">' + esc(x.outcome) + "</span>" : S.sent[id] ? '<span class="st sent">送りました（体験版）</span>' : x.state === "ready" ? '<span class="st ok">下書きができました</span>' : '<span class="st"><span class="spin"></span>作っています…</span>';
     html += '<div class="item"><div class="ti">' + esc(t.name) + '</div><div class="su">' + esc(x.label) + "</div>" + st
-      + (x.state === "ready" && !S.sent[id] ? '<button class="open" type="button" data-id="' + id + '">確かめて送る</button>' : "") + "</div>";
+      + (x.state === "ready" && !S.sent[id] && !x.outcome ? '<button class="open" type="button" data-id="' + id + '">確かめて送る</button>' : "") + "</div>";
   });
   html += "</div>" + tabs("instr");
   $("#screen").innerHTML = html;
@@ -796,7 +805,7 @@ function renderTasks() {
   $("#screen").innerHTML = html;
   bindTabs();
   $(".swbtns").onclick = function (ev) { var b = ev.target.closest("[data-tw]"); if (b) tDecide(b.getAttribute("data-tw")); };
-  bindSwipe($("#card"), c.id, { label: L, decide: tDecide, tap: function () { toast("本物では、ここから元の会話を開けます"); } });
+  bindSwipe($("#card"), c.id, { label: L, decide: tDecide, tap: function () { toast("このカードは、元の会話（" + c.who + "）から作られています。本物では押すと会話が開きます"); } });
   setHint(c.type === "add" ? "AIが「やることに足しますか？」と聞いています。右で追加、左でいらない。" : "向きの意味は、カードの上に毎回出ます。");
 }
 function tDecide(d) {
@@ -873,7 +882,7 @@ function renderNight() {
       S.nightPick = {}; document.querySelectorAll("[data-np]").forEach(function (c) { S.nightPick[+c.getAttribute("data-np")] = c.checked; });
       if (!Object.keys(S.nightPick).some(function (k) { return S.nightPick[k]; })) { toast("印が付いていません"); return; }
       S.night = 2; mark("n"); toast("夜のうちに作ります（体験版では、すぐ朝6時に進めます）"); renderNight();
-    } else if (b.hasAttribute("data-nop")) toast("本物では、ここから全文を確かめて送ります");
+    } else if (b.hasAttribute("data-nop")) { var r = Object.keys(S.instr).filter(function (x) { return S.instr[x].state === "ready" && !S.sent[x] && !S.instr[x].outcome; })[0]; if (r) go("confirm", r); else { toast("夜に作った下書きは、さばくで頼んだものと同じ確認画面で送ります。まずは「さばく」で1件頼んでみてください"); go("swipe"); } }
   };
 }
 
@@ -897,6 +906,82 @@ $("#lst").addEventListener("click", function (ev) {
   }
   if (ev.target.closest("[data-lsttoggle]")) { S.lstOpen = !S.lstOpen; renderList(); }
 });
+
+// ---------------- 指示の読み替え（体験版：決まった言葉で読み分ける。本物ではAIが読む） ----------------
+function noteDraft(id, note) {
+  var d = (S.variant[id] || TH[id].draft).slice();
+  var line = note.replace(/[。\s]+$/, "");
+  line = /と(伝える|返す|返して|伝えて)$/.test(line) ? line.replace(/と(伝える|返す|返して|伝えて)$/, "") : line;
+  var END = [[/確認する$/, "確認いたします"], [/する$/, "いたします"], [/出す$/, "お出しします"], [/送る$/, "お送りします"], [/作る$/, "お作りします"], [/渡す$/, "お渡しします"], [/連絡する$/, "ご連絡いたします"], [/返す$/, "お返しします"], [/(る)$/, "ます"]];
+  for (var i = 0; i < END.length; i++) { if (END[i][0].test(line)) { line = line.replace(END[i][0], END[i][1]); break; } }
+  d.splice(d.length - 1, 0, line + "。");
+  return d;
+}
+function doOption(id, o) {
+  var tag = o.tag || "";
+  if (/自分/.test(tag)) { outcome(id, o.label, "自分のやることにしました（今日のやることに入りました）"); return; }
+  if (/任せ/.test(tag)) { outcome(id, o.label, "穐山さんに任せました（相手待ち・確認日 10/8）"); return; }
+  if (/あとで/.test(tag)) { outcome(id, o.label, "あとで見るにしました（明日の朝に、もう一度出します）"); return; }
+  if (/電話/.test(tag)) { outcome(id, o.label, "電話することを、自分のやることに入れました"); return; }
+  commit(id, "up", o.label, "指示を受け付けました。下書きを作ります");
+}
+function decideFree(id, v) {
+  var t = v.replace(/\s/g, "");
+  if (/任せ|振って|お願いして|頼んで/.test(t) && !/と(返|伝)/.test(t)) {
+    var who = (t.match(/([^\s、。]{1,6})さん/) || [])[1] || "担当者";
+    outcome(id, "指示：" + v, who + "さんに任せました（相手待ち・確認日 10/8）");
+  } else if (/待つ|待ち|待って/.test(t) && !/と(返|伝)/.test(t)) {
+    outcome(id, "指示：" + v, "相手の返事待ちにしました（確認日 10/8）");
+  } else if (/不要|いらない|放って|返さない/.test(t)) {
+    outcome(id, "指示：" + v, "返事は要らない、にしました");
+  } else if (/(自分で|やる|調べ|作る|作って)/.test(t) && !/と(返|伝)/.test(t)) {
+    outcome(id, "指示：" + v, "自分のやることにしました：" + v.slice(0, 24));
+  } else {
+    S.variant[id] = noteDraft(id, v);
+    commit(id, "up", "指示：" + v, "指示を受け付けました。この指示どおりに下書きを作ります");
+  }
+}
+// 下書きを作らずに決まる対応（自分でやる・任せる・待つ など）。指示済みに結果として並べる
+function outcome(id, label, text) {
+  flushPending();
+  flyOut("up");
+  S.deck.shift();
+  S.instr[id] = { state: "ready", label: label, outcome: text };
+  mark("s");
+  setTimeout(function () { if (S.view === "swipe") renderSwipe(); }, 140);
+  toast(text + "（何も送っていません）", "取り消す", function () { delete S.instr[id]; S.deck.unshift(id); toast("取り消しました"); if (S.view === "swipe") renderSwipe(); }, 7000);
+}
+
+// ---------------- 公式LINEの下のメニュー（相手を探す・あとで見る・使い方） ----------------
+function openSearch() {
+  sheet('<div class="sh">相手を探す</div><div class="ss">名前を押すと、その連絡のカードを出します。</div>'
+    + ORDER.map(function (id) { return '<button type="button" class="opt" data-find="' + id + '"><span class="tag">' + esc(TH[id].ch) + "</span>" + esc(TH[id].name) + "</button>"; }).join("")
+    + '<button class="cancel" type="button" data-close>閉じる</button>', function (el) {
+      el.addEventListener("click", function (ev) {
+        var b = ev.target.closest("[data-find]"); if (!b) return;
+        var id = b.getAttribute("data-find"); el.remove();
+        if (S.instr[id] || S.sent[id]) { go("instr"); toast("この相手には、もう指示を出しています"); return; }
+        S.deck = [id].concat(S.deck.filter(function (x) { return x !== id; })); go("swipe");
+      });
+    });
+}
+function openLater() {
+  var later = ORDER.filter(function (id) { return S.later && S.later[id]; });
+  sheet('<div class="sh">あとで見る</div><div class="ss">［あとで］にしたものです。明日の朝、もう一度カードに出ます。</div>'
+    + (later.length ? later.map(function (id) { return '<button type="button" class="opt" data-back="' + id + '">' + esc(TH[id].name) + "（今すぐ戻す）</button>"; }).join("") : '<p class="ss">まだありません。「さばく」で下にはじくと、ここに入ります。</p>')
+    + '<button class="cancel" type="button" data-close>閉じる</button>', function (el) {
+      el.addEventListener("click", function (ev) {
+        var b = ev.target.closest("[data-back]"); if (!b) return;
+        var id = b.getAttribute("data-back"); delete S.later[id]; el.remove();
+        S.deck = [id].concat(S.deck.filter(function (x) { return x !== id; })); go("swipe");
+      });
+    });
+}
+function openHelp() {
+  sheet('<div class="sh">使い方</div><div class="ss">押すだけで使えます。文字を打たなくても大丈夫です。</div>'
+    + '<div class="full" style="font-size:14.5px;line-height:1.9">・毎朝6時に、今日やること・決めることがこのトークに届きます。\n・「返事が必要」を押すと、返事を待っている相手が1件ずつ出ます。指ではじいて大枠を指示すると、AIが下書きを作ります。\n・下書きは、確認画面であなたが［送信］を押すまで、相手には送られません。\n・文字や音声で頼むこともできます（例：「田中さんに金曜までに出すと返して」）。</div>'
+    + '<button class="cancel" type="button" data-close>閉じる</button>');
+}
 // ---------------- つなぐ ----------------
 $("#screen").addEventListener("click", function (ev) {
   var b = ev.target.closest("[data-act]"); if (!b) return;
@@ -906,7 +991,9 @@ $("#screen").addEventListener("click", function (ev) {
   else if (a === "open") { setStep(3); go("confirm", b.getAttribute("data-id")); }
   else if (a === "fix") openFix(b.getAttribute("data-id"));
   else if (a === "today") { S.talk.push({ me: "今日やること" }); S.talk.push({ t: "10:10", text: "今日のやること：①本日中 三ツ星不動産へ契約書の控えを送る ②10:00 青葉製作所 打ち合わせ。返事が必要な連絡は" + S.deck.length + "件です。" }); renderTalk(); }
-  else toast("体験版では、ここは動きません。");
+  else if (a === "search") openSearch();
+  else if (a === "later") openLater();
+  else if (a === "help") openHelp();
 });
 $("#apps").addEventListener("click", function (ev) {
   var b = ev.target.closest("[data-app]"); if (!b) return;

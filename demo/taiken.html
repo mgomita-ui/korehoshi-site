@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>これほし｜本物の受信箱を体験</title>
+<meta name="description" content="職種を選ぶと、本物の受信箱を30分お貸しします。登録なし。中身はすべて架空のデータで、だれにも何も送られません。">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@600;700;800&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/site.css">
+<style>
+/* 体験の入口。色・字体は ../css/site.css（LP本体）の変数をそのまま使う */
+.tk{padding:56px 0 24px}
+.tk h1{text-align:center;font-size:36px}
+.tk .lead{margin-top:14px}
+.roles{margin:40px auto 0;max-width:880px;display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.role{appearance:none;font:inherit;text-align:left;cursor:pointer;background:#fff;color:var(--ink);border:1.5px solid var(--line);border-radius:18px;padding:22px 22px 20px;display:flex;flex-direction:column;gap:6px;box-shadow:0 8px 22px rgba(11,42,91,.07);transition:transform .15s,box-shadow .15s,border-color .15s}
+.role:hover:not(:disabled){transform:translateY(-2px);border-color:var(--gold);box-shadow:0 14px 30px rgba(11,42,91,.12)}
+.role:focus-visible{outline:3px solid var(--sky);outline-offset:2px}
+.role:disabled{cursor:default;opacity:.55}
+.role .nm{font-family:var(--mincho);font-weight:800;font-size:26px;color:var(--blue);letter-spacing:.04em}
+.role .ds{font-size:15px;color:var(--ink2);line-height:1.65}
+.role .st{margin-top:8px;display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:14px;font-weight:700;color:var(--blue)}
+.role .st:after{content:"→";color:var(--gold-deep);font-size:18px}
+.role .st .badge{margin-right:auto}
+.badge{display:inline-block;font-size:12px;font-weight:700;border-radius:999px;padding:2px 11px;background:var(--soft);color:var(--ink2);border:1px solid var(--line)}
+.badge.ok{background:#E7F6EC;color:#18733A;border-color:#bfe3cb}
+.badge.wait{background:var(--gold-soft);color:var(--gold-deep);border-color:rgba(194,146,47,.45)}
+/* 営業は一番大きく（2列ぶんを使い、すこし目立たせる） */
+.role.main{grid-column:1 / -1;background:linear-gradient(135deg,#fff 0%,#F7F0DF 130%);border-color:rgba(194,146,47,.6);padding:30px 30px 26px}
+.role.main .nm{font-size:36px}
+.role.main .ds{font-size:17px;max-width:560px}
+.role.main .tagl{display:inline-block;align-self:flex-start;font-size:12px;font-weight:700;color:#fff;background:var(--goldgrad);border-radius:999px;padding:2px 12px;letter-spacing:.08em}
+.panel{margin:28px auto 0;max-width:880px;border-radius:16px;padding:18px 22px;font-size:16px;display:none}
+.panel.show{display:block}
+.panel.busy{background:var(--soft);border:1px solid var(--line);color:var(--blue);font-weight:700;display:flex;align-items:center;gap:14px}
+.panel.busy small{font-weight:400;color:var(--ink2);display:block;margin-top:2px}
+.panel.warn{background:var(--gold-soft);border:1px solid rgba(194,146,47,.45);color:#4d3a10}
+.panel.err{background:#FDECEA;border:1px solid #f1c0bb;color:#7a2b25}
+.panel .row{margin-top:12px;display:flex;flex-wrap:wrap;gap:10px}
+.panel .btn{padding:10px 22px;font-size:15px;box-shadow:none}
+.spin{width:22px;height:22px;border-radius:50%;border:3px solid var(--line);border-top-color:var(--gold);animation:sp 1s linear infinite;flex:none}
+@keyframes sp{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.spin{animation-duration:3s}.role{transition:none}}
+.pts{margin:44px auto 0;max-width:880px;display:grid;grid-template-columns:repeat(3,1fr);gap:14px;padding:0;list-style:none}
+.pts li{background:var(--soft);border-radius:14px;padding:16px 18px;font-size:15px;color:var(--ink2);line-height:1.65}
+.pts b{display:block;font-size:16px;color:var(--blue);margin-bottom:2px}
+.ct{padding:48px 0 64px;text-align:center}
+.ct h2{font-size:24px}
+.ct p{margin:10px auto 22px;max-width:560px;color:var(--ink2)}
+@media(max-width:700px){
+  .tk{padding:36px 0 12px}.tk h1{font-size:28px}
+  .roles{grid-template-columns:1fr;margin-top:28px}
+  .role{padding:18px 18px 16px}.role.main{padding:22px 20px 18px}.role .nm{font-size:24px}.role.main .nm{font-size:30px}.role.main .ds{font-size:16px}
+  .pts{grid-template-columns:1fr;margin-top:30px}
+  .ct h2{font-size:21px}
+}
+.w{padding:0 16px}
+@media(min-width:700px){.w{padding:0 24px}}
+</style>
+</head>
+<body>
+
+<header class="top"><div class="w">
+  <a class="logo" href="../index.html">これほし<small>これが欲しかった</small><span class="pat">特許出願中</span></a>
+  <a class="cta" href="https://line.me/R/ti/p/@232zafzm">詳細は<span class="long">公式</span>LINEで</a>
+</div></header>
+
+<main>
+<section class="tk"><div class="w">
+  <div class="kk">本物で体験</div>
+  <h1>あなたの仕事で、<br>これほしを動かしてみる。</h1>
+  <p class="lead">職種を選ぶと、本物の受信箱を<b>30分</b>お貸しします。登録は要りません。<br>中身は架空のデータで、どこにも何も送られません。</p>
+
+  <div class="roles" id="roles">
+    <button class="role main" data-role="営業" type="button">
+      <span class="tagl">おすすめ</span>
+      <span class="nm">営業</span>
+      <span class="ds">お客様からの見積・日程・値下げの相談に、過去のやりとりを踏まえた返事の下書きを作って、確かめて送る流れを体験します。</span>
+      <span class="st"><span class="badge" data-badge>空きを確認中</span>体験をはじめる</span>
+    </button>
+    <button class="role" data-role="経理" type="button">
+      <span class="nm">経理</span>
+      <span class="ds">請求・支払い・領収書の問い合わせに、記録をもとに返事を作って、期日の約束まで拾います。</span>
+      <span class="st"><span class="badge" data-badge>空きを確認中</span>体験をはじめる</span>
+    </button>
+    <button class="role" data-role="総務" type="button">
+      <span class="nm">総務</span>
+      <span class="ds">社内外の手続き・問い合わせの連絡を、AIが先に読んで、返す順番と下書きまで整えます。</span>
+      <span class="st"><span class="badge" data-badge>空きを確認中</span>体験をはじめる</span>
+    </button>
+  </div>
+
+  <div class="panel" id="panel" role="status" aria-live="polite"></div>
+
+  <ul class="pts">
+    <li><b>登録なし・30分</b>お貸しした受信箱は、30分たつと自動で初期状態に戻ります。</li>
+    <li><b>中身はすべて架空</b>実在の会社・人物は出てきません。入力した内容は残りません。</li>
+    <li><b>勝手には送りません</b>下書きまでAIが作り、送るのはいつも人です。体験では何も送られません。</li>
+  </ul>
+</div></section>
+
+<section class="soft ct" id="contact"><div class="w">
+  <h2>自分の仕事で試したい方へ</h2>
+  <p>会社のLINE・チャットワーク・メールにつないだ状態でのテスト利用も、公式LINEでご相談いただけます。</p>
+  <a class="btn" href="https://line.me/R/ti/p/@232zafzm">公式LINEでテスト利用を相談する</a>
+</div></section>
+</main>
+
+<footer><div class="w">
+  <p>これほし　特許出願中</p>
+  <p>体験用の受信箱の中身はすべて架空のデータです。</p>
+</div></footer>
+
+<script>
+(function () {
+  // 貸し出しの受付（Worker korehoshi-taiken）。変えるときはここだけ
+  var API = "https://korehoshi-taiken.m-gomita.workers.dev";
+  // Cloudflare Turnstile のサイトキー。受付で Turnstile を有効にしたときだけ入れる（空ならとばす）
+  var TURNSTILE_SITEKEY = "";
+
+  var SLUG = { "営業": "sales", "経理": "keiri", "総務": "soumu" };
+  var cards = Array.prototype.slice.call(document.querySelectorAll(".role"));
+  var panel = document.getElementById("panel");
+  var busy = false;
+  var tsToken = "", tsWidget = null;
+
+  function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text) e.textContent = text; return e; }
+  function show(kind, nodes) {
+    panel.className = "panel show " + kind;
+    panel.textContent = "";
+    nodes.forEach(function (n) { panel.appendChild(n); });
+  }
+  function hide() { panel.className = "panel"; panel.textContent = ""; }
+  function lock(on) { busy = on; cards.forEach(function (c) { c.disabled = on; }); }
+
+  // 空き状況（受付の /roles）。取れなくても押せる
+  function badge(card, text, cls) {
+    var b = card.querySelector("[data-badge]");
+    b.textContent = text;
+    b.className = "badge" + (cls ? " " + cls : "");
+  }
+  function loadRoles() {
+    fetch(API + "/roles", { cache: "no-store" }).then(function (r) { return r.json(); }).then(function (j) {
+      if (!j || !j.ok) return;
+      cards.forEach(function (c) {
+        var r = j.roles[SLUG[c.getAttribute("data-role")]];
+        if (!r) return;
+        if (!r.total) { badge(c, "準備中", "wait"); }
+        else if (r.free > 0) { badge(c, "いま空きあり", "ok"); }
+        else { badge(c, "満席・あと約" + (r.nextFreeInMin || 30) + "分", "wait"); }
+      });
+    }).catch(function () {
+      cards.forEach(function (c) { badge(c, "体験できます", ""); });
+    });
+  }
+
+  function contactLink(label) {
+    var a = el("a", "btn line", label);
+    a.href = "#contact";
+    return a;
+  }
+
+  function full(role, mins) {
+    var retry = el("button", "btn", "もう一度試す");
+    retry.type = "button";
+    retry.onclick = function () { start(role); };
+    var row = el("div", "row"); row.appendChild(retry); row.appendChild(contactLink("公式LINEで相談する"));
+    show("warn", [
+      el("div", "", "「" + role + "」の体験は、いま満席です。約" + (mins || 30) + "分後に空きます。"),
+      el("div", "", "ほかの職種はすぐ体験できることがあります。または、公式LINEからご相談ください。"),
+      row
+    ]);
+    loadRoles();
+  }
+
+  function fail(role, message) {
+    var retry = el("button", "btn", "もう一度試す");
+    retry.type = "button";
+    retry.onclick = function () { start(role); };
+    var row = el("div", "row"); row.appendChild(retry); row.appendChild(contactLink("公式LINEで相談する"));
+    show("err", [el("div", "", message || "うまく用意できませんでした。少し待ってから、もう一度お試しください。"), row]);
+  }
+
+  function post(role, token) {
+    var ctl = new AbortController();
+    var t = setTimeout(function () { ctl.abort(); }, 60000);
+    return fetch(API + "/start", {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ role: role, turnstile: token || undefined }), signal: ctl.signal
+    }).then(function (r) { return r.json().catch(function () { return { ok: false }; }); })
+      .then(function (j) { clearTimeout(t); return j; }, function (e) { clearTimeout(t); throw e; });
+  }
+
+  function start(role) {
+    if (busy) return;
+    lock(true);
+    var sp = el("span", "spin"); sp.setAttribute("aria-hidden", "true");
+    var msg = el("div", "", "「" + role + "」の受信箱を用意しています");
+    msg.appendChild(el("small", "", "10〜20秒ほどかかります。このままお待ちください。"));
+    show("busy", [sp, msg]);
+    var token = TURNSTILE_SITEKEY ? tsToken : "";
+    post(role, token).then(function (j) {
+      if (j && j.ok && j.url) {
+        show("busy", [sp, el("div", "", "受信箱を開きます")]);
+        location.href = j.url;
+        return;
+      }
+      lock(false);
+      if (j && j.full) return full(role, j.nextFreeInMin);
+      if (j && j.limited) return fail(role, j.error);
+      fail(role, j && j.error);
+    }).catch(function () { lock(false); fail(role); });
+    if (TURNSTILE_SITEKEY && window.turnstile && tsWidget !== null) { tsToken = ""; window.turnstile.reset(tsWidget); }
+  }
+
+  cards.forEach(function (c) {
+    c.addEventListener("click", function () {
+      var role = c.getAttribute("data-role");
+      if (TURNSTILE_SITEKEY && !tsToken) { show("warn", [el("div", "", "確認が済むまで少しお待ちください。")]); return; }
+      start(role);
+    });
+  });
+
+  // Turnstile（サイトキーがあるときだけ）
+  if (TURNSTILE_SITEKEY) {
+    window.onTurnstileLoad = function () {
+      var box = el("div", "");
+      box.style.cssText = "margin:18px auto 0;max-width:880px;display:flex;justify-content:center";
+      document.getElementById("roles").insertAdjacentElement("afterend", box);
+      tsWidget = window.turnstile.render(box, { sitekey: TURNSTILE_SITEKEY, callback: function (t) { tsToken = t; }, "expired-callback": function () { tsToken = ""; } });
+    };
+    var s = document.createElement("script");
+    s.src = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit&onload=onTurnstileLoad";
+    s.async = true; document.head.appendChild(s);
+  }
+
+  // 戻るボタンで戻ってきたとき、押せない状態のままにならないように
+  window.addEventListener("pageshow", function (e) { if (e.persisted) { lock(false); hide(); loadRoles(); } });
+  loadRoles();
+})();
+</script>
+</body>
+</html>

@@ -369,3 +369,14 @@ footer p{margin:4px 0}
   .map .r>div{padding:10px 10px;font-size:13.5px}
   .map .r>div b{font-size:14.5px}
 }
+
+/* ヘッダー：第一弾（9/29）と同じ見た目に戻す（2026-10-04） */
+.top .w{height:68px}
+.logo{font-family:var(--mincho);font-size:27px;font-weight:800;color:var(--blue);display:flex;align-items:baseline;gap:6px;letter-spacing:.04em;text-decoration:none}
+.logo small{order:-1;margin:0;font-family:"Noto Sans JP",sans-serif;font-size:12px;color:var(--blue);font-weight:700;letter-spacing:0}
+.logo small:before{content:"＼";margin-right:2px}.logo small:after{content:"！"}
+.logo .pat{align-self:center;margin-left:4px}
+.top .cta{margin-left:auto;font-size:14px;font-weight:700;text-decoration:none;color:#fff;border-radius:999px;white-space:nowrap;background:var(--goldgrad);padding:11px 22px;box-shadow:0 6px 16px rgba(140,98,20,.28);letter-spacing:.04em}
+.top .cta:after{content:"　→"}
+@media(max-width:640px){.logo small{display:none}.top .cta{font-size:13px;padding:8px 14px}.top .cta .long{display:none}}
+@media(max-width:600px){.top .pat{display:none}}

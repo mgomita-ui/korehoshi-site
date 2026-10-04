@@ -653,6 +653,24 @@ button.auto b { color: var(--accent-ink); font-weight: 500; }
 .ai-head .t { white-space: nowrap; }
 .clockbar { flex-wrap: wrap; row-gap: 6px; }
 @media (max-width: 1439px) { .ai-head .live { display: none; } }
+/* 境目を分かりやすく（2026-10-04、本人）：左＝Claude／Codex のチャット、右＝ブラウザで開いた受信箱。それぞれ別の窓として囲む */
+.window { gap: 10px; background: transparent; border: 0; box-shadow: none; overflow: visible; }
+.window > .menu, .window > .ai, .window > .kh { border: 1px solid var(--rule); border-radius: 12px; box-shadow: var(--shadow); overflow: hidden; background: var(--surface); }
+.window > .ai { background: var(--ai-bg); }
+.chrome { flex: 0 0 auto; display: flex; align-items: center; gap: 10px; height: 34px; padding: 0 12px; background: #EEF1F4; border-bottom: 1px solid var(--rule); font-size: 12px; color: var(--ink2); white-space: nowrap; overflow: hidden; }
+.chrome .dots { display: flex; gap: 5px; flex: 0 0 auto; }
+.chrome .dots i { width: 9px; height: 9px; border-radius: 50%; background: #CBD2D9; display: block; }
+.chrome b { color: var(--ink); font-weight: 600; }
+.chrome .url { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; background: #fff; border: 1px solid var(--rule); border-radius: 999px; padding: 2px 12px; font-family: var(--latin); font-size: 11.5px; color: var(--ink2); }
+.chrome .what { color: var(--ink3); font-size: 11px; overflow: hidden; text-overflow: ellipsis; }
+.chans { display: flex; gap: 6px; flex-wrap: wrap; padding: 8px 12px 2px; }
+.chans button { border: 1px solid var(--rule); background: var(--surface); border-radius: 999px; padding: 2px 10px; font-size: 12px; color: var(--ink2); }
+.chans button em { font-style: normal; font-family: var(--latin); margin-left: 4px; color: var(--ink3); }
+.chans button.on { background: var(--ink); border-color: var(--ink); color: #fff; }
+.chans button.on em { color: #fff; }
+.row .ch.line { color: #06893A; border-color: #9BD8B0; background: #EFFAF2; }
+.row .ch.mail { color: #1F5FA8; border-color: #A9C6E8; background: #EFF5FC; }
+.row .ch.cw { color: #B0412E; border-color: #EDB7AC; background: #FDF1EE; }
 </style>
 </head>
 <body>
@@ -693,7 +711,8 @@ button.auto b { color: var(--accent-ink); font-weight: 500; }
       </div>
     </aside>
 
-    <section class="ai" aria-label="AIアシスタント">
+    <section class="ai" aria-label="Claude／Codex のチャット">
+      <div class="chrome"><span class="dots"><i></i><i></i><i></i></span><b>Claude ／ Codex</b><span class="what">パソコンのAIのチャット（これほしに頼む）</span></div>
       <div class="ai-head">
         <div class="ai-mark"><svg viewBox="0 0 16 16" fill="none"><path d="M8 1.5l1.6 4.9L14.5 8l-4.9 1.6L8 14.5l-1.6-4.9L1.5 8l4.9-1.6z" fill="currentColor"/></svg></div>
         <div><div class="t">AIアシスタント</div></div>
@@ -708,6 +727,7 @@ button.auto b { color: var(--accent-ink); font-weight: 500; }
     </section>
 
     <section class="kh" id="kh" aria-label="これほし 受信箱">
+      <div class="chrome"><span class="dots"><i></i><i></i><i></i></span><b>ブラウザ</b><span class="url">https://（あなたの受信箱）/inbox</span><span class="what">受信箱をブラウザで開いた画面</span></div>
       <div class="kh-top">
         <div class="brand">これほし</div>
         <div class="nav" id="nav">
@@ -721,6 +741,7 @@ button.auto b { color: var(--accent-ink); font-weight: 500; }
       <div class="kh-body">
         <aside class="list">
           <div class="ltabs" id="ltabs"><button type="button" data-tab="open" class="on">要対応<em class="c" id="cOpen">5</em></button><button type="button" data-tab="archive">対応済み</button></div>
+          <div class="chans" id="chans"></div>
           <button type="button" class="nightbar" id="nightbar"></button>
           <div class="rows" id="rows"></div>
           <div id="autobox"></div>
@@ -1200,9 +1221,18 @@ function caseStageLabel() {
   if (S.stage === 3) return S.sets["case"] ? "送る前の下書きあり" : S.c.nego ? "単価の相談が来ました" : "相手の返事待ち（仮押さえ中）";
   return ["", "", "見積書ができました", "", "日程が決まりました", "受注しました", "経理のAIが請求書を作成中", "請求書ができました", "完了"][S.stage] || "";
 }
+// 連絡手段（本物の受信箱の「すべて・LINE・チャット・メール」と同じ切り替え）
+var CHAN = [["all", "すべて"], ["line", "LINE"], ["cw", "チャットワーク"], ["mail", "メール"]];
+function chanOf(t) { return /^LINE/.test(t.ch) ? "line" : /チャットワーク/.test(t.ch) ? "cw" : /メール/.test(t.ch) ? "mail" : "other"; }
 function renderRows() {
   var html = "";
-  var ids = S.tab === "open" ? openIds() : S.order.filter(function (id) { return T(id).state !== "open"; });
+  var pool = S.tab === "open" ? openIds() : S.order.filter(function (id) { return T(id).state !== "open"; });
+  var chan = S.chan || "all";
+  $("#chans").innerHTML = CHAN.map(function (c) {
+    var n = c[0] === "all" ? pool.length : pool.filter(function (id) { return chanOf(T(id)) === c[0]; }).length;
+    return '<button type="button" data-chan="' + c[0] + '"' + (chan === c[0] ? ' class="on"' : "") + ">" + c[1] + "<em>" + n + "</em></button>";
+  }).join("");
+  var ids = chan === "all" ? pool : pool.filter(function (id) { return chanOf(T(id)) === chan; });
   ids.forEach(function (id) {
     var t = T(id), st;
     if (t.state !== "open") st = left(id) ? '<span class="ok">返事済み</span><span class="d">やること' + left(id) + "件</span>" : '<span class="ok">対応済み</span>';
@@ -1212,7 +1242,7 @@ function renderRows() {
     else if (S.sent[id]) st = '<span class="u">相手の返事待ち</span>';
     else st = '<span class="u">' + (t.kind === "dept" ? (S.dept[id] >= 3 ? "部署のAIの案あり" : "部署に渡すとよさそう") : "未返信") + "</span>";
     html += '<button type="button" class="row' + (S.cur === id ? " on" : "") + '" data-id="' + id + '">'
-      + '<div class="r1"><span class="ch">' + esc(t.ch) + '</span><span class="tm">' + esc(t.time) + "</span></div>"
+      + '<div class="r1"><span class="ch ' + chanOf(t) + '">' + esc(t.ch) + '</span><span class="tm">' + esc(t.time) + "</span></div>"
       + '<div class="nm">' + esc(t.name) + "</div>"
       + '<div class="pv">' + esc(t.subject) + "</div>"
       + '<div class="st">' + st + "</div></button>";
@@ -2172,6 +2202,7 @@ $("#nav").addEventListener("click", function (ev) { var b = ev.target.closest("[
 $("#ltabs").addEventListener("click", function (ev) { var b = ev.target.closest("[data-tab]"); if (b) { S.tab = b.getAttribute("data-tab"); renderRows(); } });
 $("#nightbar").addEventListener("click", function () { showView("night"); });
 $("#autoBtn").addEventListener("click", function () { S.autoOpen = !S.autoOpen; renderAuto(); });
+$("#chans").addEventListener("click", function (ev) { var b = ev.target.closest("[data-chan]"); if (!b) return; S.chan = b.getAttribute("data-chan"); renderRows(); });
 $("#autobox").addEventListener("click", function (ev) { var b = ev.target.closest("[data-uq]"); if (!b) return; S.unquiet[+b.getAttribute("data-uq")] = true; S.demoted = true; mark("trust"); done("t1"); toast("要対応に戻しました。この「外す」判断は外れだったと覚えます"); renderRows(); say("<p>戻しました。この訂正は「任せ具合」に入ります。［⋯ 機能］で見られます。</p>"); });
 $("#ff").onclick = ff;
 $("#hintBtn").onclick = showHint;

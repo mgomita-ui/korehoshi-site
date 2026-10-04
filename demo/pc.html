@@ -554,7 +554,14 @@ button.auto b { color: var(--accent-ink); font-weight: 500; }
 .cl .by { font-size: 12.5px; color: var(--ink2); }
 @media (max-width: 1279px) { .window { grid-template-columns: 210px minmax(330px, 34%) 1fr; } .kh-body { grid-template-columns: 250px 1fr; } }
 /* ================= v4：自分で動かす ================= */
-.clockbar { display: flex; align-items: center; gap: 8px; padding: 9px 12px 8px 16px; border-bottom: 1px solid var(--rule2); background: var(--surface); }
+.demotools { border: 1.5px dashed #C9A227; background: #FFFBEA; border-radius: 10px; padding: 8px 10px; display: grid; gap: 6px; text-align: left; }
+.demotools .dth { font-size: 11px; color: #7A5300; font-weight: 700; }
+.demotools .hint { font-size: 12px; color: #7A5300; min-height: 0; margin: 0; }
+.demotools .hint:empty { display: none; }
+.demotools .waitl:empty { display: none; }
+.demotools .aiv { font-size: 10.5px; color: var(--ink3); line-height: 1.5; }
+.demotools .hintbtn { width: 100%; text-align: center; }
+.clockbar { display: flex; align-items: center; gap: 8px; }
 .clockbar time { font: 500 12.5px var(--latin); color: var(--ink); white-space: nowrap; }
 .ffwd { border: 1px solid var(--accent); background: var(--accent); color: #fff; border-radius: 8px; padding: 4px 10px; font-size: 12.5px; font-weight: 500; white-space: nowrap; }
 .ffwd:disabled { background: var(--surface); color: var(--ink3); border-color: var(--rule); }
@@ -670,6 +677,14 @@ button.auto b { color: var(--accent-ink); font-weight: 500; }
       <div class="mh"><div class="k">やってみること</div><b>迷ったら、ここから選ぶ</b></div>
       <div class="mlist" id="mlist"></div>
       <div class="mfoot">
+        <div class="demotools">
+          <div class="dth">体験用（本物の画面にはありません）</div>
+          <div class="clockbar"><time id="clk"></time><button type="button" class="ffwd" id="ff" disabled>⏩ 時間を進める</button></div>
+          <div class="waitl" id="waitl"></div>
+          <button type="button" class="hintbtn" id="hintBtn">ヒント：次に押すところを光らせる</button>
+          <div class="hint" id="hint"></div>
+          
+        </div>
         <button type="button" id="wzBtn">あなたに合わせる（5問・30秒）</button>
         <button type="button" data-act="closing">まとめ・料金と相談</button>
         <a href="sp.html" id="spLink">スマホ版も体験する</a>
@@ -681,18 +696,14 @@ button.auto b { color: var(--accent-ink); font-weight: 500; }
     <section class="ai" aria-label="AIアシスタント">
       <div class="ai-head">
         <div class="ai-mark"><svg viewBox="0 0 16 16" fill="none"><path d="M8 1.5l1.6 4.9L14.5 8l-4.9 1.6L8 14.5l-1.6-4.9L1.5 8l4.9-1.6z" fill="currentColor"/></svg></div>
-        <div><div class="t">AIアシスタント</div><div class="s">本物のAIが、打った言葉を読んで右の受信箱を動かします</div></div>
-        <div class="live">受信箱とつながっています</div>
+        <div><div class="t">AIアシスタント</div></div>
       </div>
       <div class="log" id="log"></div>
       <div class="composer">
-        <div class="hintrow"><div class="hint" id="hint"></div><button type="button" class="hintbtn" id="hintBtn">ヒント</button></div>
-        <div class="chips" id="chips"></div>
         <form class="box" id="form">
-          <textarea id="input" rows="1" placeholder="AIに頼む（例：見積もりを営業に頼んで）"></textarea>
+          <textarea id="input" rows="1" placeholder="メッセージを入力"></textarea>
           <button class="send-btn" type="submit" aria-label="頼む"><svg viewBox="0 0 16 16" fill="none"><path d="M8 13V3M3.5 7.5L8 3l4.5 4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
         </form>
-        <div class="aiv">打った文は、読むためにAI（OpenAI）へ送ります（保存しません）。個人情報や実在の会社の情報は入れないでください。</div>
       </div>
     </section>
 
@@ -709,7 +720,6 @@ button.auto b { color: var(--accent-ink); font-weight: 500; }
       </div>
       <div class="kh-body">
         <aside class="list">
-          <div class="clockbar"><time id="clk"></time><span class="waitl" id="waitl"></span><button type="button" class="ffwd" id="ff" disabled>⏩ 時間を進める</button></div>
           <div class="ltabs" id="ltabs"><button type="button" data-tab="open" class="on">要対応<em class="c" id="cOpen">5</em></button><button type="button" data-tab="archive">対応済み</button></div>
           <button type="button" class="nightbar" id="nightbar"></button>
           <div class="rows" id="rows"></div>
@@ -1127,7 +1137,7 @@ function wizard(host, done, opt) {
 // ・勝手に始めない。受信箱が届いているだけ。どれから、何をするかは自分で決める
 // ・選んだことで結果が変わる（渡すもの・単価・納期・候補の枠・支払期限・渡す部署）
 // ・左のAIは、打った言葉で右を動かす。返事は短く、すぐ出す（1文字ずつ打たない）
-// ・待ち時間は［⏩ 時間を進める］で自分で進める。光らせて引っ張るのは［ヒント］を押したときだけ
+// ・待ち時間は［⏩ 早送り］で自分で進める。光らせて引っ張るのは［ヒント］を押したときだけ
 var S, G = 0, FAST = 200;
 var DOW = { "10/6": "火", "10/7": "水", "10/8": "木", "10/9": "金" };
 var GRID_D = ["10/6", "10/7", "10/8", "10/9"], GRID_T = ["10:00", "13:00", "16:00"];
@@ -1286,7 +1296,7 @@ function actions(t) {
     if (S.stage === 2 && !S.sets["case"]) b.push(btn("reply1", "日時の候補を選んで、返事を作る"));
     if (S.stage === 3 && c.nego && !S.sets["case"]) b.push(btn("renego", "単価を1,500円にして出し直す", "cut"), btn("renego", "このままの単価で説明する", "keep", false));
     if (S.stage === 3 && c.needEst && !S.sets["case"]) b.push(btn("resendest", "見積書を添えて送り直す"));
-    if (S.stage === 3 && !c.nego && !c.needEst && !S.sets["case"]) b.push('<span class="note">返事待ちです。候補の枠は仮押さえ中。右上の［⏩］で時間を進めると返事が届きます。ほかの連絡を先に片付けても大丈夫です。</span>');
+    if (S.stage === 3 && !c.nego && !c.needEst && !S.sets["case"]) b.push('<span class="note">返事待ちです。候補の枠は仮押さえ中です。返事が来たら、ここに届きます。</span>');
     if (S.stage === 5 && !S.sets["case"]) {
       if (!c.thanked) b.push(btn("thanks", "お礼と日程の返事だけ作る"));
       b.push(btn("acct", (c.thanked ? "納品が済んだら：" : "") + "経理のAIに請求書を作ってもらう", null, !!c.thanked), '<span class="note">' + (c.thanked ? "お礼は送りました。請求書は、作っても送るのはあなたが決めたときです。" : "請求書は今でも、納品後でも作れます。作っても相手には送りません。") + "</span>");
@@ -1298,7 +1308,7 @@ function actions(t) {
       if (!d) b.push(btn("dept", "部署のAIに案を作ってもらう", t.id), '<span class="note">相手には送りません。どの部署に頼むかは次の画面で選びます。</span>');
       if (d >= 3) b.push(btn("reply", "相手への返事を作る", t.id));
     } else if (!S.sent[t.id]) b.push(btn("reply", "返事を作る", t.id));
-    else if (t.kind === "sched") b.push('<span class="note">返事待ちです（仮押さえ中）。右上の［⏩］で時間を進めると返事が届きます。</span>');
+    else if (t.kind === "sched") b.push('<span class="note">返事待ちです（仮押さえ中）。返事が来たら、ここに届きます。</span>');
   }
   return b.length ? '<div class="actbar">' + b.join("") + "</div>" : "";
 }
@@ -1335,16 +1345,15 @@ function openFull(id) {
   S.fullId = id;
   var items = [{ k: "本文", html: '<div class="ftext">' + mentionHtml(t) + '<span class="ed" id="ed" contenteditable="true" spellcheck="false">' + edHtml(set.text, set.edited ? set.orig : null) + "</span></div>"
     + '<div class="tones">AIに直させる：<button type="button" data-tone="soft">やわらかく</button><button type="button" data-tone="short">短く</button><button type="button" data-tone="polite">丁寧に</button><span>　本文を直接直すこともできます。直した行には色が付きます</span></div>' }];
-  if (set.file) items.push({ k: "ファイル", html: '<div class="ffile" style="display:block"><div style="display:flex;gap:10px;align-items:center"><span class="fi">PDF</span><div><div>' + esc(set.file.name) + '</div><div class="fm">PDF・1ページ（体験用の見本）</div></div><button type="button" class="nofile" data-act="nofile" data-id="' + id + '">このファイルは送らない</button></div>' + docHtml2(set.file.doc, true, false) + "</div>" });
+  if (set.file) items.push({ k: "ファイル", html: '<div class="ffile" style="display:block"><div style="display:flex;gap:10px;align-items:center"><span class="fi">PDF</span><div><div>' + esc(set.file.name) + '</div><div class="fm">PDF・1ページ（体験用の見本）</div></div></div>' + docHtml2(set.file.doc, true, false) + "</div>" });
   var n = items.length;
   $("#overlay").innerHTML = '<div class="full"><div class="fcard">'
     + '<div class="fh"><span class="tt">送る前の下書き</span><span class="ver">第' + set.ver + '版</span><span class="by">AIアシスタントが置きました</span><button class="x" type="button" data-act="fullx">閉じる</button></div>'
-    + '<div class="unsent">まだ送っていません（下書きです）。下の［送る内容を確かめる］→［この内容で送る］と2回押したときだけ送ります。</div>'
     + '<dl class="fto"><dt>宛先</dt><dd><span class="dest">' + esc(t.name) + '</span><span class="kind">' + esc(t.ch) + (t.group ? "（ほかの人も読めます）" : "") + "</span></dd>"
     + (t.mention ? "<dt>" + (t.ch === "チャットワーク" ? "TO" : "メンション") + "</dt><dd>" + esc(t.mention) + "さん</dd>" : "")
     + "<dt>送るもの</dt><dd>" + (n > 1 ? "本文とファイル（この順に、2回に分けて届きます）" : "本文だけ（1通）") + "</dd></dl>"
     + '<div class="fitems">' + items.map(function (it, i) { return '<div class="fitem" id="fi' + i + '"><span class="no">' + (i + 1) + '</span><div><div class="k">' + it.k + '<span class="s" id="fs' + i + '">未送信</span></div>' + it.html + "</div></div>"; }).join("") + "</div>"
-    + '<div class="ff"><button class="go" type="button" data-act="sendask" data-id="' + id + '">送る内容を確かめる（' + (n > 1 ? "本文＋ファイル" : "本文だけ") + '）</button><span class="why">次の画面で［この内容で送る］を押すまで、相手には何も届きません。</span></div></div></div>';
+    + '<div class="ff"><button class="go" type="button" data-act="sendask" data-id="' + id + '">宛先と' + n + '通の中身を確認して送信</button><span class="why">押すまで、相手には何も届きません。</span></div></div></div>';
   mark("full"); suggest();
 }
 // 閉じても、直した本文は下書きに残す
@@ -1758,7 +1767,7 @@ var input = $("#input");
 function grow() { input.style.height = "24px"; input.style.height = Math.min(96, input.scrollHeight) + "px"; }
 // チップは入力欄に入るだけ。送る（Enter）のは自分
 function setChips(list) {
-  var c = $("#chips"); c.innerHTML = "";
+  var c = $("#chips"); if (!c) return; c.innerHTML = "";
   list.forEach(function (x) {
     var b = document.createElement("button"); b.type = "button"; b.className = "chip"; b.textContent = x;
     b.onclick = function () { if (S.busy) return; input.value = x; $("#form").requestSubmit(); };
@@ -1931,7 +1940,7 @@ function hintTarget() {
     if (S.stage === 0) return ['[data-act="sales"]', "営業のAIに見積書を作ってもらいます（相手には送りません）"];
     if (S.stage === 1) return c.q ? ["[data-q]", "営業のAIの質問に答えます"] : [null, "営業のAIが作っています"];
     if (S.stage === 2) return ['[data-act="reply1"]', "単価は見積書の中で直せます。よければ候補を選んで返事へ"];
-    if (S.stage === 3) return S.sets["case"] ? ['[data-act="full"]', "下書きを開いて確かめます"] : c.nego ? ['[data-act="renego"]', "単価の相談に、どう返すか選びます"] : ["#ff", "右上の［⏩］で時間を進めると、返事が届きます"];
+    if (S.stage === 3) return S.sets["case"] ? ['[data-act="full"]', "下書きを開いて確かめます"] : c.nego ? ['[data-act="renego"]', "単価の相談に、どう返すか選びます"] : ["#ff", "左下の［⏩ 早送り］で時間を進めると、返事が届きます"];
     if (S.cal === "case") return ['[data-act="calyes"]', "カレンダーに入れるか決めます"];
     if (S.stage === 5) return ['[data-act="acct"]', "経理のAIに請求書を頼みます"];
     if (S.stage === 6) return [null, "経理のAIが作っています"];
@@ -1946,7 +1955,7 @@ function hintTarget() {
     if (k === "dept" && S.dept[id] === 0.5) return ['[data-act="deptfix"]', "おすすめの部署に回します"];
     if (k === "dept" && !S.dept[id]) return ['[data-act="dept"]', "部署のAIに渡します（渡す先を選べます）"];
     if (k === "dept" && S.dept[id] === 1) return [null, "部署のAIが作っています"];
-    if (t.state === "open" && S.sent[id]) return ["#ff", "右上の［⏩］で時間を進めると、返事が届きます"];
+    if (t.state === "open" && S.sent[id]) return ["#ff", "左下の［⏩ 早送り］で時間を進めると、返事が届きます"];
     if (t.state === "open") return ['[data-act="reply"][data-id="' + id + '"]', "返事を作ります"];
     return ['[data-mis="flow"]', "この件は済みました。ほかの体験もどうぞ"];
   }
@@ -1957,7 +1966,7 @@ function hintTarget() {
   }
   if (k === "day") {
     if (!S.goals.n1) return S.view === "night" ? ["[data-nightgo]", "作っておくものに印を付けて、頼みます"] : ["#nightbar", "一覧の上の「夜の準備」を開きます"];
-    if (!S.goals.n2) return ["#ff", "右上の［⏩］で、朝まで時間を進めます"];
+    if (!S.goals.n2) return ["#ff", "左下の［⏩ 早送り］で、朝まで時間を進めます"];
     return S.view === "night" ? ["[data-nopen]", "できたものを開きます"] : ["#nightbar", "「頼まれていた準備」を開きます"];
   }
   if (k === "trust") {
@@ -2043,7 +2052,7 @@ var PAGES = {
   night: function () {
     if (S.nightDone) return "<h2>頼まれていた準備（朝6:00）</h2><p class=\"lead\">夜のうちに作っておきました。送るものは、送る前の下書きとして置いてあります（まだ送っていません）。</p>"
       + NIGHT.map(function (n, i) { if (!S.nightPick[i]) return ""; return '<div class="tk"><span class="due">できました</span><span class="t">' + esc(n.t) + '</span><button type="button" class="chk" data-nopen="' + i + '">' + (S.nightOpen[i] ? "閉じる" : "開く") + '</button><span class="w">' + esc(n.w) + "</span>" + (S.nightOpen[i] ? '<div class="nbody">' + esc(n.body) + "</div>" : "") + "</div>"; }).join("");
-    if (S.nightAsked) return "<h2>夜の準備（頼みました）</h2><p class=\"lead\">頼んだものだけを、夜のうちに作ります。朝6時にできています。右上の［⏩］で、朝まで時間を進められます。</p>"
+    if (S.nightAsked) return "<h2>夜の準備（頼みました）</h2><p class=\"lead\">頼んだものだけを、夜のうちに作ります。朝6時にできています。左下の［⏩ 早送り］で、朝まで時間を進められます。</p>"
       + NIGHT.map(function (n, i) { return S.nightPick[i] ? '<div class="tk"><span class="due">作っています</span><span class="t">' + esc(n.t) + '</span><span class="w">' + esc(n.w) + "</span></div>" : ""; }).join("");
     return "<h2>夜の準備（21:00）</h2><p class=\"lead\">明日のために、AIが作っておけるものを選びました。印を付けたものだけを夜のうちに作ります。頼まなければ、何も作りません。</p><div class=\"np\">"
       + NIGHT.map(function (n, i) { return '<label><input type="checkbox" data-np="' + i + '"' + (n.on ? " checked" : "") + '><div><div class="t">' + (i + 1) + "．" + esc(n.t) + '</div><div class="w">' + esc(n.w) + "</div></div></label>"; }).join("")
@@ -2213,7 +2222,7 @@ $("#page").addEventListener("click", function (ev) {
     if (!any) { toast("頼むものに印を付けてください（頼まなければ、何も作りません）"); return; }
     S.nightAsked = true; done("n1"); showView("night"); renderRows();
     later(Math.max(30, 1800 - S.now), "夜の準備（朝6:00にできます）", function () { S.nightDone = true; done("n2"); renderRows(); showView("night"); toast("朝6:00：頼まれていた準備ができました"); say("<p>翌朝6:00です。頼まれていた準備ができています（右）。</p>"); });
-    say("<p>頼みました。夜のうちに作って、朝6時にできています。右上の［⏩］で朝まで進められます。</p>");
+    say("<p>頼みました。夜のうちに作って、朝6時にできています。（体験用：左下の［⏩ 早送り］で朝まで進められます）</p>");
   }
 });
 $("#restart").onclick = function () { start(); };
@@ -2250,7 +2259,7 @@ function aiValid(a, x) {
     case "acct": return S.stage === 5;
     case "rewrite": return !!$("#ed") && x.lines && x.lines.length > 0;
     case "dept": return !!S.th[x.id] && T(x.id).kind === "dept" && !S.dept[x.id];
-    case "nofile": return !!(S.fullId && S.sets[S.fullId] && S.sets[S.fullId].file);
+    case "nofile": return false;
     case "thanks": return S.stage === 5;
     case "ff": return S.pend.length > 0;
     default: return true;
@@ -2314,7 +2323,7 @@ function start() {
   document.querySelectorAll(".dlg,.ho,.wz").forEach(function (e) { e.remove(); });
   showView("inbox"); refresh(); setHint("");
   $("#pv").textContent = PRIVACY;
-  say("<p>おはようございます。今日は、あなたが<b>社長</b>です（架空の会社）。受信箱に、返事を待っている連絡が5件届いています。</p><p>右の受信箱を自由にさわるか、ここに頼んでください。下の候補を押しても、そのまま頼めます。</p>");
+  say("<p>おはようございます。今日は、あなたが<b>社長</b>です（架空の会社）。受信箱に、返事を待っている連絡が5件届いています。</p><p>右の受信箱を自由にさわるか、ここにふだんの言葉で頼んでください。たとえば：</p><ul><li>いちばん急ぎはどれ？</li><li>なごみ食品の見積もりを営業に頼んで</li><li>（下書きを開いて）もう少しやわらかく</li></ul>");
 }
 dlog("open", { side: "pc" });
 start();

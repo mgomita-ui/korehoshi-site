@@ -340,7 +340,7 @@ mark.chg { background: #DDF4E4; }
   </aside>
 
   <div class="phone" id="phone">
-    <div class="demobar"><b>体験版</b><span class="dm">架空のデータです。実際には送信されません。</span><div class="lst" id="lst"></div><button class="restart" type="button" id="restart">↻ 最初から</button></div>
+    <div class="demobar"><b>体験版</b><span class="dm">架空のデータです。実際には送信されません。</span><div class="lst" id="lst"></div><button class="restart" type="button" id="dff" style="display:none">⏩ 早送り</button><button class="restart" type="button" id="restart">↻ 最初から</button></div>
     <div class="apps" id="apps">
       <button type="button" data-app="line">公式LINE<small>あなたとのトーク</small></button>
       <button type="button" data-app="inbox">受信箱（スマホ版）<small>ブラウザで開く画面</small></button>
@@ -675,6 +675,8 @@ var ICON = {
   task: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M8 12l3 3 5-6"/></svg>',
   night: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg>',
   help: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="12" r="8"/><path d="M9.6 9.5a2.5 2.5 0 1 1 3.4 2.3c-.6.3-1 .8-1 1.5v.5M12 17h.01"/></svg>',
+  search: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="11" cy="11" r="6"/><path d="M20 20l-4.5-4.5"/></svg>',
+  later: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/></svg>',
   ok: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>'
 };
 var FAST = /auto=/.test(location.hash);
@@ -836,17 +838,17 @@ function lineMsg(x) {
 function renderTalk(focus) {
   mark("m");
   var html = '<div class="talk-head"><div class="av">これ</div><div><div class="t">これほし</div><div class="s">公式LINE・あなたとのトーク（簡略表示）</div></div></div>'
-    + '<div class="hint" id="hint"></div><div class="talk" id="talk"><div class="day"><span>10月5日（月）</span></div>'
+    + '<div class="talk" id="talk"><div class="day"><span>10月5日（月）</span></div>'
     + S.talk.map(lineMsg).join("") + "</div>"
-    + (S.roleSet ? '<div class="menu"><div class="lbl">あなただけに出るメニュー（お客様には出ません）</div>'
+    + (S.roleSet ? '<div class="menu"><div class="lbl">メニュー ▾</div>'
       + '<button type="button" data-act="today">' + ICON.today + "今日やること</button>"
       + '<button type="button" data-act="swipe">' + ICON.reply + "返事が必要</button>"
       + '<button type="button" data-act="instr">' + ICON.draft + "下書きを見る</button>"
-      + '<button type="button" data-act="tasks">' + ICON.task + "タスク</button>"
-      + '<button type="button" data-act="night">' + ICON.night + "夜の準備</button>"
+      + '<button type="button" data-act="search">' + ICON.search + "相手を探す</button>"
+      + '<button type="button" data-act="later">' + ICON.later + "あとで見る</button>"
       + '<button type="button" data-act="help">' + ICON.help + "使い方</button></div>"
       + '<form class="inbar" id="inbar"><input id="inp" autocomplete="off" placeholder="文字でも頼めます（例：急ぎは？）"><button type="submit" id="inbtn">送る</button></form>'
-      + '<div class="inbar-note">打った文は、読むためにAI（OpenAI）へ送ります（保存しません）。個人情報は入れないでください。</div>' : "");
+      : "");
   $("#screen").innerHTML = html;
   var talk = $("#talk");
   setHint(!S.roleSet ? "立場を選んでください（下の緑のボタン）。" : S.nago === 2 ? "なごみ食品の返事が来ました。カレンダーに入れるか決めてください。" : S.nago === 3 ? "受注できました。次にすることを選んでください。" : !S.tried.s ? "「返事が必要を見る」から、指ではじいて頼めます。" : "");
@@ -858,10 +860,9 @@ function renderTalk(focus) {
 function setHint(t) { var h = $("#hint"); if (h) h.textContent = t || ""; }
 function pushTalk(x) { x.t = x.t || now(); S.talk.push(x); if (S.view === "talk") renderTalk(); }
 function chooseRole(role) {
-  var keep = S.talk.slice(0, 1);
-  S = fresh(role); S.talk = keep; S.view = "talk";
+  var ov = $("#roleov"); if (ov) ov.remove();
+  S = fresh(role); S.talk = []; S.view = "talk";
   dlog("answers", { answers: { role: role } }); mark("r");
-  S.talk.push({ me: ROLEBTN.filter(function (r) { return r[0] === role; })[0][1] });
   S.talk.push({ t: "06:00", kind: "morning" });
   setStep(1); renderTalk(); renderList();
 }
@@ -885,12 +886,12 @@ function cardHtml(id) {
     + '<div class="cl"><small>相手の最後の言葉</small>' + esc(t.last) + "</div>"
     + '<div class="cf">' + (t.due ? '<span class="due">' + esc(t.due) + "</span>" : "<span></span>") + "<span>押すと全部を見る</span></div>";
 }
-var LABEL = { left: "対応不要", down: "あとで", up: "返事しない", right: "返事を頼む" };
+var LABEL = { left: "対応不要", down: "あとで", up: "指示する", right: "返事を頼む" };
 function renderSwipe() {
   if (!S.roleSet) { toast("先に公式LINEで、立場を選んでください"); go("talk"); return; }
   setStep(2);
   var id = S.deck[0];
-  var html = '<div class="hint" id="hint"></div><div class="sw">'
+  var html = '<div class="sw">'
     + '<div class="swtop">残り <b>' + S.deck.length + "</b>件" + (id ? '<span class="now">いま：<b>' + esc(T(id).name) + "</b>への対応を決めます</span>" : "") + "</div>"
     + Object.keys(S.instr).filter(function (k) { return !S.sent[k] && !S.instr[k].outcome; }).map(function (k) {
       var ready = S.instr[k].state === "ready" && S.drafts[k];
@@ -903,8 +904,8 @@ function renderSwipe() {
   html += '<div class="stack">' + (S.deck[1] ? '<div class="card under">' + cardHtml(S.deck[1]) + "</div>" : "")
     + '<div class="card" id="card">' + cardHtml(id) + '</div><div class="stamp" id="stamp"></div></div>'
     + '<div class="swbtns"><button type="button" data-sw="left"><span class="ar">←</span>対応不要</button><button type="button" data-sw="down"><span class="ar">↓</span>あとで</button>'
-    + '<button type="button" data-sw="up"><span class="ar">↑</span>返事しない</button><button type="button" data-sw="right" class="go"><span class="ar">→</span>返事を頼む</button></div>'
-    + '<p class="swhelp">下のボタンを押して決めます（指ではじいても同じ）。どれも相手には送りません。</p></div>' + tabs("swipe");
+    + '<button type="button" data-sw="up"><span class="ar">↑</span>指示する</button><button type="button" data-sw="right" class="go"><span class="ar">→</span>返事を頼む</button></div>'
+    + "</div>" + tabs("swipe");
   $("#screen").innerHTML = html;
   bindTabs();
   $(".swbtns").onclick = function (ev) { var b = ev.target.closest("[data-sw]"); if (b) decide(b.getAttribute("data-sw")); };
@@ -957,6 +958,7 @@ function decide(d) {
   var id = S.deck[0]; if (!id) return;
   if (d === "right") { openPresets(id); return; }
   if (d === "up") { openSelf(id); return; }
+  if (d === "down") { S.later = S.later || {}; S.later[id] = true; }
   commit(id, d, d === "left" ? T(id).name + "は対応不要にしました（何も送っていません）" : T(id).name + "は、明日の朝にもう一度出します");
 }
 // はじいた答えは7秒のあいだ取り消せる
@@ -1008,17 +1010,34 @@ function openPresets(id) {
       });
     });
 }
+// ［指示する］の「その他（直接入力）」：書いた指示で下書きを作る（中身はおすすめの返し方で作る）
+function instructFree(id, note) {
+  var t = T(id), P = presetsOf(id), p = P.filter(function (x) { return x.rec && x.k !== "mine"; })[0] || P.filter(function (x) { return x.k !== "mine"; })[0];
+  S.instr[id] = { state: "making", label: note };
+  commit(id, "up", t.name + "：「" + note + "」で下書きを作ります", false);
+  mark("s");
+  makeDraft(id, p.k, note);
+}
 // 返事をしない対応（自分でやる・任せる・待つ）
 function openSelf(id) {
   var t = T(id);
-  var opts = [["mine", "返事はせず、自分のやることにする"], ["assign", "社内の担当者に任せる（相手待ちにする）"], ["wait", "相手の返事を待つ"]];
-  sheet('<div class="sh">' + esc(t.name) + ' に返事しない</div><div class="ss">返事はせず、自分でやる・任せる・待つのどれかにします。押すと決まります（何も送りません）。</div>'
-    + opts.map(function (o) { return '<button type="button" class="opt" data-o="' + o[0] + '">' + esc(o[1]) + "</button>"; }).join("")
+  var opts = [["mine", "自分で", "返事はせず、自分のやることにする"], ["assign", "任せる", "社内の担当者に任せる（相手待ちにする）"], ["wait", "待つ", "相手の返事を待つ"]];
+  sheet('<div class="sh">' + esc(t.name) + ' の対応</div><div class="ss">押すだけで決まります（送りません）。</div>'
+    + opts.map(function (o) { return '<button type="button" class="opt" data-o="' + o[0] + '"><span class="tag">' + o[1] + "</span>" + esc(o[2]) + "</button>"; }).join("")
+    + '<details style="margin:6px 0"><summary style="font-size:14px;color:var(--ink2);padding:6px 2px">その他（直接入力）</summary>'
+    + '<textarea rows="3" id="selfnote" placeholder="例：金曜までに見積を出すと返して／担当に任せて／先方の返事を待つ"></textarea>'
+    + '<button type="button" class="opt rec" data-o="note" style="text-align:center;font-weight:700">この指示で頼む</button>'
+    + '<button type="button" class="opt" data-o="mine">返事はせず、自分のやることにする</button></details>'
     + '<button class="cancel" type="button" data-close>やめる</button>',
     function (el) {
       el.addEventListener("click", function (ev) {
         var b = ev.target.closest("[data-o]"); if (!b) return;
-        var k = b.getAttribute("data-o"); el.remove();
+        var k = b.getAttribute("data-o");
+        if (k === "note") {
+          var note = ($("#selfnote").value || "").trim(); if (!note) { $("#selfnote").focus(); return; }
+          el.remove(); instructFree(id, note); return;
+        }
+        el.remove();
         selfDone(id, k === "mine" ? "自分のやることにしました" : k === "assign" ? "担当者に任せました（確認日 10/8）" : "相手の返事待ちにしました（確認日 10/8）");
       });
     });
@@ -1098,7 +1117,7 @@ function showDraft(id, el) {
     + '<div class="tx">' + marked(d.lines.join("\n"), d.prev) + "</div>"
     + (d.file ? '<div class="fl"><span class="pdf">PDF</span>' + esc(d.file.name) + '<button type="button" class="nobtn" data-sd="doc">中身を見る</button></div><div id="sddoc" style="display:none">' + docHtml(d.file.doc, true) + "</div>" : "")
     + '<div class="ns">' + esc(promiseLine(d)) + "</div></div>"
-    + '<div class="fb" style="display:grid;gap:8px"><button class="opt rec" type="button" data-sd="send" style="text-align:center;font-weight:700">' + esc(t.name) + "に送る（このあと1回だけ確認します）</button>"
+    + '<div class="fb" style="display:grid;gap:8px"><button class="opt rec" type="button" data-sd="send" style="text-align:center;font-weight:700">' + esc(t.name) + "に送る前に、全文を見る</button>"
     + '<button class="opt" type="button" data-sd="fix" style="text-align:center">直す</button>'
     + '<button class="cancel" type="button" data-close>今は送らない（下書きは残ります）</button></div>';
   var bind = function (sh) {
@@ -1107,7 +1126,7 @@ function showDraft(id, el) {
       var k = b.getAttribute("data-sd");
       if (k === "doc") { var dv = $("#sddoc"); if (dv) { var on = dv.style.display === "none"; dv.style.display = on ? "" : "none"; b.textContent = on ? "閉じる" : "中身を見る"; } return; }
       sh.remove();
-      if (k === "send") { setStep(3); go("confirm", id); riskCheck(id); } else if (k === "open") { setStep(3); go("confirm", id); } else openFix(id);
+      if (k === "send") { setStep(3); go("confirm", id); } else if (k === "open") { setStep(3); go("confirm", id); } else openFix(id);
     });
   };
   d.note = "";
@@ -1135,7 +1154,7 @@ function toast(text, label, fn, ms) {
 // ---------------- 指示済み ----------------
 function renderInstr() {
   var ids = Object.keys(S.instr);
-  var html = '<div class="hint" id="hint"></div><div class="list">';
+  var html = '<div class="list">';
   if (!ids.length) html += '<div class="empty">まだ頼んだものはありません。「さばく」で右にはじくと、その場で下書きができ、ここにも並びます。</div>';
   ids.forEach(function (id) {
     var x = S.instr[id], t = T(id);
@@ -1166,31 +1185,22 @@ function renderConfirm(id) {
     + '<div class="dest"><div class="l">送り先</div><div class="w">' + esc(t.name) + '</div><div class="k">' + esc(t.ch) + "</div>"
     + (t.group ? '<div class="warn">個人ではありません。ほかの人も読めます。</div>' : "")
     + (t.mention ? '<div class="mn">呼びかけ：<span>' + esc(t.mention) + "さん</span></div>" : "") + "</div>"
-    + '<div class="ns" id="cfmns" style="margin:0 0 8px;font-size:12.5px;color:#7A5300;background:#FFF4E5;border-radius:8px;padding:6px 10px">まだ送っていません。下の［送信する］→ 確認の［送信する］の2回で送ります。</div>'
     + "<h3>1．本文（全文）</h3><div class=\"full\">" + marked(d.lines.join("\n"), d.prev) + "</div>"
-    + '<p style="font-size:12.5px;color:var(--ink3);margin:6px 2px 0">' + esc(promiseLine(d)) + '　<button type="button" class="nobtn" data-act="fix" data-id="' + id + '" style="margin:0">直す</button></p>'
-    + (d.file ? '<h3>2．ファイル（本文のあとに届きます）<button type="button" class="nobtn" id="nofile">このファイルは送らない</button></h3>' + docHtml(d.file.doc, true) : "")
+    + (d.file ? "<h3>2．ファイル（本文のあとに届きます）</h3>" + docHtml(d.file.doc, true) + '<div class="note" style="font-size:12.5px;color:var(--ink3);margin:6px 2px">PDFなどはリンクで届きます（リンクを知っている人は、ログインなしで開けます）。</div>' : "")
+    + '<p style="font-size:12.5px;color:var(--ink3);margin:10px 2px 0">直すときは、公式LINEの［直す］で頼むか、パソコン版で。送ったものは取り消せません。</p>'
     + "</div>"
-    + '<div class="sendbar" id="sendbar"><div style="display:flex;gap:8px;margin-bottom:8px"><button type="button" class="btn2" id="bk2" style="flex:1;margin:0">← 戻る（送らない）</button><button type="button" class="btn2" data-act="fix" data-id="' + id + '" style="flex:1;margin:0">直す</button></div>'
-    + '<button class="sendbtn ring" type="button" id="sendNow">' + esc(t.name) + "に送信する（" + (n > 1 ? "本文＋ファイル" : "本文だけ") + "）</button><div class=\"n\">押すと、最後に「送りますか？」と1回だけ聞きます。</div></div>";
+    + '<div class="sendbar" id="sendbar"><button class="sendbtn ring" type="button" id="sendNow">' + esc(t.name) + "に送信する</button></div>";
   $("#screen").innerHTML = html;
   $("#bk").onclick = function () { go("instr"); };
-  $("#bk2").onclick = function () { go("instr"); };
   $("#sendNow").onclick = function () { riskCheck(id); };
-  var nf = $("#nofile");
-  if (nf) nf.onclick = function () {
-    var name = d.file.name; d.prev = d.lines.slice(); d.file = null;
-    var kept = d.lines.filter(function (l) { return !/添付/.test(l); });
-    if (kept.length && kept.length < d.lines.length) d.lines = kept;
-    toast("「" + name + "」は送らないことにしました（添付に触れた行も消しました）");
-    renderConfirm(id);
-  };
 }
 function riskCheck(id) {
+  if (document.querySelector(".modal")) return;
   var t = T(id), d = S.drafts[id], risks = [];
   if (t.group) risks.push("送り先は個人ではなく、" + t.ch + "です（ほかの人も読めます）。");
   if (d.file) risks.push("ファイル（" + d.file.name + "）も一緒に送ります。");
-  var pl = promiseLine(d); if (!/入っていません/.test(pl)) risks.push(pl + "（送ると、やることに残ります）");
+  if (/振込|振り込み|口座|[¥￥]\s?\d|\d+万?円|承諾|契約/.test(d.lines.join(""))) risks.push("金額・振込先・契約の言葉が入っています。");
+  if (!risks.length) { sending(id); return; }
   var el = document.createElement("div"); el.className = "modal";
   el.innerHTML = '<div class="mbox"><h3>この内容で送りますか？</h3>' + (risks.length ? "<ul>" + risks.map(function (r) { return "<li>" + esc(r) + "</li>"; }).join("") + "</ul>" : "")
     + '<div class="who">宛先：<b>' + esc(t.name) + "</b>（" + esc(t.ch) + "）<br>本文：" + esc(d.lines[0]) + (d.lines.length > 1 ? "…（全" + d.lines.length + "行）" : "")
@@ -1205,7 +1215,6 @@ function riskCheck(id) {
 function sending(id) {
   var d = S.drafts[id], g = G;
   $("#sendNow").disabled = true; $("#sendNow").textContent = "送っています…";
-  var ns = $("#cfmns"); if (ns) ns.textContent = "送っています…（体験版なので、相手には届きません）";
   var cfm = $("#cfm");
   var items = [["本文"]].concat(d.file ? [[d.file.name]] : []);
   var prog = document.createElement("div"); prog.className = "prog";
@@ -1244,14 +1253,14 @@ function sentDone(id) {
     + (tk ? '<div class="taskline"><span class="k' + (tk.hold ? " hold" : "") + '">' + esc(tk.k) + "</span><span>" + esc(tk.t) + '</span></div><p style="font-size:13px">' + esc(tk.why) + "</p>" : "");
   if (id === "nago" && d.k === "quote") {
     S.nago = 1;
-    html += '<div class="waitbox"><button type="button" class="ffwd" id="ffwd">⏩ 返事が来るまで早送り（体験用）</button><p>本物では待つだけです。返事が来たら公式LINEに届きます。</p></div>';
+    html += '<p style="font-size:13px">返事が来たら、公式LINEに届きます。</p>';
+    setTimeout(function () { var f = $("#dff"); if (f) f.style.display = ""; toast("（体験用）上の［⏩ 早送り］で、返事が来るところまで進められます"); }, W(400));
   } else if (id === "nago" && (d.k === "thanks" || d.k === "invoice")) {
     S.nago = d.k === "thanks" ? 4 : 5; mark("o");
   }
   html += '<button class="btn2" type="button" id="back2">' + (S.deck.length ? "さばくに戻る（残り " + S.deck.length + "件）" : "公式LINEを見る") + "</button></div></div>";
   $("#screen").innerHTML = html;
   $("#back2").onclick = function () { go(S.deck.length ? "swipe" : "talk"); };
-  var ff = $("#ffwd"); if (ff) ff.onclick = custReply;
   var g = G;
   if ((S.nago >= 4 || Object.keys(S.sent).length >= 3) && !S.closed) setTimeout(function () { if (g === G) showClosing(); }, W(1800));
 }
@@ -1259,6 +1268,7 @@ function sentDone(id) {
 function custReply() {
   if (S.nago !== 1) return;
   S.nago = 2; delete S.sent.nago; delete S.instr.nago;
+  var f = $("#dff"); if (f) f.style.display = "none";
   pushTalk({ kind: "cust" });
   go("talk");
 }
@@ -1412,7 +1422,7 @@ function tcard(c) {
 }
 function renderTasks() {
   var c = tById(S.tdeck[0]), n = tById(S.tdeck[1]);
-  var html = '<div class="hint" id="hint"></div><div class="sw"><div class="swtop">残り <b>' + S.tdeck.length + "</b>件・タスクとAIの問いに、指ではじいて答えます</div>";
+  var html = '<div class="sw"><div class="swtop">残り <b>' + S.tdeck.length + "</b>件・タスクとAIの問いに、指ではじいて答えます</div>";
   if (!c) {
     html += '<div class="done-all"><div><b>答えるものはありません</b>答えは「任せ具合」に入り、合っていた回数がたまった種類から、AIが聞かずに進めるようになります。</div></div></div>' + tabs("tasks");
     $("#screen").innerHTML = html; bindTabs(); setHint(""); return;
@@ -1454,7 +1464,7 @@ function tCommit(c, d, text) {
 
 // ---------------- 今朝 ----------------
 function renderMorning() {
-  var html = '<div class="hint" id="hint"></div><div class="mg">', last = "";
+  var html = '<div class="mg">', last = "";
   S.morn.forEach(function (m) {
     if (m.sec !== last) { html += "<h3>" + esc(m.sec) + "</h3>"; last = m.sec; }
     var mk = S.mmark[m.id];
@@ -1483,7 +1493,7 @@ function nightItems() {
 }
 function renderNight() {
   var N = nightItems();
-  var html = '<div class="hint" id="hint"></div><div class="mg">';
+  var html = '<div class="mg">';
   if (S.night === 2) {
     html += "<h3>朝6:00　頼まれていた準備ができました</h3>" + N.filter(function (n, i) { return S.nightPick[i]; }).map(function (n) {
       return '<div class="mi2"><div class="t">' + esc(n.t) + '</div><div class="w">' + esc(n.made) + "</div></div>";
@@ -1546,6 +1556,34 @@ $("#lst").addEventListener("click", function (ev) {
   if (ev.target.closest("[data-lsttoggle]")) { S.lstOpen = !S.lstOpen; renderList(); }
 });
 
+// ---------------- 相手を探す・あとで見る（本物の公式LINEのメニューと同じ） ----------------
+function openSearch() {
+  var ids = ["nago", "a", "b", "d"];
+  sheet('<div class="sh">相手を探す</div><div class="ss">名前を押すと、その連絡のカードを出します。</div>'
+    + ids.map(function (id) { return '<button type="button" class="opt" data-find="' + id + '"><span class="tag">' + esc(T(id).ch) + "</span>" + esc(T(id).name) + "</button>"; }).join("")
+    + '<button class="cancel" type="button" data-close>閉じる</button>', function (el) {
+      el.addEventListener("click", function (ev) {
+        var b = ev.target.closest("[data-find]"); if (!b) return;
+        var id = b.getAttribute("data-find"); el.remove();
+        if (S.drafts[id] && !S.sent[id]) { showDraft(id); return; }
+        if (S.deck.indexOf(id) < 0) { toast("この相手には、もう対応しています"); go("instr"); return; }
+        S.deck = [id].concat(S.deck.filter(function (x) { return x !== id; })); go("swipe");
+      });
+    });
+}
+function openLater() {
+  var later = Object.keys(S.later || {}).filter(function (id) { return S.later[id]; });
+  sheet('<div class="sh">あとで見る</div><div class="ss">［あとで］にしたものです。明日の朝、もう一度カードに出ます。</div>'
+    + (later.length ? later.map(function (id) { return '<button type="button" class="opt" data-back="' + id + '">' + esc(T(id).name) + "（今すぐ戻す）</button>"; }).join("") : '<p class="ss">まだありません。［↓ あとで］を押すと、ここに入ります。</p>')
+    + '<button class="cancel" type="button" data-close>閉じる</button>', function (el) {
+      el.addEventListener("click", function (ev) {
+        var b = ev.target.closest("[data-back]"); if (!b) return;
+        var id = b.getAttribute("data-back"); delete S.later[id]; el.remove();
+        S.deck = [id].concat(S.deck.filter(function (x) { return x !== id; })); go("swipe");
+      });
+    });
+}
+
 // ---------------- 使い方 ----------------
 function openHelp() {
   sheet('<div class="sh">使い方</div><div class="ss">押すだけで使えます。文字を打たなくても大丈夫です。</div>'
@@ -1570,6 +1608,8 @@ $("#screen").addEventListener("click", function (ev) {
   else if (a === "invoice") caseNext("invoice");
   else if (a === "today") { S.talk.push({ me: "今日やること" }); pushTalk({ text: "今日のやること：①" + S.R.th.c.task.k + " " + S.R.th.c.task.t + "　②" + S.R.schedule[0][0] + " " + S.R.schedule[0][1] + "。返事が必要な連絡は" + S.deck.length + "件です。" }); }
   else if (a === "help") openHelp();
+  else if (a === "search") openSearch();
+  else if (a === "later") openLater();
 });
 $("#apps").addEventListener("click", function (ev) {
   var b = ev.target.closest("[data-app]"); if (!b) return;
@@ -1579,10 +1619,21 @@ function start() {
   G++;
   document.querySelectorAll(".sheet,.modal,.closing,.banner,.toast").forEach(function (e) { e.remove(); });
   S = fresh(null);
-  S.talk = [{ t: "06:00", kind: "role" }];
-  setStep(1); go("talk");
+  S.talk = [];
+  var f = $("#dff"); if (f) f.style.display = "none";
+  setStep(1); go("talk"); roleOverlay();
 }
 $("#restart").onclick = start;
+$("#dff").onclick = function () { custReply(); };
+// 体験の前の案内（本物の画面ではありません）。立場を選ぶと、その立場の例で公式LINEに今朝の段取りが届く
+function roleOverlay() {
+  var el = document.createElement("div"); el.className = "modal"; el.id = "roleov";
+  el.innerHTML = '<div class="mbox"><h3>体験の前に（体験版の案内です）</h3><div class="who" style="margin:0 0 10px">あなたのお仕事に近いものを選んでください。その立場の例で、公式LINEに今朝の段取りが届きます。</div>'
+    + '<div class="quick" style="margin:0 0 10px">' + ROLEBTN.map(function (r) { return '<button type="button" data-role="' + r[0] + '">' + r[1] + "</button>"; }).join("") + "</div>"
+    + '<div class="who" style="font-size:12px;color:#8592A0">架空のデータです。実際には送信されません。公式LINEの入力欄や［直す］に打った文は、読むためにAI（OpenAI）へ送ります（保存しません）。個人情報は入れないでください。</div></div>';
+  el.addEventListener("click", function (ev) { var b = ev.target.closest("[data-role]"); if (b) chooseRole(b.getAttribute("data-role")); });
+  $("#phone").appendChild(el);
+}
 dlog("open", { side: "sp" });
 start();
 

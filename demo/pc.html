@@ -1293,7 +1293,7 @@ function actions(t) {
   if (t.id === "case") {
     var c = S.c;
     if (S.stage === 0) b.push(btn("sales", "営業のAIに見積書を作ってもらう"), '<span class="note">営業の仕事を受け持つAI（人ではありません）が、見積書の案を作ります。相手には送りません。</span>');
-    if (S.stage === 2 && !S.sets["case"]) b.push(btn("reply1", "日時の候補を選んで、返事を作る"));
+    if (S.stage === 2 && !S.sets["case"]) b.push(btn("reply1", "日時の候補を出して、返事を作る"));
     if (S.stage === 3 && c.nego && !S.sets["case"]) b.push(btn("renego", "単価を1,500円にして出し直す", "cut"), btn("renego", "このままの単価で説明する", "keep", false));
     if (S.stage === 3 && c.needEst && !S.sets["case"]) b.push(btn("resendest", "見積書を添えて送り直す"));
     if (S.stage === 3 && !c.nego && !c.needEst && !S.sets["case"]) b.push('<span class="note">返事待ちです。候補の枠は仮押さえ中です。返事が来たら、ここに届きます。</span>');
@@ -1497,12 +1497,8 @@ function salesGo() {
   var g = G;
   setTimeout(function () {
     if (g !== G) return;
-    if (c.rule) {
-      dropSteps(T("case")); c.q = true;
-      caseLog({ ai: "営業のAI", text: "納期について1つ確認させてください。工場の空きは10月20日以降です。見積書の納期は、どう書きますか？（きまり「納期と単価は、確かめてから確約する」に沿って伺っています）", q: true });
-      tick(4); refresh(); flashRow("case"); toast("営業のAIから質問です");
-      say("<p>営業のAIから、納期について質問が来ています（右）。</p>");
-    } else { c.nouki = "a"; c.noRule = true; makeEst(); }
+    if (c.rule) { c.nouki = "b"; makeEst(); }
+    else { c.nouki = "a"; c.noRule = true; makeEst(); }
   }, S.fast ? 80 : 1100);
 }
 function answerQ(k) {
@@ -1517,7 +1513,7 @@ function answerQ(k) {
 function makeEst() {
   var c = S.c; dropSteps(T("case")); S.stage = 2; tick(5);
   tl("a", "営業のAI：見積書の案（" + totalOf() + "円）");
-  caseLog({ ai: "営業のAI", text: "見積書の案ができました。" + c.why + (c.nouki === "b" ? "納期は「確かめてから連絡」と書いています。" : "納期は10営業日（10月22日ごろ）の見込みです。") + (c.noRule ? "（きまりを渡されていないので、工場の空きを確かめずに納期を書きました）" : "") + "送る前に、中身をご確認ください。", doc: "est" });
+  caseLog({ ai: "営業のAI", text: "見積書の案ができました。" + c.why + (c.nouki === "b" ? "納期は、きまり「納期と単価は、確かめてから確約する」に沿って「確かめてから連絡」と書いています。" : "納期は10営業日（10月22日ごろ）の見込みです。") + (c.noRule ? "（きまりを渡されていないので、工場の空きを確かめずに納期を書きました）" : "") + "送る前に、中身をご確認ください。", doc: "est" });
   refresh(); flashRow("case"); toast("営業のAIが見積書の案を作りました");
   say("<p>見積書の案ができました（右）。合計 " + totalOf() + "円。単価は見積書の中で直せます。</p>");
 }
@@ -1533,8 +1529,16 @@ function setPrice(n) {
 }
 function openSlots() {
   if (S.stage !== 2) return;
-  S.slotSel = S.c.slots.slice();
-  renderSlots();
+  var pick = [];
+  GRID_D.forEach(function (d, i) {
+    if (pick.length >= 3) return;
+    var free = (i % 2 ? GRID_T.slice() : GRID_T.slice().reverse()).filter(function (t) { return !BUSY[d + " " + t]; });
+    var t = free.filter(function (x) { return x !== "10:00"; })[0] || free[0];
+    if (t) pick.push(d + " " + t);
+  });
+  S.slotSel = pick;
+  slotGo();
+  say("<p>カレンダーの空きから、現場確認の候補を" + pick.length + "つ出して返事に入れました（予定のある枠・朝いちばんは避けています）。送ったときに、この枠を仮押さえにします。</p>");
 }
 function renderSlots() {
   var sel = S.slotSel, cells = '<div></div>' + GRID_D.map(function (d) { return '<div class="hd">' + d + "（" + DOW[d] + "）</div>"; }).join("");
@@ -1781,7 +1785,7 @@ function suggestions() {
   if (S.cur === "case") {
     if (S.stage === 0) L = ["見積もりを営業に頼んで", "前回の取引は？"];
     else if (S.stage === 1 && c.q) L = ["納期は確約しないで", "10営業日で書いて"];
-    else if (S.stage === 2) L = ["単価を1,450円にして", "候補を選んで返事を作って"];
+    else if (S.stage === 2) L = ["単価を1,450円にして", "候補を出して返事を作って"];
     else if (S.stage === 3 && c.nego) L = ["1,500円で出し直して", "このままの単価で説明して"];
     else if (S.cal === "case") L = ["カレンダーに入れて"];
     else if (S.stage === 5) L = c.thanked ? ["経理に請求書を作って"] : ["お礼の返事だけ作って", "経理に請求書を作って"];
@@ -1845,7 +1849,7 @@ function handle(v) {
     openThread("case"); if (S.stage === 5) { actAcct(); say("<p>経理のAIに渡す画面を開きました。支払期限を選んで渡してください。</p>"); } else if (S.stage === 7) reply2(); else say("<p>請求書は、もう" + (S.stage >= 8 ? "送っています" : "作っています") + "。</p>");
     return;
   }
-  if (/候補|日程|日時/.test(t) && S.stage === 2) { openThread("case"); openSlots(); say("<p>カレンダーの空きを開きました。候補にする枠を選んでください。</p>", ["カレンダーの空きを見ました"]); return; }
+  if (/候補|日程|日時/.test(t) && S.stage === 2) { openThread("case"); openSlots(); return; }
   if (/営業|見積/.test(t)) {
     openThread("case");
     if (S.stage === 0) { actSales(/下げ|値引|安く|1,?450/.test(t) ? "disc" : null); say("<p>営業のAIに渡す画面を開きました。渡すものと頼み方を選んで、［営業のAIに渡す］を押してください。</p>"); }
@@ -1885,8 +1889,7 @@ var MIS = [
   { k: "dept", t: "部署のAIに渡す", s: "経理・法務などに、経緯ごと", g: [["d1", "渡す部署を選んで渡す"], ["d2", "相手に一次の返事を送る"]] },
   { k: "task", t: "タスク", s: "約束・相手待ち・AIの問い", g: [["k1", "AIの問いに答える"], ["k2", "［済んだ］か［催促案］を使う"]] },
   { k: "day", t: "夜の準備と朝の段取り", s: "夜に頼んで、朝できている", g: [["n1", "作っておくものを選んで頼む"], ["n2", "時間を朝まで進める"], ["n3", "できたものを開く"]] },
-  { k: "trust", t: "任せ具合", s: "使うほど任せる。外れたら戻す", g: [["t1", "自動で外された連絡を戻す"], ["t2", "機能で任せ具合を見る"]] },
-  { k: "ai", t: "AIを替えても続く", s: "受け口と経緯は、ここに残る", g: [["a1", "別のAIで続きを考えさせる"]] }
+  { k: "trust", t: "任せ具合", s: "使うほど任せる。外れたら戻す", g: [["t1", "自動で外された連絡を戻す"], ["t2", "機能で任せ具合を見る"]] }
 ];
 var MIS_OF = {}; MIS.forEach(function (m) { m.g.forEach(function (x) { MIS_OF[x[0]] = m; }); });
 var PAINREC = { late: "reply", sched: "sched", leak: "task", night: "day", delegate: "dept", write: "reply" };
@@ -1919,7 +1922,6 @@ function startMission(k) {
   else if (k === "task") showView("mine");
   else if (k === "day") showView("night");
   else if (k === "trust") { showView("inbox"); S.autoOpen = true; renderAuto(); }
-  else if (k === "ai") openHandover();
   renderMenu(); suggest();
   say("<p><b>" + esc(m.t) + "</b>：左の○がゴールです。順番も方法も自由です（右を直接さわっても、ここに頼んでも）。迷ったら下の［ヒント］。</p>");
 }
@@ -1931,7 +1933,6 @@ function hintTarget() {
   if ($(".confirm")) return ['[data-act="sendyes"]', "宛先と送るものを確かめて、送ります"];
   if ($(".full")) return ['[data-act="sendask"]', "本文は直せます（［やわらかく］なども）。よければ［確認して送信］"];
   if ($(".dlg")) return [".dlg .go", "選んだら、右下のボタンで決めます"];
-  if ($(".ho")) return ['[data-act="swapai"]', "考えるAIを替えてみます"];
   if (id) {
     if (S.view !== "inbox") return ['#nav [data-view="inbox"]', "「やりとり」に戻ります"];
     if (S.cur !== id && T(id).state === "open") return ['.row[data-id="' + id + '"]', T(id).name + "を開きます"];
@@ -1939,13 +1940,13 @@ function hintTarget() {
   if (k === "flow") {
     if (S.stage === 0) return ['[data-act="sales"]', "営業のAIに見積書を作ってもらいます（相手には送りません）"];
     if (S.stage === 1) return c.q ? ["[data-q]", "営業のAIの質問に答えます"] : [null, "営業のAIが作っています"];
-    if (S.stage === 2) return ['[data-act="reply1"]', "単価は見積書の中で直せます。よければ候補を選んで返事へ"];
+    if (S.stage === 2) return ['[data-act="reply1"]', "単価は見積書の中で直せます。よければ候補を出して返事へ"];
     if (S.stage === 3) return S.sets["case"] ? ['[data-act="full"]', "下書きを開いて確かめます"] : c.nego ? ['[data-act="renego"]', "単価の相談に、どう返すか選びます"] : ["#ff", "左下の［⏩ 早送り］で時間を進めると、返事が届きます"];
     if (S.cal === "case") return ['[data-act="calyes"]', "カレンダーに入れるか決めます"];
     if (S.stage === 5) return ['[data-act="acct"]', "経理のAIに請求書を頼みます"];
     if (S.stage === 6) return [null, "経理のAIが作っています"];
     if (S.stage === 7) return ['[data-act="reply2"]', "請求書と見直し役の気づきを確かめて、返事を作ります"];
-    return ['[data-mis="ai"]', "この案件は終わりました。ほかの体験もどうぞ"];
+    return ['[data-mis="reply"]', "この案件は終わりました。ほかの体験もどうぞ"];
   }
   if (k === "reply" || k === "sched" || k === "dept") {
     var t = T(id);
@@ -1973,7 +1974,7 @@ function hintTarget() {
     if (!S.goals.t1) return S.autoOpen ? ["[data-uq]", "外したのが間違いなら［対応が必要］で戻します"] : ["#autoBtn", "左下の「今日の自動処理」を開きます"];
     return ['#nav [data-view="features"]', "［⋯ 機能］で任せ具合を見ます"];
   }
-  return ['[data-mis="ai"]', "左の「AIを替えても続く」を押します"];
+  return [null, "ほかの体験もどうぞ"];
 }
 function showHint() {
   var h = hintTarget(); clearSpot(); setHint(h[1]);
@@ -2105,7 +2106,7 @@ function setRole(role) {
 // ================= 締め =================
 function showClosing() {
   S.closed = true; dlog("finish");
-  var items = [["full", "経緯を読んで、返事を準備"], ["send", "全文を見て、自分で送信"], ["dept", "部署のAIに、自分で引き渡し"], ["cal", "決まった日程を、確かめてカレンダーへ"], ["ai", "別のAIへの引き継ぎ例を確認"]];
+  var items = [["full", "経緯を読んで、返事を準備"], ["send", "全文を見て、自分で送信"], ["dept", "部署のAIに、自分で引き渡し"], ["cal", "決まった日程を、確かめてカレンダーへ"]];
   var dn = items.filter(function (x) { return S.tried[x[0]]; });
   $("#closingHost").innerHTML = '<div class="closing"><div class="cl"><div class="k">体験のまとめ</div>'
     + "<h2>連絡先が増えても、AIが変わっても。<br>仕事の続きは、これほしに。</h2>"
@@ -2288,7 +2289,7 @@ function applyAi(r, v) {
     else if (a === "thanks") { openThread("case"); thanksReply(); }
     else if (a === "view") showView(x.v);
     else if (a === "ff") ff();
-    else if (a === "handover") openHandover();
+    else if (a === "handover") say("<p>体験版では、その操作はできません。</p>");
     else if (a === "closing") showClosing();
   } finally { S.quiet = false; }
 }

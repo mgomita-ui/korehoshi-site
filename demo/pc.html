@@ -344,7 +344,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
         <div class="hint" id="hint"></div>
         <div class="chips" id="chips"></div>
         <form class="box" id="form">
-          <textarea id="input" rows="1" placeholder="AIに話しかける（例：受信箱開いて）"></textarea>
+          <textarea id="input" rows="1" placeholder="AIに話しかける（例：青葉製作所に返信）"></textarea>
           <button class="send-btn" type="submit" aria-label="話しかける"><svg viewBox="0 0 16 16" fill="none"><path d="M8 13V3M3.5 7.5L8 3l4.5 4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
         </form>
       </div>
@@ -486,7 +486,7 @@ function bump(sel) { var el = $(sel); el.classList.add("bump"); setTimeout(funct
 function renderThread() {
   var id = S.cur, box = $("#thread");
   if (!id) {
-    box.innerHTML = '<div class="empty"><div><div class="big">会話はまだ開いていません</div>左のAIに「受信箱開いて」と話しかけると、ここが動きます。</div></div>';
+    box.innerHTML = '<div class="empty"><div><div class="big">会話はまだ開いていません</div>左のAIに「〇〇に返信」と頼むと、ここに下書きが置かれます。</div></div>';
     return;
   }
   var t = TH[id], done = !!S.sent[id];
@@ -738,12 +738,12 @@ async function say(text, key) {
 }
 
 var FLOWS = {
-  inbox: async function () {
+  inbox: async function (greet) {
     await bot([
       ["受信箱を開きました", "要対応 4件", 700, function () { highlightRows(); }],
       ["今朝の段取りとカレンダーを読みました", "今日の予定 2件", 650],
       ["期限の来た約束を確かめました", "1件", 500]
-    ], '<div class="lbl">今日（10/5 月）の段取りです。急ぎ順にまとめました。</div>'
+    ], (greet ? "<p>おはようございます。右の受信箱を読んで、今日（10/5 月）の段取りを急ぎ順にまとめました。返事の下書きは右の受信箱に置きます。全文を確かめて［送信］を押すのはあなたです。わたしからは送りません。</p>" : '<div class="lbl">今日（10/5 月）の段取りです。急ぎ順にまとめました。</div>')
       + '<div class="lbl">今日が期限の約束</div><ul><li><span class="due">本日中</span>　三ツ星不動産へ契約書の控えを送る<br><span class="muted">金曜に「月曜中にお送りします」と返しています。</span></li></ul>'
       + '<div class="lbl">今日の予定</div><ul><li><span class="num">10:00</span>　青葉製作所 打ち合わせ（オンライン）</li><li><span class="num">15:00</span>　社内会議</li></ul>'
       + '<div class="lbl">返事が要るもの（4件）</div><ol>'
@@ -893,8 +893,8 @@ function start() {
   $("#closingHost").innerHTML = ""; $("#overlay").innerHTML = ""; $("#log").innerHTML = "";
   renderRows(); renderThread(); setStep(1, true);
   setChips([]);
-  bot([], "<p>おはようございます。今日は10月5日（月）です。</p><p>受信箱の中身を、ここでまとめてお伝えします。返事の下書きを作ったら右の受信箱に置くので、全文を確かめてから、あなたが［送信］を押してください。わたしからは送りません。</p>",
-    function () { setChips([["受信箱開いて", "inbox"]]); setHint("まずは「受信箱開いて」と頼んでみてください。", true); });
+  // 右に受信箱が開いているので、最初からAIがまとめを出す（「受信箱開いて」と打たせない。2026-10-04、本人）
+  FLOWS.inbox(true);
 }
 
 // ---------------- つなぐ ----------------

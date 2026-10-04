@@ -618,6 +618,25 @@ button.auto b { color: var(--accent-ink); font-weight: 500; }
 .nightbar .nt b { font-weight: 500; }
 .nightbar .go2 { color: var(--accent-ink); font-size: 12px; white-space: nowrap; }
 .nbody { grid-column: 2 / span 2; white-space: pre-wrap; font-size: 13px; background: var(--bg); border-radius: 8px; padding: 8px 12px; margin-top: 4px; }
+/* 狭い画面で右の会話が細くならないように（2026-10-04、本人：会社名が2行・表が1行4〜6字で折り返す） */
+.window { grid-template-columns: clamp(210px, 15%, 250px) clamp(300px, 27%, 440px) 1fr; }
+.kh { container-type: inline-size; container-name: kh; }
+.thread { container-type: inline-size; container-name: th; }
+.th-head .r1 { flex-wrap: wrap; row-gap: 2px; }
+.th-head .nm { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; max-width: 100%; }
+.th-head .ch, .th-head .stt { white-space: nowrap; }
+@container kh (max-width: 860px) { .kh-body { grid-template-columns: 232px 1fr; } .clockbar .waitl { display: none; } }
+@container th (max-width: 560px) {
+  .points { grid-template-columns: 1fr; gap: 0; }
+  .points dt { padding-top: 6px; }
+  .points dt:first-child { padding-top: 0; }
+  .points dd { font-size: 13px; }
+  .th-head .stt { margin-left: 0; flex-basis: 100%; }
+}
+@media (max-width: 1279px) { .window { grid-template-columns: 196px 300px 1fr; } }
+.ai-head .t { white-space: nowrap; }
+.clockbar { flex-wrap: wrap; row-gap: 6px; }
+@media (max-width: 1439px) { .ai-head .live { display: none; } }
 </style>
 </head>
 <body>

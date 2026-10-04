@@ -1593,7 +1593,7 @@ function caseAfterSend(withFile) {
     S.tasks.push({ id: "xvisit", side: "mine", t: "なごみ食品の現場確認（" + slotShort(c.chosen) + "）", due: c.chosen.split(" ")[0], who: "なごみ食品", why: "カレンダーに入れた予定" });
     bump("#cTheirs"); done("f5");
     refresh(); afterSendTalk("case");
-    setTimeout(function () { say("<p><b>依頼から請求まで、1件を流し終えました。</b>右の下に、この案件の流れが残っています。黒い「あなた」が、あなたが決めたところです。</p><div class=\"ibtns\"><button type=\"button\" class=\"p\" data-act=\"closing\">まとめを見る</button><button type=\"button\" data-mis=\"ai\">AIを替えても続くか試す</button></div>"); }, S.fast ? 50 : 900);
+    setTimeout(function () { say("<p><b>依頼から請求まで、1件を流し終えました。</b>右の下に、この案件の流れが残っています。黒い「あなた」が、あなたが決めたところです。</p><div class=\"ibtns\"><button type=\"button\" class=\"p\" data-act=\"closing\">まとめを見る</button></div>"); }, S.fast ? 50 : 900);
   }
 }
 function custReply() {
@@ -1872,7 +1872,6 @@ function handle(v) {
   if (/夜|明日の準備/.test(t)) { showView("night"); say("<p>夜の準備を開きました。作っておくものに印を付けて頼んでください。</p>"); return; }
   if (/朝|段取り/.test(t)) { sayMorning(); return; }
   if (/任せ|自動|機能|設定/.test(t)) { showView("features"); done("t2"); say("<p>機能を開きました。任せ具合も、ここで見られます。</p>"); return; }
-  if (/AI|ＡＩ|替え|変え|乗り換/.test(t)) { openHandover(); return; }
   if (/まとめ|料金|値段|相談|いくら/.test(t)) { showClosing(); return; }
   say("<p>体験版なので、分かる言葉が限られています。たとえば、こう頼めます。</p><ul><li>いちばん急ぎはどれ？</li><li>見積もりを営業に頼んで</li><li>単価を1,450円にして</li><li>もう少しやわらかく</li><li>（相手の名前）に返事を作って</li></ul><p class=\"muted\">本物では、ふだんの言葉でそのまま頼めます。</p>");
 }
@@ -1983,34 +1982,6 @@ function showHint() {
   if (el) { el.classList.add("spot"); if (el.scrollIntoView) el.scrollIntoView({ block: "nearest" }); }
 }
 document.addEventListener("click", function (ev) { if (!ev.target.closest("#hintBtn")) clearSpot(); }, true);
-
-// ---- AIを替えても続く ----
-function openHandover() {
-  var h0 = $(".ho"); if (h0) h0.remove();
-  var c = T("case"), useCase = S.stage > 0;
-  var src = useCase ? { name: c.name, state: S.stage >= 8 ? ["120ケースを受注。現場確認は" + slotShort(S.c.chosen) + "。請求書は送付済み（支払期限" + DUE[S.c.due][1] + "）。", "単価は" + fmt(S.c.price) + "円で合意。"] : ["120ケースの見積もりを進めている（いま：" + caseStageLabel() + "）。", "8月は100ケース・単価1,500円。数量が増えるときは、納期を確かめてから確約する約束。"], next: S.stage >= 8 ? ["現場確認の持ち物と、確認することをそろえます。", DUE[S.c.due][1] + "に入金を確かめる準備をします。送信は行いません。"] : ["見積もりの続きの確認項目をそろえます。", "先方への確約や送信は行いません。"] } : { name: T("a").name, state: T("a").handover.state, next: T("a").handover.next };
-  var ch = WZ ? wzChannels(WZ) : ["LINE（1対1）", "メール"];
-  var host = document.createElement("div"); host.className = "ho";
-  host.innerHTML = '<div class="hobox"><h3>考えるAIを替えても、ここまでは引き継げます。</h3><p class="lead">AIは毎年入れ替わります。仕事の続きに必要なものは、これほしの側に残ります。</p>'
-    + '<div class="keep"><div><b>受け口</b>' + esc(ch.join("・")) + "</div><div><b>案件の経緯</b>" + esc(src.name) + "：" + esc(src.state[0]) + "</div>"
-    + "<div><b>会社のきまり</b>" + esc(S.R.rule) + "</div><div><b>あなたが残した書き方</b>" + (S.kept ? esc(S.kept) : "（今回はなし）") + "</div>"
-    + '<div style="grid-column:1/-1"><b>任せ具合の記録</b>これまでの確認・修正の記録（体験用の実績例）。新しいAIに、同じ範囲を無条件で任せるわけではありません。</div></div>'
-    + '<div class="brain"><span class="lbl">考えるAI</span><span class="ai-x" id="aix">AI A</span><span class="lbl" id="aixl">いま使っているAI</span><button type="button" class="go" style="margin-left:auto" data-act="swapai">別のAIに替えて、続きを考えさせる</button></div>'
-    + '<div id="nextp"></div><p class="small">AIの切り替えと引き継ぎの説明用デモです。実際のモデルの比較ではありません。利用できるAI・連携の方法は、導入の環境と対応の状況によります。</p>'
-    + '<div style="text-align:right;margin-top:8px"><button type="button" class="no2" data-act="hox">閉じる</button></div></div>';
-  host.setAttribute("data-src", JSON.stringify(src));
-  $("#kh").appendChild(host);
-}
-function swapAI() {
-  var host = $(".ho"); if (!host) return;
-  var src = JSON.parse(host.getAttribute("data-src"));
-  var x = $("#aix"); x.textContent = "AI B"; x.classList.add("b"); $("#aixl").textContent = "新しいAIにつなぎ替えました（体験の例）";
-  $('[data-act="swapai"]').disabled = true;
-  $("#nextp").innerHTML = '<div class="nextp"><b>引き継いだ状況</b>' + src.state.map(esc).join("<br>") + "<b>次に準備すること</b>" + src.next.map(esc).join("<br>")
-    + '<b>毎回、会社の説明からやり直さない。</b>受け口と仕事の記録をこれほしに残し、対応するAIへつなぎ替えて使います。</div>';
-  mark("ai"); done("a1");
-  say("<p>考えるAIを替えても、経緯・きまり・あなたの書き方から続きを考えました。<b>買うのは今のAIの下書きではなく、新しいAIを自分の仕事につなぐ受け口です。</b></p>");
-}
 
 // ================= 右：ページ（やること・やってもらうこと・機能・夜の準備） =================
 function showView(v) {
@@ -2175,7 +2146,6 @@ document.addEventListener("click", function (ev) {
     else if (a === "dept") actDept(id);
     else if (a === "deptgo") deptGo(id);
     else if (a === "deptfix") { tick(1); deptWork(id); }
-    else if (a === "swapai") swapAI();
     else if (a === "hox") { var h = $(".ho"); if (h) h.remove(); }
     else if (a === "closing") showClosing();
     else if (a === "share") share();

@@ -556,10 +556,10 @@ button.auto b { color: var(--accent-ink); font-weight: 500; }
 /* ================= v4：自分で動かす ================= */
 .clockbar { display: flex; align-items: center; gap: 8px; padding: 9px 12px 8px 16px; border-bottom: 1px solid var(--rule2); background: var(--surface); }
 .clockbar time { font: 500 12.5px var(--latin); color: var(--ink); white-space: nowrap; }
-.ff { border: 1px solid var(--accent); background: var(--accent); color: #fff; border-radius: 8px; padding: 4px 10px; font-size: 12.5px; font-weight: 500; white-space: nowrap; }
-.ff:disabled { background: var(--surface); color: var(--ink3); border-color: var(--rule); }
+.ffwd { border: 1px solid var(--accent); background: var(--accent); color: #fff; border-radius: 8px; padding: 4px 10px; font-size: 12.5px; font-weight: 500; white-space: nowrap; }
+.ffwd:disabled { background: var(--surface); color: var(--ink3); border-color: var(--rule); }
 .waitl { flex: 1; min-width: 0; font-size: 11px; color: var(--accent-ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.ff { margin-left: auto; }
+.ffwd { margin-left: auto; }
 .mi .pgc { font: 600 10.5px var(--latin); color: var(--ink3); margin-left: 6px; }
 .mi .gl { grid-column: 2; list-style: none; margin: 6px 0 2px; padding: 0; display: none; }
 .mi.on .gl { display: block; }
@@ -583,6 +583,7 @@ button.auto b { color: var(--accent-ink); font-weight: 500; }
 .qbox { margin-top: 8px; display: grid; gap: 6px; width: 100%; }
 .qbox button { text-align: left; border: 1px solid var(--accent-line); background: var(--surface); border-radius: 10px; padding: 8px 12px; font-size: 13px; }
 .qbox button:hover { border-color: var(--accent); background: var(--accent-surface); }
+.qbox .qh { font-size: 11.5px; color: var(--ink3); }
 .crit { margin-top: 6px; font-size: 12px; border-radius: 8px; padding: 6px 10px; background: #FFF6E5; color: #7A5300; }
 .crit.ok { background: var(--accent-surface); color: var(--accent-ink); }
 /* 直せる見積書 */
@@ -618,6 +619,14 @@ button.auto b { color: var(--accent-ink); font-weight: 500; }
 .nightbar .nt b { font-weight: 500; }
 .nightbar .go2 { color: var(--accent-ink); font-size: 12px; white-space: nowrap; }
 .nbody { grid-column: 2 / span 2; white-space: pre-wrap; font-size: 13px; background: var(--bg); border-radius: 8px; padding: 8px 12px; margin-top: 4px; }
+.ed mark { background: #FFF1B8; color: inherit; border-radius: 3px; padding: 0 2px; }
+.unsent { margin: 0 18px 4px; padding: 8px 12px; border-radius: 8px; background: #FFF8E6; color: #7A5300; font-size: 13px; }
+.nofile { margin-left: auto; border: 1px solid var(--rule); background: var(--surface); border-radius: 8px; padding: 4px 10px; font-size: 12.5px; color: var(--ink2); }
+.nofile:hover { border-color: #B54A3A; color: #B54A3A; }
+.cbox dd.cbody { white-space: pre-wrap; font-size: 12.5px; background: var(--bg); border-radius: 8px; padding: 6px 10px; }
+.slots button small { display: block; font-size: 10.5px; font-family: var(--latin); opacity: .8; margin-top: 1px; }
+.mi .s { display: none; }
+.mi.on .s, .mi:hover .s { display: block; }
 /* 狭い画面で右の会話が細くならないように（2026-10-04、本人：会社名が2行・表が1行4〜6字で折り返す） */
 .window { grid-template-columns: clamp(210px, 15%, 250px) clamp(300px, 27%, 440px) 1fr; }
 .kh { container-type: inline-size; container-name: kh; }
@@ -658,7 +667,7 @@ button.auto b { color: var(--accent-ink); font-weight: 500; }
 <div class="stage">
   <div class="window">
     <aside class="menu" aria-label="やってみること">
-      <div class="mh"><div class="k">やってみること</div><b>好きな順に、自由にどうぞ</b></div>
+      <div class="mh"><div class="k">やってみること</div><b>迷ったら、ここから選ぶ</b></div>
       <div class="mlist" id="mlist"></div>
       <div class="mfoot">
         <button type="button" id="wzBtn">あなたに合わせる（5問・30秒）</button>
@@ -700,7 +709,7 @@ button.auto b { color: var(--accent-ink); font-weight: 500; }
       </div>
       <div class="kh-body">
         <aside class="list">
-          <div class="clockbar"><time id="clk"></time><span class="waitl" id="waitl"></span><button type="button" class="ff" id="ff" disabled>⏩ 時間を進める</button></div>
+          <div class="clockbar"><time id="clk"></time><span class="waitl" id="waitl"></span><button type="button" class="ffwd" id="ff" disabled>⏩ 時間を進める</button></div>
           <div class="ltabs" id="ltabs"><button type="button" data-tab="open" class="on">要対応<em class="c" id="cOpen">5</em></button><button type="button" data-tab="archive">対応済み</button></div>
           <button type="button" class="nightbar" id="nightbar"></button>
           <div class="rows" id="rows"></div>
@@ -1158,8 +1167,9 @@ function later(min, label, fn) { S.pend.push({ m: S.now + min, label: label, fn:
 function renderClock() {
   $("#clk").textContent = clk(S.now);
   var p = S.pend.slice().sort(function (a, b) { return a.m - b.m; })[0], b = $("#ff");
-  b.disabled = !p; b.textContent = p ? "⏩ " + hm(p.m) + "まで進める" : "⏩ 時間を進める";
-  $("#waitl").textContent = p ? p.label + "を待っています" : "";
+  b.disabled = !p; b.textContent = p ? "⏩ " + hm(p.m) + "まで早送り" : "⏩ 早送り";
+  b.title = "体験用のボタンです。相手の返事が来る時刻まで、時計を進めます";
+  $("#waitl").textContent = p ? p.label + "を待っています（体験用の早送り）" : "";
 }
 function ff() {
   if (!S.pend.length) { say("<p>いま待っているものはありません。</p>"); return; }
@@ -1185,7 +1195,7 @@ function renderRows() {
   var ids = S.tab === "open" ? openIds() : S.order.filter(function (id) { return T(id).state !== "open"; });
   ids.forEach(function (id) {
     var t = T(id), st;
-    if (t.state !== "open") st = '<span class="ok">対応済み</span>';
+    if (t.state !== "open") st = left(id) ? '<span class="ok">返事済み</span><span class="d">やること' + left(id) + "件</span>" : '<span class="ok">対応済み</span>';
     else if (id === "case" && S.stage > 0) st = '<span class="u">進行中</span><span class="d">' + esc(caseStageLabel()) + "</span>";
     else if (S.sets[id]) st = '<span class="u">未返信</span><span class="d">送る前の下書きあり</span>';
     else if (S.cal === id) st = '<span class="u">日程が決まりました</span>';
@@ -1207,6 +1217,7 @@ function renderRows() {
   nb.innerHTML = '<span class="nt">🌙 ' + (S.nightDone ? "<b>頼まれていた準備ができました</b>" : S.nightAsked ? "<b>夜の準備：朝6時にできます</b>" : "<b>夜の準備</b>　明日のために作っておくもの") + '</span><span class="go2">' + (S.nightAsked && !S.nightDone ? "見る" : "開く") + "</span>";
   renderAuto();
 }
+function left(id) { return S.tasks.filter(function (x) { return !x.done && (x.id === "x" + id || (id === "case" && /^x(inv|visit)$/.test(x.id))); }).length; }
 function flashRow(id) { var r = $('.row[data-id="' + id + '"]'); if (r) r.classList.add("flash"); }
 function bump(sel) { var el = $(sel); el.classList.add("bump"); setTimeout(function () { el.classList.remove("bump"); }, 1400); }
 var ARCH = [{ name: "さくら税理士事務所", ch: "メール", pv: "資料を受け取りました。ありがとうございました。" }, { name: "あおい印刷", ch: "LINE・1対1", pv: "確認しました。" }];
@@ -1257,12 +1268,12 @@ function logHtml(t) {
       if (m.doc === "est") x += '<div style="margin-top:6px;width:100%">' + docHtml2(m.snap || estDoc(), true, !m.snap && S.stage === 2) + "</div>";
       if (m.doc === "inv") x += '<div style="margin-top:6px;width:100%">' + docHtml2(m.snap || invDoc(), true, false) + "</div>";
       if (m.crit) x += m.crit.map(function (c) { return '<div class="crit' + (c[0] ? " ok" : "") + '">見直し役：' + esc(c[1]) + "</div>"; }).join("");
-      if (m.q && S.c.q) x += '<div class="qbox"><button type="button" data-q="a">10営業日（10月22日ごろ）の見込みと書く</button><button type="button" data-q="b">「確かめてから連絡します」と書き、確約しない</button></div>';
+      if (m.q && S.c.q) x += '<div class="qbox"><div class="qh">営業のAIへの答え（お客様には送られません）</div><button type="button" data-q="a">10営業日（10月22日ごろ）の見込みと書く</button><button type="button" data-q="b">「確かめてから連絡します」と書き、確約しない</button></div>';
       if (m.fix && S.dept[t.id] === 0.5) x += '<div class="qbox"><button type="button" data-act="deptfix" data-id="' + t.id + '">' + esc(m.fix) + "のAIに回す</button></div>";
       if (m.steps) x += '<div class="steps4"><span class="ok">依頼を渡した</span><span class="on">準備中</span><span>案ができた</span><span>人が確認</span></div>';
       return x + "</div>";
     }
-    if (m.out) return '<div class="m out"><div class="bb">' + mentionHtml(t) + esc(m.text.join("\n")) + "</div>" + (m.file ? '<div class="file"><span class="fi">PDF</span>' + esc(m.file) + "</div>" : "") + '<div class="tt">' + esc(m.t) + "・体験版のため実際には送っていません</div></div>";
+    if (m.out) return '<div class="m out"><div class="bb">' + mentionHtml(t) + esc(m.text.join("\n")) + "</div>" + (m.file ? '<div class="file"><span class="fi">PDF</span>' + esc(m.file) + "</div>" : "") + '<div class="tt">' + esc(m.t) + (m.file ? "" : "・添付なし") + "・体験版のため実際には送っていません</div></div>";
     return '<div class="m"><div class="sp">' + esc(m.sp) + '</div><div class="bb">' + esc(m.text) + '</div><div class="tt">' + esc(m.t) + "</div></div>";
   }).join("");
 }
@@ -1271,16 +1282,20 @@ function actions(t) {
   var b = [];
   if (t.id === "case") {
     var c = S.c;
-    if (S.stage === 0) b.push(btn("sales", "営業のAIに見積もりを頼む"), '<span class="note">渡すもの・頼み方は、次の画面で選べます。</span>');
+    if (S.stage === 0) b.push(btn("sales", "営業のAIに見積書を作ってもらう"), '<span class="note">営業の仕事を受け持つAI（人ではありません）が、見積書の案を作ります。相手には送りません。</span>');
     if (S.stage === 2 && !S.sets["case"]) b.push(btn("reply1", "日時の候補を選んで、返事を作る"));
     if (S.stage === 3 && c.nego && !S.sets["case"]) b.push(btn("renego", "単価を1,500円にして出し直す", "cut"), btn("renego", "このままの単価で説明する", "keep", false));
-    if (S.stage === 3 && !c.nego && !S.sets["case"]) b.push('<span class="note">返事待ちです。候補の枠は仮押さえ中。右上の［⏩］で時間を進めると返事が届きます。ほかの連絡を先に片付けても大丈夫です。</span>');
-    if (S.stage === 5) b.push(btn("acct", "経理のAIに請求書を頼む"));
-    if (S.stage === 7 && !S.sets["case"]) b.push(btn("reply2", "請求書を添えて返事を作る"));
+    if (S.stage === 3 && c.needEst && !S.sets["case"]) b.push(btn("resendest", "見積書を添えて送り直す"));
+    if (S.stage === 3 && !c.nego && !c.needEst && !S.sets["case"]) b.push('<span class="note">返事待ちです。候補の枠は仮押さえ中。右上の［⏩］で時間を進めると返事が届きます。ほかの連絡を先に片付けても大丈夫です。</span>');
+    if (S.stage === 5 && !S.sets["case"]) {
+      if (!c.thanked) b.push(btn("thanks", "お礼と日程の返事だけ作る"));
+      b.push(btn("acct", (c.thanked ? "納品が済んだら：" : "") + "経理のAIに請求書を作ってもらう", null, !!c.thanked), '<span class="note">' + (c.thanked ? "お礼は送りました。請求書は、作っても送るのはあなたが決めたときです。" : "請求書は今でも、納品後でも作れます。作っても相手には送りません。") + "</span>");
+    }
+    if (S.stage === 7 && !S.sets["case"]) b.push(btn("reply2", "請求書を添えて返事を作る"), '<span class="note">今は送らないなら、このままで大丈夫です（請求書の案は残ります）。</span>');
   } else if (t.state === "open" && !S.sets[t.id] && S.cal !== t.id) {
     if (t.kind === "dept") {
       var d = S.dept[t.id] || 0;
-      if (!d) b.push(btn("dept", "部署のAIに渡す", t.id), '<span class="note">どの部署に渡すかは、次の画面で選びます。</span>');
+      if (!d) b.push(btn("dept", "部署のAIに案を作ってもらう", t.id), '<span class="note">相手には送りません。どの部署に頼むかは次の画面で選びます。</span>');
       if (d >= 3) b.push(btn("reply", "相手への返事を作る", t.id));
     } else if (!S.sent[t.id]) b.push(btn("reply", "返事を作る", t.id));
     else if (t.kind === "sched") b.push('<span class="note">返事待ちです（仮押さえ中）。右上の［⏩］で時間を進めると返事が届きます。</span>');
@@ -1292,14 +1307,14 @@ function renderThread() {
   if (!id) { box.innerHTML = '<div class="empty"><div><div class="big">左の一覧から、会話を選んでください</div>どれから開いても大丈夫です。</div></div>'; return; }
   var t = T(id), done = t.state !== "open";
   var h = '<div class="th-head"><div class="r1"><span class="nm">' + esc(t.name) + '</span><span class="ch">' + esc(t.ch) + "</span>"
-    + '<span class="stt ' + (done ? "done" : "open") + '">' + (done ? "対応済み" : id === "case" && S.stage ? esc(caseStageLabel()) : "要対応・未返信") + "</span></div>"
+    + '<span class="stt ' + (done ? "done" : "open") + '">' + (done ? (left(id) ? "返事済み・やることが" + left(id) + "件残っています" : "対応済み") : id === "case" && S.stage ? esc(caseStageLabel()) : "要対応・未返信") + "</span></div>"
     + '<div class="mem">' + esc(t.who) + "</div></div>";
   if (t.history && !done && (id !== "case" || S.stage === 0)) h += '<div class="hist"><b>覚えている経緯</b>' + esc(t.history) + "</div>";
   if (!done && (id !== "case" || S.stage === 0)) h += '<dl class="points">' + t.points.map(function (p) { return "<dt>" + esc(p[0]) + "</dt><dd>" + esc(p[1]) + "</dd>"; }).join("") + "</dl>";
   h += '<div class="msgs" id="msgs">' + logHtml(t) + "</div>";
   if (S.cal === id) {
     var ev = id === "case" ? slotEv(S.c.chosen) + "　なごみ食品 現場確認（訪問）" : t.sched.ev;
-    h += '<div class="calask"><div class="q">日程が決まったようです。カレンダーに入れますか？（相手は招待しません）</div><div class="ev">' + esc(ev) + '</div><div class="ev2">黙っては入れません。入れる前に、こうして聞きます。</div>'
+    h += '<div class="calask"><div class="q">日程が決まったようです。あなたのカレンダーに入れますか？</div><div class="ev">' + esc(ev) + '</div><div class="ev2">黙っては入れません。相手に予定の招待は送らず、あなたのカレンダーにだけ入れます。</div>'
       + '<div class="acts"><button class="go" type="button" data-act="calyes">カレンダーに入れる</button><button class="no2" type="button" data-act="calno">やめる</button></div></div>';
   } else if (S.sets[id]) {
     h += '<div class="pset"><div class="ph">送る前の下書き<span class="by">AIアシスタントが置きました</span><button type="button" data-act="full" data-id="' + id + '">全画面で確認</button></div><div class="pv">' + esc(S.sets[id].text.join(" ")) + "</div></div>";
@@ -1313,24 +1328,39 @@ function openThread(id) { if (S.view !== "inbox") showView("inbox"); S.tab = T(i
 function refresh() { renderRows(); renderThread(); renderClock(); renderMenu(); suggest(); }
 
 // ---- 送る前の下書き（全画面で確かめる。直せる） ----
-function placeSet(id, text, file) { S.sets[id] = { text: text.slice(), file: file || null, ver: 1 }; done("r1"); if (S.cur !== id) openThread(id); else refresh(); }
+function placeSet(id, text, file) { S.sets[id] = { text: text.slice(), orig: text.slice(), file: file || null, ver: 1 }; done("r1"); if (S.cur !== id) openThread(id); else refresh(); }
+function edHtml(lines, before) { return lines.map(function (l) { return before && before.indexOf(l) < 0 ? "<mark>" + esc(l) + "</mark>" : esc(l); }).join("\n"); }
 function openFull(id) {
   var t = T(id), set = S.sets[id]; if (!set) return;
-  S.fullId = id; S.tone = null;
-  var items = [{ k: "本文", html: '<div class="ftext">' + mentionHtml(t) + '<span class="ed" id="ed" contenteditable="true" spellcheck="false">' + esc(set.text.join("\n")) + "</span></div>"
-    + '<div class="tones">AIに直させる：<button type="button" data-tone="soft">やわらかく</button><button type="button" data-tone="short">短く</button><button type="button" data-tone="polite">丁寧に</button><span>　または、本文を直接直せます</span></div>' }];
-  if (set.file) items.push({ k: "ファイル", html: '<div class="ffile" style="display:block"><div style="display:flex;gap:10px;align-items:center"><span class="fi">PDF</span><div><div>' + esc(set.file.name) + '</div><div class="fm">PDF・1ページ（体験用の見本）</div></div></div>' + docHtml2(set.file.doc, true, false) + "</div>" });
+  S.fullId = id;
+  var items = [{ k: "本文", html: '<div class="ftext">' + mentionHtml(t) + '<span class="ed" id="ed" contenteditable="true" spellcheck="false">' + edHtml(set.text, set.edited ? set.orig : null) + "</span></div>"
+    + '<div class="tones">AIに直させる：<button type="button" data-tone="soft">やわらかく</button><button type="button" data-tone="short">短く</button><button type="button" data-tone="polite">丁寧に</button><span>　本文を直接直すこともできます。直した行には色が付きます</span></div>' }];
+  if (set.file) items.push({ k: "ファイル", html: '<div class="ffile" style="display:block"><div style="display:flex;gap:10px;align-items:center"><span class="fi">PDF</span><div><div>' + esc(set.file.name) + '</div><div class="fm">PDF・1ページ（体験用の見本）</div></div><button type="button" class="nofile" data-act="nofile" data-id="' + id + '">このファイルは送らない</button></div>' + docHtml2(set.file.doc, true, false) + "</div>" });
   var n = items.length;
   $("#overlay").innerHTML = '<div class="full"><div class="fcard">'
     + '<div class="fh"><span class="tt">送る前の下書き</span><span class="ver">第' + set.ver + '版</span><span class="by">AIアシスタントが置きました</span><button class="x" type="button" data-act="fullx">閉じる</button></div>'
+    + '<div class="unsent">まだ送っていません（下書きです）。下の［送る内容を確かめる］→［この内容で送る］と2回押したときだけ送ります。</div>'
     + '<dl class="fto"><dt>宛先</dt><dd><span class="dest">' + esc(t.name) + '</span><span class="kind">' + esc(t.ch) + (t.group ? "（ほかの人も読めます）" : "") + "</span></dd>"
     + (t.mention ? "<dt>" + (t.ch === "チャットワーク" ? "TO" : "メンション") + "</dt><dd>" + esc(t.mention) + "さん</dd>" : "")
-    + "<dt>送る順</dt><dd>" + (n > 1 ? "本文 → ファイル（計" + n + "通）" : "本文（1通）") + "</dd></dl>"
+    + "<dt>送るもの</dt><dd>" + (n > 1 ? "本文とファイル（この順に、2回に分けて届きます）" : "本文だけ（1通）") + "</dd></dl>"
     + '<div class="fitems">' + items.map(function (it, i) { return '<div class="fitem" id="fi' + i + '"><span class="no">' + (i + 1) + '</span><div><div class="k">' + it.k + '<span class="s" id="fs' + i + '">未送信</span></div>' + it.html + "</div></div>"; }).join("") + "</div>"
-    + '<div class="ff"><button class="go" type="button" data-act="sendask" data-id="' + id + '">宛先と' + n + '通の中身を確認して送信</button><span class="why">押すまで、相手には何も届きません。直して送ると、AIが違いを覚えます。</span></div></div></div>';
+    + '<div class="ff"><button class="go" type="button" data-act="sendask" data-id="' + id + '">送る内容を確かめる（' + (n > 1 ? "本文＋ファイル" : "本文だけ") + '）</button><span class="why">次の画面で［この内容で送る］を押すまで、相手には何も届きません。</span></div></div></div>';
   mark("full"); suggest();
 }
-function closeFull() { $("#overlay").innerHTML = ""; S.fullId = null; }
+// 閉じても、直した本文は下書きに残す
+function keepEdits() {
+  var id = S.fullId, set = id && S.sets[id], now = edLines();
+  if (set && now.length && now.join("\n") !== set.text.join("\n")) { set.text = now; set.edited = true; }
+}
+function closeFull() { keepEdits(); $("#overlay").innerHTML = ""; S.fullId = null; }
+function noFile(id) {
+  var set = S.sets[id]; if (!set || !set.file) return false;
+  keepEdits(); var name = set.file.name; set.file = null; set.ver++;
+  var kept = set.text.filter(function (l) { return !/添付/.test(l); }), cut = set.text.length - kept.length;
+  if (cut && kept.length) { set.text = kept; set.edited = true; }
+  openFull(id); toast("「" + name + "」は送らないことにしました" + (cut ? "（添付に触れた行も消しました）" : "（本文だけ送ります）"));
+  return true;
+}
 function softOf(id) { return id === "case" ? CASE.soft1 : T(id).soft; }
 function edLines() { var ed = $("#ed"); return ed ? ed.innerText.replace(/\r/g, "").split(/\n+/).map(function (x) { return x.trim(); }).filter(Boolean) : []; }
 function applyTone(kind) {
@@ -1342,29 +1372,34 @@ function applyTone(kind) {
     else for (i = L.length - 1; i >= 0; i--) { if (/ください。$/.test(L[i])) { L[i] = L[i].replace(/ください。$/, "いただけると助かります。"); break; } if (/します。$/.test(L[i])) { L[i] = L[i].replace(/します。$/, "しますね。"); break; } }
   } else if (kind === "short") {
     var cut = L.filter(function (x) { return !/^(お問い合わせ|ご連絡|ご相談)(を)?ありがとうございます。$|^引き続きよろしくお願いいたします。$/.test(x); });
-    if (cut.length === L.length && L.length > 2) cut = L.slice(0, -1);
     L = cut;
   } else {
     for (i = 0; i < L.length; i++) { if (/します。/.test(L[i]) && !/いたします。/.test(L[i])) { L[i] = L[i].replace(/します。/, "いたします。"); break; } if (/ください。$/.test(L[i])) { L[i] = L[i].replace(/ください。$/, "くださいますよう、お願いいたします。"); break; } }
   }
-  if (L.join("\n") === before) { toast("これ以上は変わりませんでした。本文を直接直せます"); return false; }
-  ed.innerText = L.join("\n"); ed.classList.remove("flashit"); void ed.offsetWidth; ed.classList.add("flashit");
-  S.tone = kind; done("r2"); toast({ soft: "やわらかくしました", short: "短くしました", polite: "丁寧にしました" }[kind] + "（送ると、この直し方をAIが覚えます）");
+  if (L.join("\n") === before) { toast(kind === "short" ? "短くしていません（残りは約束や日時を含む文なので、削りませんでした）" : "変わっていません（これ以上は直せませんでした）。本文を直接直せます"); return false; }
+  var old = before.split("\n"), ch = L.filter(function (l) { return old.indexOf(l) < 0; });
+  ed.innerHTML = edHtml(L, old); ed.classList.remove("flashit"); void ed.offsetWidth; ed.classList.add("flashit");
+  S.tone = kind; done("r2");
+  toast({ soft: "やわらかくしました", short: "短くしました", polite: "丁寧にしました" }[kind] + (ch.length ? "（色の付いた行）" : "（" + (old.length - L.length) + "行を削りました）"));
   return true;
 }
 function askConfirm(id) {
   var t = T(id), set = S.sets[id], n = set.file ? 2 : 1;
   var c = document.createElement("div"); c.className = "confirm";
+  var body = edLines(); if (!body.length) body = set.text;
   c.innerHTML = '<div class="cbox"><h3>この内容で送りますか？</h3><dl><dt>宛先</dt><dd><b>' + esc(t.name) + "</b><br>" + esc(t.ch) + "</dd>"
-    + (t.mention ? "<dt>呼びかけ</dt><dd>" + esc(t.mention) + "さん</dd>" : "") + "<dt>送るもの</dt><dd>" + (n > 1 ? "本文 → ファイル1つ（この順に送ります）" : "本文 1通") + "</dd></dl>"
-    + '<div class="note">送ったものは取り消せません。体験版なので、実際には送られません。</div><div class="acts"><button class="no" type="button" data-act="sendno">戻る</button><button class="go" type="button" data-act="sendyes" data-id="' + id + '">この内容で送る（体験）</button></div></div>';
+    + (t.mention ? "<dt>呼びかけ</dt><dd>" + esc(t.mention) + "さん</dd>" : "")
+    + "<dt>本文</dt><dd class=\"cbody\">" + esc(body.slice(0, 3).join("\n")) + (body.length > 3 ? "\n…（ほか" + (body.length - 3) + "行）" : "") + "</dd>"
+    + "<dt>ファイル</dt><dd>" + (set.file ? esc(set.file.name) + "（本文のあとに届きます）" : "なし") + "</dd></dl>"
+    + '<div class="note">体験版なので、押しても相手には届きません（本物では、ここで初めて届き、取り消せません）。</div><div class="acts"><button class="no" type="button" data-act="sendno">戻る</button><button class="go" type="button" data-act="sendyes" data-id="' + id + '">この内容で送る（体験）</button></div></div>';
   $("#overlay").appendChild(c);
 }
 function doSend(id) {
-  var set = S.sets[id], now = edLines();
-  if (now.length && now.join("\n") !== set.text.join("\n")) {
-    var i0 = 0; while (i0 < Math.min(now.length, set.text.length) && now[i0] === set.text[i0]) i0++;
-    S.learned = { id: id, before: set.text[i0] || "（なし）", after: now[i0] || "（削りました）", tone: S.tone }; set.text = now; done("r2");
+  var set = S.sets[id], now = edLines(), base = set.orig || set.text;
+  if (now.length) set.text = now;
+  if (set.text.join("\n") !== base.join("\n")) {
+    var i0 = 0; while (i0 < Math.min(set.text.length, base.length) && set.text[i0] === base[i0]) i0++;
+    S.learned = { id: id, before: base[i0] || "（なし）", after: set.text[i0] || "（削りました）", tone: S.tone }; done("r2");
   }
   var ed = $("#ed"); if (ed) ed.setAttribute("contenteditable", "false");
   var n = set.file ? 2 : 1, i = 0, g = G;
@@ -1382,7 +1417,7 @@ function finishSend(id) {
   t.log.push({ out: true, text: set.text, file: set.file ? set.file.name : null, t: hm(S.now) });
   S.sent[id] = (S.sent[id] || 0) + 1;
   mark("send"); done("r3");
-  if (id === "case") return caseAfterSend();
+  if (id === "case") return caseAfterSend(!!set.file);
   var task = t.task;
   if (!S.tasks.some(function (x) { return x.id === "x" + id; })) {
     S.tasks.push({ id: "x" + id, side: task.hold ? "theirs" : "mine", t: task.t, due: task.k, hot: /今日/.test(task.k), who: t.name, why: "送った返事の中の約束から" });
@@ -1400,12 +1435,12 @@ function finishSend(id) {
 // 送ったあと、左のAIがひと言（直して送っていたら、書き方のきまりに残すかを聞く）
 function afterSendTalk(id) {
   var t = T(id), msg;
-  if (id === "case") msg = S.stage === 3 ? (S.c.negoAns ? "返事を送りました。返事が来たら知らせます。" : "見積書と日時の候補を送りました。候補の" + S.c.slots.length + "枠は仮押さえにしています。返事が来るまで、ほかの連絡を片付けても大丈夫です。") : "請求書を送りました。入金の確認日を" + DUE[S.c.due][1] + "にして「やってもらうこと」に入れました。";
+  if (id === "case") msg = S.stage === 5 ? "お礼と日程の返事を送りました（添付なし）。請求書は、作っても送るのはあなたが決めたときです。" : S.stage === 3 ? (S.c.negoAns ? "返事を送りました。返事が来たら知らせます。" : "見積書と日時の候補を送りました。候補の" + S.c.slots.length + "枠は仮押さえにしています。返事が来るまで、ほかの連絡を片付けても大丈夫です。") : "請求書を送りました。入金の確認日を" + DUE[S.c.due][1] + "にして「やってもらうこと」に入れました。";
   else msg = t.name + "に送りました。" + (t.kind === "sched" ? "日時は仮押さえにしています。" : "約束は「やること」に入れました。");
   var lh = "";
   if (S.learned && S.learned.id === id && !S.learned.told) {
     S.learned.told = true; mark("learn");
-    lh = '<div class="learn">下書きと、あなたが送った文を見比べました。<dl class="bf"><dt>下書き</dt><dd><del>' + esc(S.learned.before) + "</del></dd><dt>送った文</dt><dd><ins>" + esc(S.learned.after) + "</ins></dd></dl></div><p>この直し方を、書き方のきまりに残しますか？（AIが勝手には足しません）</p>"
+    lh = '<div class="learn">下書きと、あなたが送った文を見比べました。<dl class="bf"><dt>下書き</dt><dd><del>' + esc(S.learned.before) + "</del></dd><dt>送った文</dt><dd><ins>" + esc(S.learned.after) + "</ins></dd></dl></div><p>この直し方を、書き方のきまりに残しますか？　残すと、次から最初の下書きがこの書き方になります（AIが勝手には足しません）。</p><p class=\"muted\">残すきまり：「" + esc(ruleText()) + "」</p>"
       + '<div class="ibtns"><button type="button" class="p" data-rule="keep">きまりに残す</button><button type="button" data-rule="no">今回は残さない</button></div>';
   }
   say("<p>" + esc(msg) + "</p>" + lh);
@@ -1426,15 +1461,15 @@ function opt(name, val, label, small, on, rec) { return '<label><input type="rad
 function actSales(preset) {
   if (S.stage !== 0) return;
   var c = S.c; if (preset) c.policy = preset;
-  openDlg("<h3>営業のAIに見積もりを頼む</h3><p class=\"lead\">部署ごとのAIの席に、この案件を渡します。何を渡し、どう頼むかで、出てくる見積書が変わります。</p><div class=\"fm\">"
+  openDlg("<h3>営業のAIに見積書を作ってもらう</h3><p class=\"lead\">営業担当のAIが、見積書の案を作ります（相手には送りません）。渡すものと単価の考え方で、出てくる見積書が変わります。迷ったら、このまま下のボタンで大丈夫です。</p><div class=\"fm\">"
     + '<div class="fl">渡すもの</div>'
     + '<label><input type="checkbox" checked disabled><span>このLINEのやりとり<small>森田さんの依頼文（120ケース・現場確認）</small></span></label>'
     + '<label><input type="checkbox" id="fRec"' + (c.rec ? " checked" : "") + "><span>8月の納品の記録<small>100ケース・1ケース1,500円（税別）</small></span></label>"
     + '<label><input type="checkbox" id="fRule"' + (c.rule ? " checked" : "") + "><span>会社のきまり<small>納期と単価は、確かめてから確約する</small></span></label>"
-    + '<div class="fl">単価の考え方</div>'
+    + '<div class="fl">単価の考え方（8月の記録から選んでおきました。違えば変えてください）</div>'
     + opt("fPol", "same", "8月と同じにする", "1,500円", c.policy === "same") + opt("fPol", "disc", "数量が増えたので、少し下げる", "1,450円", c.policy === "disc") + opt("fPol", "ai", "営業のAIに任せる", "渡した記録から決めます", c.policy === "ai")
     + '<div class="fl">頼むこと（書き換えられます）</div><textarea id="fAsk" rows="2">' + esc(c.ask) + "</textarea></div>"
-    + '<div class="note">相手への送信は行いません。</div><div class="acts"><button class="no" type="button" data-act="dlgno">やめる</button><button class="go" type="button" data-act="salesgo">営業のAIに渡す</button></div>');
+    + '<div class="note">相手への送信は行いません。</div><div class="acts"><button class="no" type="button" data-act="dlgno">やめる</button><button class="go" type="button" data-act="salesgo">これで作ってもらう</button></div>');
 }
 function salesGo() {
   var c = S.c;
@@ -1498,10 +1533,10 @@ function renderSlots() {
     cells += '<div class="tm">' + tm + "</div>";
     GRID_D.forEach(function (d) {
       var k = d + " " + tm, busy = BUSY[k];
-      cells += busy ? '<button type="button" class="busy" disabled>' + esc(busy) + "</button>" : '<button type="button" data-slot="' + k + '"' + (sel.indexOf(k) >= 0 ? ' class="sel"' : "") + ">" + (sel.indexOf(k) >= 0 ? "候補 " + (sel.indexOf(k) + 1) : "空き") + "</button>";
+      cells += busy ? '<button type="button" class="busy" disabled>' + esc(busy) + "</button>" : '<button type="button" data-slot="' + k + '"' + (sel.indexOf(k) >= 0 ? ' class="sel"' : "") + ">" + (sel.indexOf(k) >= 0 ? "✓ 候補" + (sel.indexOf(k) + 1) : "空き") + "<small>" + DOW[d] + " " + tm + "</small></button>";
     });
   });
-  openDlg("<h3>現場確認の候補を選ぶ</h3><p class=\"lead\">カレンダーの空き（1時間）です。お客様に出す候補を、1〜3つ選んでください。選んだ枠が、そのまま返事の文に入ります。</p>"
+  openDlg("<h3>現場確認の候補を選ぶ</h3><p class=\"lead\">カレンダーの空き（1時間）です。お客様に出す候補を、1〜3つ選んでください。選んだ枠が返事の文に入ります。押しただけでは決まりません。お客様が選んで返事をくれます。</p>"
     + '<div class="slots">' + cells + "</div>"
     + '<div class="note">送ったときに、選んだ枠を仮押さえにします。ほかの会話で同じ枠を出さないためです。</div>'
     + '<div class="acts"><button class="no" type="button" data-act="dlgno">やめる</button><button class="go" type="button" data-act="slotgo"' + (sel.length ? "" : " disabled") + ">" + (sel.length ? "この" + sel.length + "枠で返事を作る" : "枠を選んでください") + "</button></div>");
@@ -1520,12 +1555,22 @@ function slotGo() {
   openFull("case");
 }
 function snapEst() { T("case").log.forEach(function (m) { if (m.doc === "est" && !m.snap) m.snap = estDoc(); }); }
-function caseAfterSend() {
+function caseAfterSend(withFile) {
   var c = S.c;
-  if (S.stage === 2 || (S.stage === 3 && c.nego)) {
-    var wasNego = c.nego; c.nego = false; S.stage = 3; snapEst();
+  if (S.stage === 5) {
+    c.thanked = true; tl("h", "あなた：お礼と日程の返事を送信（請求書は納品後）");
+    refresh(); afterSendTalk("case"); return;
+  }
+  if (S.stage === 7 && !withFile) {
+    c.thanked = true; S.stage = 7; tl("h", "あなた：請求書を外して、返事だけ送信");
+    refresh(); say("<p>返事だけ送りました。請求書の案は残してあります。納品が済んだら［請求書を添えて返事を作る］から送れます。</p>"); return;
+  }
+  if (S.stage === 2 || (S.stage === 3 && (c.nego || c.needEst))) {
+    var wasEst = c.needEst, wasNego = c.nego || c.needEst; c.nego = false; S.stage = 3; snapEst();
+    if (c.needEst) { c.needEst = !withFile; c.estMissing = !withFile; }
+    else if (!wasNego) c.estMissing = !withFile;
     if (!wasNego) { tl("h", "あなた：全文を確かめて送信（見積書・日時の候補）"); caseLog({ note: "候補の" + c.slots.length + "枠（" + c.slots.map(slotShort).join("・") + "）を仮押さえにしました" }); done("f2"); }
-    else tl("h", "あなた：単価の相談に返事（" + (c.negoAns === "cut" ? "1,500円で出し直し" : "このままの単価で説明") + "）");
+    else tl("h", wasEst ? "あなた：見積書を添えて送り直し" : "あなた：単価の相談に返事（" + (c.negoAns === "cut" ? "1,500円で出し直し" : "このままの単価で説明") + "）");
     refresh(); afterSendTalk("case");
     later(wasNego ? 20 : 42, "なごみ食品の返事", custReply);
   } else if (S.stage === 7) {
@@ -1540,6 +1585,14 @@ function caseAfterSend() {
 }
 function custReply() {
   var c = S.c, sp = "なごみ食品・森田（工場長）";
+  if (c.estMissing && !c.estAsked) {
+    c.estAsked = true; c.needEst = true;
+    caseLog({ in: true, sp: sp, text: "日程のご提案ありがとうございます。お見積書が添付されていないようでした。お送りいただけますか。", t: hm(S.now) });
+    tl("c", "なごみ食品：見積書が付いていないと連絡");
+    refresh(); flashRow("case"); toast("なごみ食品から返事が届きました");
+    say("<p><a class=\"op\" data-open=\"case\">なごみ食品</a>から「見積書が付いていない」と返事が来ました。見積書を外して送ったためです。右から送り直せます。</p>");
+    return;
+  }
   if (c.price >= 1600 && !c.negoDone) {
     c.nego = true; c.negoDone = true;
     caseLog({ in: true, sp: sp, text: "お見積もりありがとうございます。8月は1,500円でしたので、今回も1,500円でお願いできませんか。それでしたら発注します。", t: hm(S.now) });
@@ -1572,9 +1625,9 @@ function calYes() {
   if (id === "case") {
     S.stage = 5; tl("h", "あなた：カレンダーに入れる（" + slotShort(S.c.chosen) + " 現場確認）");
     S.events.push([slotEv(S.c.chosen), "なごみ食品 現場確認（訪問）"]);
-    caseLog({ note: "カレンダーに入れました（" + slotEv(S.c.chosen) + "）" + (S.c.slots.length > 1 ? "。残りの仮押さえは外しました" : "") });
+    caseLog({ note: "カレンダーに入れました（" + slotEv(S.c.chosen) + "）" + (S.c.slots.length > 1 ? "。選ばれなかった候補（" + S.c.slots.filter(function (x) { return x !== S.c.chosen; }).map(slotShort).join("・") + "）の仮押さえは外しました" : "") });
     mark("cal"); done("f3"); refresh();
-    say("<p>カレンダーに入れました。受注できたので、次は請求書です。</p>");
+    say("<p>カレンダーに入れました。受注できたので、お礼の返事を送るか、請求書を作ってもらうかを選べます（右）。</p>");
   } else {
     var t = T(id); t.state = "done";
     t.log.push({ note: "カレンダーに入れました。仮押さえは外しました" });
@@ -1586,11 +1639,11 @@ function calYes() {
 }
 function actAcct() {
   if (S.stage !== 5) return;
-  openDlg("<h3>経理のAIに請求書を頼む</h3><p class=\"lead\">受注した案件を、経理の席に渡します。</p><div class=\"fm\">"
+  openDlg("<h3>経理のAIに請求書を作ってもらう</h3><p class=\"lead\">経理担当のAIが、請求書の案を作ります。作っても相手には送りません。送るのは、あなたが決めたときです。</p><div class=\"fm\">"
     + '<div class="fl">渡すもの</div><label><input type="checkbox" checked disabled><span>送った見積書と、お客様の発注の返事<small>' + esc(estDoc().no) + "・合計 " + totalOf() + "円</small></span></label>"
     + '<div class="fl">支払期限</div>'
     + opt("fDue", "a", "月末締め・翌月末払い（11月30日）", "会社の標準", S.c.due === "a") + opt("fDue", "b", "請求日から30日（11月4日）", "", S.c.due === "b") + opt("fDue", "c", "先方の支払日に合わせる（12月31日）", "先方の締めが20日のため", S.c.due === "c")
-    + '</div><div class="note">請求書の発行・相手への送信は行いません。</div><div class="acts"><button class="no" type="button" data-act="dlgno">やめる</button><button class="go" type="button" data-act="acctgo">経理のAIに渡す</button></div>');
+    + '</div><div class="note">請求書の発行・相手への送信は行いません。</div><div class="acts"><button class="no" type="button" data-act="dlgno">やめる</button><button class="go" type="button" data-act="acctgo">これで作ってもらう</button></div>');
 }
 function acctGo() {
   var p = document.querySelector('input[name="fDue"]:checked'); S.c.due = p ? p.value : "a";
@@ -1615,8 +1668,19 @@ function acctGo() {
 function reply2() {
   if (S.stage !== 7) return;
   var c = S.c;
-  placeSet("case", ["ご発注ありがとうございます。", slotLong(c.chosen) + "に、現場へ伺います。", "請求書をお送りします（添付をご確認ください）。お支払期限は" + DUE[c.due][1] + "です。", "引き続きよろしくお願いいたします。"], { name: "請求書_No.1005-01.pdf", doc: invDoc() });
+  placeSet("case", c.thanked ? ["納品が済みましたので、請求書をお送りします（添付をご確認ください）。", "お支払期限は" + DUE[c.due][1] + "です。", "引き続きよろしくお願いいたします。"]
+    : ["ご発注ありがとうございます。", slotLong(c.chosen) + "に、現場へ伺います。", "請求書をお送りします（添付をご確認ください）。お支払期限は" + DUE[c.due][1] + "です。", "引き続きよろしくお願いいたします。"], { name: "請求書_No.1005-01.pdf", doc: invDoc() });
   T("case").log.forEach(function (m) { if (m.doc === "inv" && !m.snap) m.snap = invDoc(); });
+  openFull("case");
+}
+function thanksReply() {
+  if (S.stage !== 5) return;
+  placeSet("case", ["ご発注ありがとうございます。", slotLong(S.c.chosen) + "に、現場へ伺います。", "請求書は、納品後にお送りします。", "引き続きよろしくお願いいたします。"]);
+  openFull("case");
+}
+function resendEst() {
+  if (!S.c.needEst) return;
+  placeSet("case", ["失礼いたしました。お見積書をお送りします（添付をご確認ください）。"], { name: "御見積書_No.1005-01.pdf", doc: estDoc() });
   openFull("case");
 }
 function timelineHtml() {
@@ -1656,7 +1720,7 @@ function deptWork(id) {
   var g = G;
   setTimeout(function () {
     if (g !== G) return; S.dept[id] = 3; dropSteps(t); tick(5);
-    t.log.push({ ai: rec + "のAI", text: t.dept.made });
+    t.log.push({ ai: rec + "のAI", text: t.dept.made + "（体験版では、案の中身は省いています）" });
     refresh(); flashRow(id); toast(rec + "のAIの案ができました");
     say("<p>" + esc(rec) + "のAIの案ができました。相手には、まず一次の返事を送りましょう。</p>");
   }, S.fast ? 80 : 1300);
@@ -1696,8 +1760,8 @@ function grow() { input.style.height = "24px"; input.style.height = Math.min(96,
 function setChips(list) {
   var c = $("#chips"); c.innerHTML = "";
   list.forEach(function (x) {
-    var b = document.createElement("button"); b.type = "button"; b.className = "chip ins"; b.textContent = x;
-    b.onclick = function () { input.value = x; grow(); input.focus(); setHint("Enterで頼みます（言い方は自由に変えられます）"); };
+    var b = document.createElement("button"); b.type = "button"; b.className = "chip"; b.textContent = x;
+    b.onclick = function () { if (S.busy) return; input.value = x; $("#form").requestSubmit(); };
     c.appendChild(b);
   });
 }
@@ -1711,7 +1775,7 @@ function suggestions() {
     else if (S.stage === 2) L = ["単価を1,450円にして", "候補を選んで返事を作って"];
     else if (S.stage === 3 && c.nego) L = ["1,500円で出し直して", "このままの単価で説明して"];
     else if (S.cal === "case") L = ["カレンダーに入れて"];
-    else if (S.stage === 5) L = ["経理に請求書を頼んで"];
+    else if (S.stage === 5) L = c.thanked ? ["経理に請求書を作って"] : ["お礼の返事だけ作って", "経理に請求書を作って"];
     else if (S.stage === 7) L = ["請求書を添えて返事を作って"];
     else if (S.stage >= 8) L = ["ほかに急ぎは？"];
   } else if (S.cur && T(S.cur).state === "open") {
@@ -1832,7 +1896,7 @@ function renderMenu() {
   $("#mlist").innerHTML = MIS.map(function (x, i) {
     var n = x.g.filter(function (g) { return S.goals[g[0]]; }).length, all = n === x.g.length;
     return '<button type="button" class="mi' + (S.mission === x.k ? " on" : "") + (all ? " done" : "") + '" data-mis="' + x.k + '"><span class="ck">' + (all ? ICON_OK : i + 1) + '</span><span class="t">' + esc(x.t)
-      + '<span class="pgc">' + n + "/" + x.g.length + "</span>" + (x.rec ? '<span class="tag">おすすめ</span>' : "") + (you === x.k ? '<span class="tag you">あなた向け</span>' : "") + '</span><span class="s">' + esc(x.s) + "</span>"
+      + (n ? '<span class="pgc" title="できたこと／ゴールの数">できた ' + n + "/" + x.g.length + "</span>" : "") + (x.rec ? '<span class="tag">おすすめ</span>' : "") + (you === x.k ? '<span class="tag you">あなた向け</span>' : "") + '</span><span class="s">' + esc(x.s) + "</span>"
       + '<ul class="gl">' + x.g.map(function (g) { return '<li class="' + (S.goals[g[0]] ? "ok" : "") + '">' + esc(g[1]) + "</li>"; }).join("") + "</ul></button>";
   }).join("");
 }
@@ -1864,7 +1928,7 @@ function hintTarget() {
     if (S.cur !== id && T(id).state === "open") return ['.row[data-id="' + id + '"]', T(id).name + "を開きます"];
   }
   if (k === "flow") {
-    if (S.stage === 0) return ['[data-act="sales"]', "見積もりを営業のAIに頼みます（渡すものを選べます）"];
+    if (S.stage === 0) return ['[data-act="sales"]', "営業のAIに見積書を作ってもらいます（相手には送りません）"];
     if (S.stage === 1) return c.q ? ["[data-q]", "営業のAIの質問に答えます"] : [null, "営業のAIが作っています"];
     if (S.stage === 2) return ['[data-act="reply1"]', "単価は見積書の中で直せます。よければ候補を選んで返事へ"];
     if (S.stage === 3) return S.sets["case"] ? ['[data-act="full"]', "下書きを開いて確かめます"] : c.nego ? ['[data-act="renego"]', "単価の相談に、どう返すか選びます"] : ["#ff", "右上の［⏩］で時間を進めると、返事が届きます"];
@@ -2085,6 +2149,9 @@ document.addEventListener("click", function (ev) {
     else if (a === "slotgo") slotGo();
     else if (a === "renego") renego(id);
     else if (a === "acct") actAcct();
+    else if (a === "thanks") thanksReply();
+    else if (a === "resendest") resendEst();
+    else if (a === "nofile") noFile(id);
     else if (a === "acctgo") acctGo();
     else if (a === "reply2") reply2();
     else if (a === "reply") doReply(id);
@@ -2161,7 +2228,13 @@ function aiState() {
     now: clk(S.now), open: S.cur, view: S.view, stage: S.stage, stageLabel: caseStageLabel() || (S.stage ? "" : "見積もりの前"),
     price: S.stage >= 2 ? c.price : undefined, question: !!c.q, negotiation: !!c.nego, calendarAsk: S.cal || null,
     waiting: S.pend.map(function (p) { return p.label; }),
-    draft: fid ? { id: fid, to: T(fid).name, lines: edLines() } : null,
+    draft: fid ? { id: fid, to: T(fid).name, lines: edLines(), file: S.sets[fid] && S.sets[fid].file ? S.sets[fid].file.name : null } : null,
+    notes: T("case").log.filter(function (m) { return m.crit; }).slice(-1).map(function (m) { return m.crit.map(function (x) { return x[1]; }); })[0] || [],
+    thanked: !!S.c.thanked, invoiceReady: S.stage === 7,
+    tasks: S.tasks.filter(function (k) { return !k.done; }).map(function (k) { return { side: k.side === "mine" ? "やること" : "やってもらうこと", what: k.t, due: k.due, who: k.who }; }),
+    holds: S.stage === 3 ? S.c.slots.map(slotLong) : [],
+    events: S.R.schedule.map(function (x) { return "今日 " + x[0] + " " + x[1]; }).concat(S.events.map(function (e) { return e[0] + " " + e[1]; })),
+    caseNote: S.stage >= 5 && S.c.slots.length > 1 ? "選ばれなかった候補の仮押さえは外しました（" + S.c.slots.filter(function (x) { return x !== S.c.chosen; }).map(slotLong).join("・") + "）" : "",
     threads: S.order.map(function (id) { var t = T(id); return { id: id, name: t.name, who: t.who, subject: t.subject, ch: t.ch, kind: t.kind, done: t.state !== "open", draft: !!S.sets[id] }; })
   };
 }
@@ -2177,6 +2250,8 @@ function aiValid(a, x) {
     case "acct": return S.stage === 5;
     case "rewrite": return !!$("#ed") && x.lines && x.lines.length > 0;
     case "dept": return !!S.th[x.id] && T(x.id).kind === "dept" && !S.dept[x.id];
+    case "nofile": return !!(S.fullId && S.sets[S.fullId] && S.sets[S.fullId].file);
+    case "thanks": return S.stage === 5;
     case "ff": return S.pend.length > 0;
     default: return true;
   }
@@ -2198,8 +2273,10 @@ function applyAi(r, v) {
     else if (a === "cal") { openThread(S.cal); calYes(); }
     else if (a === "acct") { openThread("case"); S.c.due = x.due || "a"; actAcct(); }
     else if (a === "reply") { if (S.cur !== x.id) openThread(x.id); doReply(x.id); }
-    else if (a === "rewrite") { var ed = $("#ed"); ed.innerText = x.lines.join("\n"); ed.classList.remove("flashit"); void ed.offsetWidth; ed.classList.add("flashit"); S.tone = null; done("r2"); }
+    else if (a === "rewrite") { var ed = $("#ed"), old = edLines(); ed.innerHTML = edHtml(x.lines, old); ed.classList.remove("flashit"); void ed.offsetWidth; ed.classList.add("flashit"); S.tone = null; done("r2"); }
     else if (a === "dept") { openThread(x.id); actDept(x.id); }
+    else if (a === "nofile") noFile(S.fullId);
+    else if (a === "thanks") { openThread("case"); thanksReply(); }
     else if (a === "view") showView(x.v);
     else if (a === "ff") ff();
     else if (a === "handover") openHandover();
@@ -2237,7 +2314,7 @@ function start() {
   document.querySelectorAll(".dlg,.ho,.wz").forEach(function (e) { e.remove(); });
   showView("inbox"); refresh(); setHint("");
   $("#pv").textContent = PRIVACY;
-  say("<p>おはようございます。今日は、あなたが<b>社長</b>です（架空の会社）。受信箱に、返事を待っている連絡が5件届いています。</p><p>右の受信箱を自由にさわるか、ここに頼んでください。下の候補を押すと入力欄に入ります（Enterで頼みます）。</p>");
+  say("<p>おはようございます。今日は、あなたが<b>社長</b>です（架空の会社）。受信箱に、返事を待っている連絡が5件届いています。</p><p>右の受信箱を自由にさわるか、ここに頼んでください。下の候補を押しても、そのまま頼めます。</p>");
 }
 dlog("open", { side: "pc" });
 start();

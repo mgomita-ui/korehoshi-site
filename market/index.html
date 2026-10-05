@@ -3,133 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>これほしマーケット｜業界ごとの、これほしを選ぶ</title>
-<meta name="description" content="スープは共通、味付けはつくり手ごと。業界に合わせて味付けされた「これほし」と、足せる部品が並ぶマーケット。体験版で試してから選べます。自分の版を出すこともできます。">
-<meta property="og:title" content="これほしマーケット｜業界ごとの、これほしを選ぶ">
-<meta property="og:description" content="スープは共通、味付けはつくり手ごと。体験版で試してから選べます。">
+<title>これほしマーケット｜自社の仕事に合う、これほしを選ぶ</title>
+<meta name="description" content="業界の仕事や自社のシステムに合わせた「これほし」と、追加できる機能が並ぶマーケット。AIは勝手に送らず、本人が確かめて送ります。まずは本家の体験版から。">
+<meta property="og:title" content="これほしマーケット｜自社の仕事に合う、これほしを選ぶ">
+<meta property="og:description" content="業界の仕事に合う、あなたの会社の受信箱。まずは本家の体験版から。">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@600;700;800&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../css/site.css">
-<style>
-/* マーケット専用 */
-.md{font-size:11px;font-weight:700;border-radius:4px;padding:1px 7px;vertical-align:4px}
-.md.buy{background:#E3F6EA;color:#147a3d}.md.run{background:var(--gold-soft);color:var(--gold-deep)}
-.card .pr .mo{font-size:15px;font-weight:700;color:var(--gold-deep);margin-left:4px}
-.card .pr .why{font-size:12px;color:var(--ink2)}
-.find{display:flex;gap:10px;align-items:center;max-width:620px;margin:24px auto 0}
-.find input{flex:1;padding:12px 16px;border:1.5px solid var(--line);border-radius:999px;font-size:15px;font-family:inherit}
-.find span{font-size:14px;color:var(--ink2);white-space:nowrap}
-.card .feat{font-weight:700;color:var(--blue);font-size:16px}
-.card .links{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
-.card .links span{font-size:12px;font-weight:700;background:var(--soft);color:var(--blue);border-radius:4px;padding:2px 8px}
-.card .links .lk{background:none;color:var(--ink2);font-weight:500;padding:0}
-.mhero{background:linear-gradient(180deg,#F3F7FD 0%,#fff 100%);padding:56px 0 40px;text-align:center}
-.mhero .tag{display:inline-block;font-size:14px;font-weight:700;color:var(--gold-deep);background:var(--gold-soft);border:1px solid rgba(194,146,47,.45);border-radius:999px;padding:3px 14px;margin-bottom:14px}
-.mhero h1{font-size:40px}
-.mhero .sub{font-size:20px;font-weight:700;color:var(--blue);margin-top:14px}
-.mhero .p{color:var(--ink2);max-width:680px;margin:12px auto 0}
-.mhero .acts{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:26px}
-.three{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:34px;text-align:left}
-.three div{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px 18px}
-.three b{display:block;color:var(--blue);font-size:17px}
-.three span{font-size:14px;color:var(--ink2)}
-
-.chips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:26px 0 8px}
-.chip{border:1.5px solid var(--line);background:#fff;color:var(--ink);border-radius:999px;padding:6px 16px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit}
-.chip[aria-pressed=true]{background:var(--blue);border-color:var(--blue);color:#fff}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px;margin-top:20px}
-.card{border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#fff;display:flex;flex-direction:column;box-shadow:0 6px 18px rgba(11,42,91,.06)}
-.card .hd{padding:18px 20px 14px;color:#fff;position:relative;min-height:112px}
-.card .hd small{display:inline-block;font-size:12px;font-weight:700;background:rgba(255,255,255,.2);border-radius:4px;padding:1px 8px}
-.card .hd h3{color:#fff;font-size:20px;margin-top:8px}
-.card .hd .by{font-size:13px;opacity:.9;margin-top:2px}
-.card .hd .own{position:absolute;right:14px;top:14px;font-size:11px;font-weight:700;background:var(--gold-soft);color:var(--gold-deep);border-radius:4px;padding:1px 7px}
-.card .bd{padding:16px 20px 18px;display:flex;flex-direction:column;gap:10px;flex:1}
-.card ul{margin:0;padding-left:1.2em;font-size:15px}
-.card .tops{display:flex;flex-wrap:wrap;gap:6px}
-.card .tops span{font-size:12px;border:1px solid var(--line);border-radius:999px;padding:1px 9px;color:var(--ink2)}
-.card .pr{font-size:14px;color:var(--ink2);margin-top:auto}
-.card .pr b{font-size:22px;color:var(--blue);font-family:var(--mincho)}
-.card .ac{display:flex;gap:8px}
-.card .ac a,.card .ac button{flex:1;text-align:center;border-radius:999px;padding:9px 10px;font-size:14px;font-weight:700;text-decoration:none;cursor:pointer;font-family:inherit}
-.card .ac a{background:var(--goldgrad);color:#fff;border:0}
-.card .ac button{background:#fff;color:var(--blue);border:1.5px solid var(--blue)}
-.c1{background:linear-gradient(135deg,#0B2A5B,#1F5FBF)}.c2{background:linear-gradient(135deg,#7A5510,#C2922F)}
-.c3{background:linear-gradient(135deg,#1d5c4d,#2f8f74)}.c4{background:linear-gradient(135deg,#6b2f45,#a8506e)}
-.c5{background:linear-gradient(135deg,#3b3f8f,#6a6fd1)}.c6{background:linear-gradient(135deg,#8a4a16,#d0782c)}
-.c7{background:linear-gradient(135deg,#255a7a,#3f93b8)}.c8{background:linear-gradient(135deg,#444,#777)}
-
-.shelf{display:grid;grid-template-columns:1.3fr .7fr;gap:24px;margin-top:30px;align-items:start}
-.opts{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
-.opt{display:flex;gap:10px;border:1px solid var(--line);border-radius:12px;padding:12px 14px;background:#fff;cursor:pointer}
-.opt input{margin-top:6px;width:18px;height:18px;accent-color:var(--blue);flex:none}
-.opt b{display:block;color:var(--blue);font-size:16px}
-.opt span{display:block;font-size:13px;color:var(--ink2);line-height:1.6}
-.opt em{font-style:normal;font-size:14px;font-weight:700;color:var(--gold-deep)}
-.opt small{font-size:11px;color:var(--ink2)}
-.calc{position:sticky;top:84px;border:2px solid var(--blue);border-radius:16px;padding:20px;background:#fff}
-.calc h3{font-size:18px}
-.calc select{width:100%;margin-top:10px;padding:10px;border:1.5px solid var(--line);border-radius:10px;font-size:15px;font-family:inherit}
-.calc ul{list-style:none;padding:0;margin:12px 0 0;font-size:14px}
-.calc li{display:flex;justify-content:space-between;gap:8px;padding:5px 0;border-bottom:1px dashed var(--line)}
-.calc .tot{display:flex;justify-content:space-between;align-items:baseline;margin-top:12px;font-weight:700;color:var(--blue)}
-.calc .tot b{font-family:var(--mincho);font-size:28px}
-.calc .btn{display:block;margin-top:14px;font-size:15px;padding:12px 18px}
-
-.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:30px;counter-reset:s}
-.steps div{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px;position:relative}
-.steps div:before{counter-increment:s;content:counter(s);display:inline-grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--blue);color:#fff;font-weight:700;margin-bottom:8px}
-.steps b{display:block;color:var(--blue)}
-.steps p{font-size:14px;color:var(--ink2);margin-top:4px}
-.pack{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:26px}
-.pack div{border:1px solid var(--line);border-radius:14px;padding:18px 20px;background:#fff}
-.pack div.main{border:2px solid var(--gold)}
-.pack b{color:var(--blue);font-size:18px;display:block}
-.pack .v{font-family:var(--mincho);font-size:24px;color:var(--blue);margin:6px 0}
-.pack ul{margin:0;padding-left:1.2em;font-size:14px}
-
-.rules{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:28px}
-.rules div{background:#fff;border:1px solid var(--line);border-left:5px solid var(--blue);border-radius:12px;padding:16px 18px}
-.rules b{color:var(--blue);display:block}
-.rules p{font-size:14px;color:var(--ink2);margin-top:4px}
-.yes{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:20px}
-.yes div{border-radius:12px;padding:16px 18px;font-size:15px}
-.yes .ok{background:#EEF8F1;border:1px solid #bfe3cb}
-.yes .ng{background:#FBF0EF;border:1px solid #f0c9c5}
-.yes ul{margin:6px 0 0;padding-left:1.2em}
-
-.tbl{overflow-x:auto;margin-top:24px}
-.tbl table{width:100%;border-collapse:collapse;font-size:15px;min-width:560px}
-.tbl th,.tbl td{border-bottom:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top}
-.tbl th{background:var(--soft);color:var(--blue)}
-.st{font-size:12px;font-weight:700;border-radius:4px;padding:1px 8px;white-space:nowrap}
-.st.on{background:#E3F6EA;color:#147a3d}.st.mid{background:var(--gold-soft);color:var(--gold-deep)}.st.no{background:#eef0f4;color:var(--ink2)}
-
-.faq{max-width:820px;margin:26px auto 0}
-.faq details{border-bottom:1px solid var(--line);padding:14px 4px}
-.faq summary{font-weight:700;color:var(--blue);cursor:pointer}
-.faq p{margin-top:8px;font-size:15px}
-
-dialog{border:0;border-radius:18px;padding:0;max-width:640px;width:calc(100% - 32px);box-shadow:0 20px 60px rgba(0,0,0,.25)}
-dialog::backdrop{background:rgba(8,30,66,.45)}
-dialog .hd{padding:20px 24px;color:#fff}
-dialog .hd h3{color:#fff}
-dialog .bd{padding:18px 24px 22px}
-dialog .bd h4{margin:14px 0 4px;color:var(--blue);font-size:16px}
-dialog .bd ul{margin:0;padding-left:1.2em;font-size:15px}
-dialog .x{position:absolute;right:12px;top:10px;background:rgba(255,255,255,.2);color:#fff;border:0;border-radius:50%;width:34px;height:34px;font-size:18px;cursor:pointer}
-dialog .ac{display:flex;gap:10px;margin-top:18px;flex-wrap:wrap}
-dialog .ac .btn{font-size:15px;padding:11px 22px}
-
-@media (max-width:820px){
-  .mhero h1{font-size:28px}.mhero .sub{font-size:17px}
-  .three,.pack,.rules,.yes{grid-template-columns:1fr}
-  .steps{grid-template-columns:1fr 1fr}
-  .shelf{grid-template-columns:1fr}
-  .calc{position:static}
-  .w{padding:0 16px}
-}
-</style>
+<link rel="stylesheet" href="market.css">
 </head>
 <body>
 
@@ -141,25 +22,26 @@ dialog .ac .btn{font-size:15px;padding:11px 22px}
 <!-- 1. トップ -->
 <section class="mhero"><div class="w">
   <span class="tag">これほしマーケット</span>
-  <h1>業界ごとの、<span class="mk">これほし</span>を選ぶ。</h1>
-  <p class="sub">スープは共通、味付けはつくり手ごと。</p>
-  <p class="p">これほしの中核（勝手に送らない・お客さまの情報を混ぜない仕組み）はどの版も同じ。その上に、業界を知るつくり手が、業務の型と部品で味付けしています。体験版で試してから選べます。自分の版を出すこともできます。</p>
+  <h1>業界の仕事に合う、<br><span class="mk">あなたの会社の受信箱</span>。</h1>
+  <p class="sub">つなぐ先も、受け持つ仕事も、版ごとに選べる。</p>
+  <p class="p">仕事の連絡をひとつの窓口で受け、AIが要約・下書き・やることを用意する「これほし」。業界を知るつくり手が、自社のシステムや業界の道具とつないだ版が並びます。どの版でも、AIは勝手に送らず、本人が宛先と全文を確かめて送ります。</p>
   <div class="acts">
-    <a class="btn" href="#items">版を選ぶ</a>
-    <a class="btn line" href="#shop">自分の版を出す</a>
+    <a class="btn" href="#items">業種・仕事から選ぶ</a>
+    <a class="btn line" href="../demo/taiken.html">本家の体験版を触る</a>
   </div>
   <div class="three">
-    <div><b>選ぶ</b><span>業種から探して、体験版をその場で触れる</span></div>
-    <div><b>足す</b><span>補助金・判例・給与計算など、部品を足して自社向けに</span></div>
-    <div><b>出す</b><span>自分の味付けを商品にして、名前つきで並べる</span></div>
+    <div><b>選ぶ</b><span>業種やつなぐ先から探して、中身と費用を確かめる</span></div>
+    <div><b>足す</b><span>補助金・判例・給与計算など、必要な機能を追加する</span></div>
+    <div><b>確かめる</b><span>販売者・窓口・保守の範囲を、買う前に確かめる</span></div>
   </div>
 </div></section>
 
 <!-- 2. 版を選ぶ -->
 <section id="items"><div class="w">
   <div class="kk">ITEMS</div>
-  <h2>版を選ぶ</h2>
-  <p class="lead">いろいろな会社が、自社のシステムや業界の道具とつないで味付けした版が並びます。「本家」のほかは、出店の見本です。</p>
+  <h2>業種・仕事から選ぶ</h2>
+  <p class="lead">いろいろな会社が、自社のシステムや業界の道具とつないだ版が並びます。</p>
+  <p class="now1">いま導入できるのは「本家」の版です。業界ごとの版は準備中で、ここに並ぶ本家以外の版は、出店のイメージを示す架空の見本です。</p>
   <div class="find"><input id="q" type="search" placeholder="つなぐ先や仕事で探す（例：予約台帳、配車、会計ソフト）" aria-label="版を探す"><span id="cnt"></span></div>
   <div class="chips" role="group" aria-label="料金の形で絞り込む" id="modes"><button class="chip" aria-pressed="true" data-m="">料金の形：すべて</button><button class="chip" aria-pressed="false" data-m="売り切り">売り切り</button><button class="chip" aria-pressed="false" data-m="月額あり">月額あり</button></div>
   <div class="chips" role="group" aria-label="業種で絞り込む" id="chips"></div>
@@ -169,9 +51,9 @@ dialog .ac .btn{font-size:15px;padding:11px 22px}
 
 <!-- 3. 部品 -->
 <section class="soft" id="parts"><div class="w">
-  <div class="kk">TOPPINGS</div>
-  <h2>部品を足す</h2>
-  <p class="lead">どの版にも足せる部品です。型だけで使えるものは売り切り、中身の更新やつなぎ込みの保守が続くものは月額があります。選ぶと、右で「はじめに」と「毎月」が出ます。</p>
+  <div class="kk">OPTIONS</div>
+  <h2>必要な機能を追加する</h2>
+  <p class="lead">対応する版は各機能のページで確かめられます。型だけで使えるものは売り切り、中身の更新やつなぎ込みの保守が続くものは月額があります。選ぶと、右で「はじめに」と「毎月」が出ます。</p>
   <div class="shelf">
     <div class="opts" id="opts"></div>
     <aside class="calc" aria-live="polite">
@@ -186,85 +68,64 @@ dialog .ac .btn{font-size:15px;padding:11px 22px}
   </div>
 </div></section>
 
-<!-- 4. 出す -->
-<section id="shop"><div class="w">
-  <div class="kk">OPEN A SHOP</div>
-  <h2>自分の版を出す</h2>
-  <p class="lead">業界の知見とお客さまを持っている人が、これほしを自分の商材にする入口です。自分で味付けしても、支援を頼んでも構いません。</p>
-  <div class="steps">
-    <div><b>味付けを決める</b><p>どの業界の、どの仕事を受け持つか。役割の中身と業務の型を決める</p></div>
-    <div><b>部品を選ぶ</b><p>補助金・判例・給与計算など、足す部品を選ぶ。自分で作った部品も載せられる</p></div>
-    <div><b>体験版と販売ページ</b><p>見本のデータ入りの体験版と販売ページを自動で用意する</p></div>
-    <div><b>並べる</b><p>決まりの確認を通ったら、名前つきでマーケットに並ぶ</p></div>
-  </div>
-
-  <h3 style="text-align:center;margin-top:48px">商材にする支援</h3>
-  <p class="note" style="margin-top:6px">商品を作る制作の仕事としてお受けします。売上や収入はお約束しません。</p>
-  <div class="pack">
-    <div><b>自分で作る</b><div class="v">5万円</div><ul><li>これほしの元（売り切り）</li><li>改良も再販も自由</li><li>出店は決まりの確認のみ</li></ul></div>
-    <div class="main"><b>一緒に作る</b><div class="v">個別見積もり</div><ul><li>味付けの設計を一緒に</li><li>部品の選び方と組み込み</li><li>体験版・販売ページの用意</li><li>価格と支援の範囲の決め方</li></ul></div>
-    <div><b>任せて作る</b><div class="v">個別見積もり</div><ul><li>一式をこちらで制作</li><li>紹介動画の制作（制作会社と連携）</li><li>出店後の改良の相談</li></ul></div>
-  </div>
-
-  <h3 style="text-align:center;margin-top:48px">売れたときの場所代</h3>
-  <div class="yes">
-    <div class="ok"><b>こうなります</b><ul><li>マーケットで売れた額の5％を場所代としていただきます（決済のときに自動で分けます）</li><li>マーケットの外で売るのも自由です。売上の5％を申告してください</li><li>部品を作った人には、部品が売れた分が入ります</li></ul></div>
-    <div class="ng"><b>こうはしません</b><ul><li>出店料・加盟金・販売権の代金はいただきません</li><li>人を紹介して報酬が増える仕組みはありません</li><li>社会保険・助成金の申請の報酬は、専門家とお客さまの直接の契約です。マーケットの決済には入れません</li></ul></div>
-  </div>
-</div></section>
-
-<!-- 5. 決まり -->
+<!-- 4. 共通の約束 -->
 <section class="soft" id="rules"><div class="w">
-  <div class="kk">THE SOUP</div>
-  <h2>どの版でも変わらないスープ</h2>
-  <p class="lead">ここは特許出願中の中核で、どのつくり手も変えられません。マーケットに並ぶ条件でもあります。</p>
+  <div class="kk">PROMISE</div>
+  <h2>どの版でも変わらない、4つの約束</h2>
+  <p class="lead">画面や機能、つなぐ先は版ごとに違います。それでも「これほし」として届ける版は、この4つを守ることがマーケットに並ぶ条件です。</p>
   <div class="rules">
-    <div><b>ひとつの窓口で受ける</b><p>LINE公式・チャットワーク・メールなど、つなぐ経路は版ごとに選べます。受ける窓口はひとつ。</p></div>
-    <div><b>お客さまの情報を混ぜない</b><p>案件ごとに、その案件の記録だけを読ませます。案件の分け方や用語は版ごとに変えられます。</p></div>
-    <div><b>役割を変えても、見てよい範囲は広がらない</b><p>業界ごとの秘書の性格や手順は自由。見てよい範囲は役割では変わりません。</p></div>
-    <div><b>AIは勝手に送らない</b><p>宛先と全文を見せ、本人が送信を押したときだけ送ります。下書きの型や言葉づかいは版ごとに。</p></div>
+    <div><b>仕事の連絡を、ひとつの窓口へ</b><p>つないだ経路の連絡を、ひとつの受付で扱います。つなげる経路は各版のページで確かめられます。</p></div>
+    <div><b>AIが読む記録を、その案件に限る</b><p>AIが読む案件の記録を、その案件にひもづく範囲に限ります。</p></div>
+    <div><b>役割を変えても、読む範囲は広がらない</b><p>AIの役割や手順を切り替えても、それだけで読める案件の範囲は広がりません。</p></div>
+    <div><b>送るのは、本人が確かめて押したときだけ</b><p>宛先と送る全文を見せ、本人が送信を押したときに限って送ります。</p></div>
   </div>
+  <div class="patent"><b>特許の出願について</b><p>この4つの約束は、これほしが特許を出願している技術（共通の受付、案件ごとに読む範囲を限ること、役割を変えても読む範囲を保つこと、宛先と全文を見せて本人の操作で送ること）にあたります。現在は出願中で、特許権はまだ成立していません。登録されるかどうかと、登録された場合の権利の範囲は、これから決まります。</p></div>
 </div></section>
 
 <!-- 6. いまの状況 -->
 <section id="now"><div class="w">
   <div class="kk">STATUS</div>
-  <h2>いまの状況</h2>
+  <h2>いま使えるもの・準備中のもの</h2>
   <div class="tbl"><table>
     <tr><th>しくみ</th><th>状況</th><th>中身</th></tr>
     <tr><td>本家の版（通常版・社長版）</td><td><span class="st on">動いている</span></td><td>五味田が毎日の仕事で使っている受信箱と同じもの</td></tr>
     <tr><td>体験版（パソコン・スマホ）</td><td><span class="st on">動いている</span></td><td>見本のデータで、自分で操作して試せる</td></tr>
     <tr><td>体験版・販売ページの自動の用意</td><td><span class="st on">動いている</span></td><td>デモの発行から請求・入金の確認まで</td></tr>
-    <tr><td>部品（補助金・助成金の型、判例・通達、給与計算）</td><td><span class="st mid">作り途中</span></td><td>本家の受信箱では使っている。どの版にも足せる形に分けている</td></tr>
-    <tr><td>業界ごとの版</td><td><span class="st mid">作り途中</span></td><td>最初のつくり手と、味付けを進めている</td></tr>
-    <tr><td>決済と場所代の自動の分配</td><td><span class="st no">まだ</span></td><td>それまでは、公式LINEでご相談を受けて個別にご案内</td></tr>
-    <tr><td>出店の受付と決まりの確認</td><td><span class="st no">まだ</span></td><td>それまでは、公式LINEで個別にご相談</td></tr>
+    <tr><td>追加の機能（補助金・助成金の型、判例・通達、給与計算など）</td><td><span class="st mid">準備中</span></td><td>本家の受信箱では使っている。ほかの版に追加できる形に分けている</td></tr>
+    <tr><td>業界ごとの版</td><td><span class="st mid">準備中</span></td><td>最初のつくり手と作っている</td></tr>
+    <tr><td>マーケットでの購入と決済</td><td><span class="st no">準備中</span></td><td>それまでは、公式LINEでご相談を受けて個別にご案内</td></tr>
+    
   </table></div>
 </div></section>
 
-<!-- 7. よくある質問 -->
+<!-- 6. 購入前に -->
 <section class="soft"><div class="w">
   <div class="kk">FAQ</div>
-  <h2>よくある質問</h2>
+  <h2>購入前に確かめたいこと</h2>
   <div class="faq">
-    <details><summary>困ったときは、誰に聞けばよいですか？</summary><p>まず、その版のつくり手が窓口です。中核（スープ）の不具合は本家が直します。どちらの受け持ちかは、各版の販売ページに書いてあります。</p></details>
-    <details><summary>版を買ったあと、自分で直してもよいですか？</summary><p>はい。味付けは自由に変えられます。スープ（上の4つの決まり）だけは変えられません。</p></details>
-    <details><summary>自分で作った版を、マーケットの外で売ってもよいですか？</summary><p>はい、自由です。売上の5％を申告してください。特許が成立したあとは、申告のない商用の販売には弁護士・弁理士からご連絡することがあります。</p></details>
+    <details><summary>困ったときは、誰に聞けばよいですか？</summary><p>各版の販売ページに、販売者・問い合わせの窓口・保守と更新の範囲を表示します。本家とつくり手の受け持ちの分け方も、買う前に確かめられます。</p></details>
+    <details><summary>買ったあと、自社に合わせて直せますか？</summary><p>直せる範囲は版ごとに違います。販売ページで確かめるか、販売者にご相談ください。上の4つの約束は、どの版でも変わりません。</p></details>
+    <details><summary>費用は、はじめだけですか？</summary><p>版と機能ごとに「売り切り」と「月額あり」があります。外部のシステムとのつなぎ込みの保守や、制度・料率などの更新が続くものは月額がかかります。外部サービスの利用料が別にかかる場合は、販売ページに書きます。</p></details>
     <details><summary>社会保険や助成金の申請も、この中でできますか？</summary><p>申請の準備やお客さまとのやり取りは、これほしの中で進められます。申請そのものは社会保険労務士などの専門家が行い、その報酬は専門家とお客さまの直接の契約です。</p></details>
-    <details><summary>お客さまのデータは、つくり手や本家に見られますか？</summary><p>お客さまの間で情報は混ぜません。つくり手が見られるのは、お客さまが許した設定と支援に必要な範囲だけです。本家がお客さまのデータを学習や営業に使うことはありません。</p></details>
+    <details><summary>お客さまのデータは、どう扱われますか？</summary><p>AIが読むのは、その案件にひもづく記録だけです。データの保存先と、販売者が見られる範囲は、各版の販売ページに書きます。本家がお客さまのデータを学習や営業に使うことはありません。</p></details>
   </div>
+</div></section>
+
+<section class="maker"><div class="w">
+  <div><h3>つくり手として参加したい方へ</h3><p>業界の知見や自社のシステムを生かして、自分の名前で「これほし」の版や機能をつくって売れます。</p></div>
+  <a class="btn line" href="maker/">つくり手向けのご案内</a>
 </div></section>
 
 <section class="last"><div class="w">
   <h2>まず、本家の版から。</h2>
-  <p>体験版は登録なしで触れます。自分の版を出したい方も、公式LINEからどうぞ。</p>
+  <p>体験版は登録なしで触れます。ご相談は公式LINEからどうぞ。</p>
   <a class="btn" href="../demo/taiken.html">自分で操作して体験する</a>
-  <div style="margin-top:14px"><a class="sub2" href="https://line.me/R/ti/p/@232zafzm">公式LINEで相談する（出店のご相談も）→</a></div>
+  <div style="margin-top:14px"><a class="sub2" href="https://line.me/R/ti/p/@232zafzm">公式LINEで相談する →</a></div>
 </div></section>
 
 <footer><div class="w">
   <p>これほしマーケット　運営：メディアパートナーズ／レリック社会保険労務士法人（これほし開発：五味田匡功）</p>
-  <p>「本家」以外の版・つくり手・価格は、出店のイメージを示す架空の見本です。掲載している画面はすべて架空のデータです。これほしは特許出願中です。<a href="../">これほしのトップへ</a></p>
+  <p>「本家」以外の版・つくり手・価格は、出店のイメージを示す架空の見本です。掲載している画面はすべて架空のデータです。これほしは特許出願中です（特許権は未成立）。<a href="../">これほしのトップへ</a>　<a href="maker/">つくり手向けのご案内</a></p>
 </div></footer>
 
 <dialog id="dlg"><div class="hd" id="dhd"><button class="x" id="dx" aria-label="閉じる">×</button><small id="dind"></small><h3 id="dname"></h3><div class="by" id="dby"></div></div>
@@ -277,8 +138,8 @@ const LINE='https://line.me/R/ti/p/@232zafzm';
 const GEN=[{"id": "g0", "ind": "士業", "c": "c3", "name": "月次会計版", "by": "見本：一人税理士事務所", "price": 110000, "priceTxt": "導入 110,000円〜（見本）", "demo": "../demo/taiken.html", "lead": "顧問先の連絡と証憑を照合し、税理士が確認する質問の下書きを用意。", "do": ["未提出証憑の一覧化", "取引内容への質問下書き", "月次確認事項の整理"], "tops": ["請求・入金の確認"], "links": ["会計ソフト", "証憑管理"], "feature": "顧問先ごとに不足資料を整理", "mode": "月額あり", "monthly": 12000, "why": "会計・証憑APIの保守"}, {"id": "g1", "ind": "士業", "c": "c3", "name": "労務相談版", "by": "見本：小規模社労士事務所", "price": 180000, "priceTxt": "導入 180,000円〜（見本）", "demo": "../demo/taiken.html", "lead": "勤怠と規則の関連箇所を整理。制度の適用判断と回答の確認は社労士が行う。", "do": ["勤怠相談の論点整理", "規則の参照箇所を提示", "追加確認の質問下書き"], "tops": ["給与計算", "判例・通達"], "links": ["勤怠システム", "就業規則管理"], "feature": "相談対象者の必要情報だけ参照", "mode": "月額あり", "monthly": 15000, "why": "勤怠連携保守と労働法改正対応"}, {"id": "g2", "ind": "士業", "c": "c3", "name": "契約相談版", "by": "見本：地域の法律事務所", "price": 210000, "priceTxt": "導入 210,000円〜（見本）", "demo": "../demo/taiken.html", "lead": "案件内の契約書と連絡から経緯を整理。法的判断と回答は弁護士が確認。", "do": ["相談経緯の時系列整理", "条項への質問候補作成", "回答文の下書き"], "tops": ["判例・通達"], "links": ["契約書管理", "相談案件台帳"], "feature": "受任案件の資料だけで経緯整理", "mode": "売り切り", "monthly": 0, "why": "契約書の手動取込と相談整理の型"}, {"id": "g3", "ind": "医療・歯科", "c": "c4", "name": "歯科通院版", "by": "見本：個人歯科医院の院長", "price": 140000, "priceTxt": "導入 140,000円〜（見本）", "demo": "../demo/taiken.html", "lead": "技工物の納期と予約枠を整理。治療上の判断と予約確定は医院が行う。", "do": ["予約変更の希望を要約", "来院日時の候補整理", "持ち物案内の下書き"], "tops": ["スマホ版"], "links": ["歯科予約台帳", "技工物管理"], "feature": "技工物の納期から来院候補整理", "mode": "月額あり", "monthly": 8000, "why": "予約・技工物管理の連携保守"}, {"id": "g4", "ind": "医療・歯科", "c": "c4", "name": "外来問合せ版", "by": "見本：複数医師の診療所", "price": 280000, "priceTxt": "導入 280,000円〜（見本）", "demo": "../demo/taiken.html", "lead": "診療所の閲覧権限内で問合せを整理。診断や受診案内の判断は医療職が行う。", "do": ["問合せ内容の要約", "医療職への確認事項整理", "事務案内の返信下書き"], "tops": [], "links": ["電子カルテ", "問診票管理"], "feature": "本人の問合せに必要な項目のみ", "mode": "月額あり", "monthly": 30000, "why": "電子カルテ・問診連携の保守"}, {"id": "g5", "ind": "医療・歯科", "c": "c4", "name": "薬局取寄せ版", "by": "見本：地域の調剤薬局", "price": 160000, "priceTxt": "導入 160,000円〜（見本）", "demo": "../demo/taiken.html", "lead": "取寄せ品の入荷状況を整理。服薬に関する判断と案内内容は薬剤師が確認。", "do": ["取寄せ状況の要約", "受取希望日時の整理", "入荷案内の下書き"], "tops": ["スマホ版"], "links": ["医薬品在庫管理", "取寄せ管理"], "feature": "薬剤師確認用に入荷情報を集約", "mode": "月額あり", "monthly": 12000, "why": "医薬品在庫・取寄せ連携保守"}, {"id": "g6", "ind": "介護・福祉", "c": "c7", "name": "訪問介護版", "by": "見本：小規模訪問介護事業所", "price": 190000, "priceTxt": "導入 190,000円〜（見本）", "demo": "../demo/taiken.html", "lead": "家族からの連絡と訪問予定を整理。支援内容や担当変更は責任者が判断。", "do": ["家族連絡の要点整理", "訪問変更の候補作成", "担当者への共有文下書き"], "tops": ["スマホ版"], "links": ["訪問予定表", "介護記録"], "feature": "担当利用者の必要な記録に限定", "mode": "月額あり", "monthly": 10000, "why": "訪問予定・介護記録の連携保守"}, {"id": "g7", "ind": "介護・福祉", "c": "c7", "name": "通所送迎版", "by": "見本：複数拠点の通所介護事業者", "price": 220000, "priceTxt": "導入 220,000円〜（見本）", "demo": "../demo/taiken.html", "lead": "欠席や乗車場所の希望を整理。送迎と利用予定の変更は職員が確定。", "do": ["欠席連絡の一覧化", "送迎変更の確認事項整理", "家族への返信下書き"], "tops": ["スマホ版"], "links": ["送迎ルート表", "通所利用予定"], "feature": "欠席連絡と送迎変更を一緒に整理", "mode": "月額あり", "monthly": 15000, "why": "複数拠点の送迎・利用予定連携保守"}, {"id": "g8", "ind": "介護・福祉", "c": "c7", "name": "就労支援版", "by": "見本：就労支援の運営法人", "price": 170000, "priceTxt": "導入 170,000円〜（見本）", "demo": "../demo/taiken.html", "lead": "本人と実習先の連絡を案件別に整理。支援方針や共有範囲は支援員が判断。", "do": ["実習先の連絡を要約", "面談で聞く項目の候補", "実習日程案内の下書き"], "tops": [], "links": ["個別支援計画", "施設外実習台帳"], "feature": "共有同意のある実習情報だけ参照", "mode": "売り切り", "monthly": 0, "why": "支援記録の手動取込と面談の型"}, {"id": "g9", "ind": "不動産", "c": "c5", "name": "賃貸修繕版", "by": "見本：地域の賃貸管理会社", "price": 150000, "priceTxt": "導入 150,000円〜（見本）", "demo": "../demo/taiken.html", "lead": "入居者の写真や連絡を当該住戸の履歴と整理し、修繕手配の下書きを用意。", "do": ["不具合の聞き取り下書き", "訪問希望日時の整理", "修繕依頼書の下書き"], "tops": ["スマホ版"], "links": ["賃貸管理台帳", "修繕受付台帳"], "feature": "部屋ごとに不具合と対応履歴整理", "mode": "月額あり", "monthly": 8000, "why": "賃貸管理・修繕受付の連携保守"}, {"id": "g10", "ind": "不動産", "c": "c5", "name": "売買内見版", "by": "見本：夫婦経営の不動産仲介店", "price": 80000, "priceTxt": "導入 80,000円〜（見本）", "demo": "../demo/taiken.html", "lead": "購入希望の連絡から物件候補と内見案内を下書きし、担当者が内容を確認。", "do": ["希望条件の一覧化", "内見する物件の候補整理", "集合案内の下書き"], "tops": ["紹介動画"], "links": ["物件情報台帳", "内見予定表"], "feature": "希望条件と内見時の質問を整理", "mode": "売り切り", "monthly": 0, "why": "物件台帳の手動取込と内見案内の型"}, {"id": "g11", "ind": "不動産", "c": "c5", "name": "管理組合版", "by": "見本：中規模マンション管理会社", "price": 200000, "priceTxt": "導入 200,000円〜（見本）", "demo": "../demo/taiken.html", "lead": "理事会への問合せを当該建物の記録と整理し、管理担当者向け回答案を作る。", "do": ["過去の決議箇所を整理", "次回議題の候補作成", "居住者向け回答下書き"], "tops": [], "links": ["理事会議事録管理", "長期修繕計画"], "feature": "建物内の決議と未決事項を区別", "mode": "売り切り", "monthly": 0, "why": "議事録の手動取込と議題整理の型"}, {"id": "g12", "ind": "建設・設備", "c": "c6", "name": "工務店工程版", "by": "見本：地域の工務店", "price": 180000, "priceTxt": "導入 180,000円〜（見本）", "demo": "../demo/taiken.html", "lead": "施主や職人の連絡を現場別に整理し、工程への影響を確認する材料を用意。", "do": ["変更希望の要約", "工程への影響箇所を整理", "施主への説明下書き"], "tops": ["一子相伝", "スマホ版"], "links": ["自社の工程表", "現場写真台帳"], "feature": "施主の変更希望と工程を照合", "mode": "売り切り", "monthly": 0, "why": "工程表の手動取込と施主説明の型"}, {"id": "g13", "ind": "建設・設備", "c": "c6", "name": "水回り修理版", "by": "見本：一人親方の給排水工事店", "price": 65000, "priceTxt": "導入 65,000円〜（見本）", "demo": "../demo/taiken.html", "lead": "故障の連絡と写真を整理し、職人が現物確認する項目と訪問案内を下書き。", "do": ["故障状況の聞き取り下書き", "必要部材の候補整理", "訪問前の案内下書き"], "tops": ["スマホ版"], "links": ["修理見積台帳", "部材在庫表"], "feature": "写真から職人の確認項目を用意", "mode": "売り切り", "monthly": 0, "why": "部材表の手動取込と聞き取りの型"}, {"id": "g14", "ind": "建設・設備", "c": "c6", "name": "電気点検版", "by": "見本：法人向け電気設備会社", "price": 230000, "priceTxt": "導入 230,000円〜（見本）", "demo": "../demo/taiken.html", "lead": "点検依頼から対象設備と校正記録を整理。安全判断と作業計画は技術者が確認。", "do": ["対象設備の確認項目整理", "校正期限の確認待ち一覧", "停電作業の案内下書き"], "tops": ["一子相伝"], "links": ["設備点検台帳", "計測器校正管理"], "feature": "設備と使用計測器の確認を連結", "mode": "月額あり", "monthly": 10000, "why": "設備点検・校正管理の連携保守"}, {"id": "g15", "ind": "製造・卸", "c": "c2", "name": "町工場見積版", "by": "見本：小規模金属加工工場", "price": 250000, "priceTxt": "導入 250,000円〜（見本）", "demo": "../demo/taiken.html", "lead": "引合いの図面と案件内の加工記録を整理し、技術者が見積条件を確認。", "do": ["図面の改訂差分を要約", "加工条件の質問下書き", "見積前の確認事項整理"], "tops": ["一子相伝"], "links": ["図面管理", "加工実績台帳"], "feature": "依頼図面の版と加工条件を整理", "mode": "月額あり", "monthly": 15000, "why": "図面改訂・加工実績の連携保守"}, {"id": "g16", "ind": "製造・卸", "c": "c2", "name": "食品卸ロット版", "by": "見本：地域の食品卸会社", "price": 260000, "priceTxt": "導入 260,000円〜（見本）", "demo": "../demo/taiken.html", "lead": "品質や期限の問合せを該当納品分に絞って整理し、担当者向け回答案を用意。", "do": ["該当ロットの記録整理", "期限条件の確認事項整理", "品質問合せへの返信下書き"], "tops": ["請求・入金の確認"], "links": ["ロット管理", "賞味期限管理"], "feature": "納品済みロット単位で問合せ整理", "mode": "月額あり", "monthly": 18000, "why": "ロット・賞味期限管理の連携保守"}, {"id": "g17", "ind": "製造・卸", "c": "c2", "name": "衣料卸展示会版", "by": "見本：少人数の衣料品卸", "price": 130000, "priceTxt": "導入 130,000円〜（見本）", "demo": "../demo/taiken.html", "lead": "小売店からの追加希望を展示会受注と照合し、在庫確認と回答の下書きを用意。", "do": ["色サイズ別の希望整理", "追加可能数の確認待ち一覧", "代替商品の提案下書き"], "tops": ["紹介動画"], "links": ["展示会受注台帳", "色サイズ別在庫"], "feature": "色とサイズ別に追加注文を整理", "mode": "月額あり", "monthly": 8000, "why": "展示会受注・在庫の連携保守"}, {"id": "g18", "ind": "物流・運送", "c": "c7", "name": "配車相談版", "by": "見本：地域の一般貨物運送会社", "price": 240000, "priceTxt": "導入 240,000円〜（見本）", "demo": "../demo/taiken.html", "lead": "荷主の依頼から必要条件をまとめ、配車担当者が確認する車両候補を用意。", "do": ["積地と納品条件の整理", "対応車両の候補作成", "運行条件の質問下書き"], "tops": ["スマホ版"], "links": ["自社の配車表", "車両仕様台帳"], "feature": "荷姿と車両条件から配車候補整理", "mode": "売り切り", "monthly": 0, "why": "配車表の手動取込と条件整理の型"}, {"id": "g19", "ind": "物流・運送", "c": "c7", "name": "倉庫出荷照会版", "by": "見本：複数倉庫の運営会社", "price": 290000, "priceTxt": "導入 290,000円〜（見本）", "demo": "../demo/taiken.html", "lead": "荷主の問合せを当該荷主の出荷記録だけと照合し、倉庫担当者向け回答案を作る。", "do": ["出荷進捗の要約", "梱包指定の確認事項整理", "配送照会への返信下書き"], "tops": [], "links": ["倉庫管理", "送り状管理"], "feature": "荷主ごとに梱包と出荷状況を整理", "mode": "月額あり", "monthly": 25000, "why": "複数倉庫・送り状APIの保守"}, {"id": "g20", "ind": "物流・運送", "c": "c7", "name": "低温配送版", "by": "見本：冷蔵配送の専門会社", "price": 300000, "priceTxt": "導入 300,000円〜（見本）", "demo": "../demo/taiken.html", "lead": "温度や検収の問合せを指定便の記録と整理。品質上の判断は担当者が行う。", "do": ["指定便の温度推移を要約", "検収差異の確認事項整理", "荷主への報告下書き"], "tops": ["スマホ版"], "links": ["輸送温度記録", "納品検収台帳"], "feature": "指定便の温度記録を照会に添える", "mode": "月額あり", "monthly": 25000, "why": "温度記録・納品検収の連携保守"}, {"id": "g21", "ind": "小売・EC", "c": "c8", "name": "通販返品版", "by": "見本：少人数の通販ショップ", "price": 120000, "priceTxt": "導入 120,000円〜（見本）", "demo": "../demo/taiken.html", "lead": "購入者の連絡を該当注文だけと照合。返品可否や返金の判断は店側が行う。", "do": ["返品理由と商品状態の整理", "返品条件の確認事項整理", "返送手順の案内下書き"], "tops": ["請求・入金の確認"], "links": ["受注管理", "返品受付管理"], "feature": "注文単位で返品条件と希望を整理", "mode": "月額あり", "monthly": 10000, "why": "受注・返品受付APIの保守"}, {"id": "g22", "ind": "小売・EC", "c": "c8", "name": "金物取寄せ版", "by": "見本：家族経営の金物店", "price": 70000, "priceTxt": "導入 70,000円〜（見本）", "demo": "../demo/taiken.html", "lead": "工具や部品の問合せから適合確認の材料を用意し、店主が品番と納期を確認。", "do": ["型番や寸法の不足項目整理", "適合部品の候補作成", "取寄せ納期の回答下書き"], "tops": ["一子相伝"], "links": ["部品適合表", "仕入先納期表"], "feature": "型番と寸法から取寄せ候補整理", "mode": "売り切り", "monthly": 0, "why": "適合表・納期表の手動取込と回答型"}, {"id": "g23", "ind": "小売・EC", "c": "c8", "name": "花屋贈答版", "by": "見本：商店街の生花店", "price": 45000, "priceTxt": "導入 45,000円〜（見本）", "demo": "../demo/taiken.html", "lead": "贈答の用途や予算をまとめ、店主が確認する花材候補と札の文面を下書き。", "do": ["用途と色の希望を整理", "入荷花材の候補作成", "名札表記の確認文下書き"], "tops": ["スマホ版"], "links": ["花材入荷表", "贈答注文台帳"], "feature": "用途と入荷花材から構成案を用意", "mode": "売り切り", "monthly": 0, "why": "入荷表の手動取込と贈答確認の型"}, {"id": "g24", "ind": "飲食・宿泊", "c": "c6", "name": "宴会相談版", "by": "見本：個人経営の飲食店", "price": 75000, "priceTxt": "導入 75,000円〜（見本）", "demo": "../demo/taiken.html", "lead": "宴会条件を整理。アレルギー対応の可否と予約確定は店側が確認して判断。", "do": ["人数と予算の希望整理", "食材対応の確認事項整理", "宴会プランの案内下書き"], "tops": [], "links": ["宴会予約台帳", "献立原材料表"], "feature": "人数と食材配慮の希望を分けて整理", "mode": "売り切り", "monthly": 0, "why": "原材料表の手動取込と宴会案内の型"}, {"id": "g25", "ind": "飲食・宿泊", "c": "c6", "name": "旅館滞在版", "by": "見本：家族経営の温泉旅館", "price": 150000, "priceTxt": "導入 150,000円〜（見本）", "demo": "../demo/taiken.html", "lead": "宿泊者の到着予定や館内サービスの希望を整理し、フロント向け案内を下書き。", "do": ["到着予定の変更を要約", "館内利用の希望整理", "滞在前の案内下書き"], "tops": ["紹介動画"], "links": ["宿泊管理", "館内サービス台帳"], "feature": "滞在日ごとに到着と館内希望整理", "mode": "月額あり", "monthly": 10000, "why": "宿泊管理APIの保守"}, {"id": "g26", "ind": "飲食・宿泊", "c": "c6", "name": "仕出し段取り版", "by": "見本：地域の仕出し料理会社", "price": 170000, "priceTxt": "導入 170,000円〜（見本）", "demo": "../demo/taiken.html", "lead": "催事ごとの食数や搬入希望をまとめ、担当者が確認する調理変更案を用意。", "do": ["食数変更の差分整理", "搬入条件の質問下書き", "容器回収の案内下書き"], "tops": ["請求・入金の確認"], "links": ["調理生産計画", "容器回収台帳"], "feature": "食数変更と容器回収を一括整理", "mode": "月額あり", "monthly": 8000, "why": "調理計画・容器回収の連携保守"}, {"id": "g27", "ind": "教育・スクール", "c": "c3", "name": "学習塾面談版", "by": "見本：個人経営の学習塾", "price": 90000, "priceTxt": "導入 90,000円〜（見本）", "demo": "../demo/taiken.html", "lead": "保護者の相談と対象生徒の提出状況を整理。指導方針と返信内容は講師が確認。", "do": ["保護者相談の要約", "面談で話す項目の候補", "家庭学習の連絡下書き"], "tops": ["スマホ版"], "links": ["生徒カルテ", "宿題提出管理"], "feature": "対象生徒の学習記録だけで面談準備", "mode": "売り切り", "monthly": 0, "why": "生徒記録の手動取込と面談の型"}, {"id": "g28", "ind": "教育・スクール", "c": "c3", "name": "教習日程版", "by": "見本：地域の自動車教習所", "price": 200000, "priceTxt": "導入 200,000円〜（見本）", "demo": "../demo/taiken.html", "lead": "受講希望と教習進度を照合。受講条件の判断と日程確定は教習所が行う。", "do": ["日程変更の希望整理", "受講枠の候補作成", "次回準備の案内下書き"], "tops": ["スマホ版"], "links": ["教習進度管理", "教習車稼働表"], "feature": "進度と車両枠から受講候補整理", "mode": "月額あり", "monthly": 15000, "why": "教習進度・車両稼働の連携保守"}, {"id": "g29", "ind": "教育・スクール", "c": "c3", "name": "音楽発表会版", "by": "見本：少人数の音楽教室", "price": 50000, "priceTxt": "導入 50,000円〜（見本）", "demo": "../demo/taiken.html", "lead": "出演者の連絡を曲目や楽器の希望と整理し、講師が確認する当日案内を用意。", "do": ["出演曲目の変更希望整理", "貸出楽器の確認待ち一覧", "集合と持ち物の案内下書き"], "tops": ["紹介動画"], "links": ["演奏曲目台帳", "楽器貸出台帳"], "feature": "曲目と貸出楽器から当日準備整理", "mode": "売り切り", "monthly": 0, "why": "曲目台帳の手動取込と発表会案内型"}, {"id": "g30", "ind": "美容・健康", "c": "c4", "name": "美容室再来店版", "by": "見本：一人営業の美容室", "price": 60000, "priceTxt": "導入 60,000円〜（見本）", "demo": "../demo/taiken.html", "lead": "来店相談を本人の施術記録と整理。施術可否や予約確定は美容師が判断。", "do": ["希望スタイルの要約", "施術前の確認事項整理", "予約候補の案内下書き"], "tops": ["スマホ版"], "links": ["施術履歴台帳", "薬剤使用記録"], "feature": "本人の前回施術と今回の希望を整理", "mode": "売り切り", "monthly": 0, "why": "施術記録の手動取込と事前確認の型"}, {"id": "g31", "ind": "美容・健康", "c": "c4", "name": "運動習慣版", "by": "見本：地域の会員制運動施設", "price": 100000, "priceTxt": "導入 100,000円〜（見本）", "demo": "../demo/taiken.html", "lead": "本人の目標や利用状況を整理。運動内容と安全への配慮は指導員が判断。", "do": ["運動相談の要点整理", "指導員への確認事項整理", "継続相談の返信下書き"], "tops": [], "links": ["運動メニュー管理", "施設入退館記録"], "feature": "本人同意の運動記録で相談準備", "mode": "月額あり", "monthly": 6000, "why": "入退館記録APIの保守"}, {"id": "g32", "ind": "IT・制作", "c": "c5", "name": "制作校正版", "by": "見本：少人数の制作事務所", "price": 120000, "priceTxt": "導入 120,000円〜（見本）", "demo": "../demo/taiken.html", "lead": "顧客から届く修正指示を対象原稿にひも付け、制作者が確認する対応案を用意。", "do": ["修正指示の箇所別整理", "指示の食違いを確認待ち化", "修正確認の返信下書き"], "tops": [], "links": ["校正管理", "制作進行表"], "feature": "原稿の版ごとに修正指示を集約", "mode": "売り切り", "monthly": 0, "why": "校正資料の手動取込と修正整理の型"}, {"id": "g33", "ind": "IT・制作", "c": "c5", "name": "受託開発版", "by": "見本：中規模の受託開発会社", "price": 230000, "priceTxt": "導入 230,000円〜（見本）", "demo": "../demo/taiken.html", "lead": "顧客の要望を当該案件の仕様と照合し、開発責任者が判断する確認材料を用意。", "do": ["変更要望の要約", "関連仕様の参照箇所整理", "受入条件の質問下書き"], "tops": [], "links": ["課題管理", "仕様書管理"], "feature": "変更依頼と合意済み仕様を区別", "mode": "月額あり", "monthly": 12000, "why": "課題・仕様書管理APIの保守"}, {"id": "g34", "ind": "IT・制作", "c": "c5", "name": "機器保守版", "by": "見本：地域の機器保守会社", "price": 270000, "priceTxt": "導入 270,000円〜（見本）", "demo": "../demo/taiken.html", "lead": "障害連絡から契約条件と端末情報を整理。操作手順と対応方針は技術者が確認。", "do": ["障害状況の聞き取り下書き", "保守範囲の確認事項整理", "対応経過の報告下書き"], "tops": ["一子相伝"], "links": ["保守契約台帳", "端末資産管理", "障害受付管理"], "feature": "契約範囲と対象端末を先に整理", "mode": "月額あり", "monthly": 22000, "why": "保守契約・資産・障害の連携保守"}, {"id": "g35", "ind": "営業・人材", "c": "c8", "name": "営業引継ぎ版", "by": "見本：小規模の営業代行会社", "price": 100000, "priceTxt": "導入 100,000円〜（見本）", "demo": "../demo/taiken.html", "lead": "見込み客の連絡を当該商談の記録とまとめ、担当者が確認する次の対応案を用意。", "do": ["商談中の約束事項整理", "次回提案の論点候補", "面談後のお礼文下書き"], "tops": ["紹介動画"], "links": ["商談管理", "提案書管理"], "feature": "商談ごとの約束と未回答を整理", "mode": "月額あり", "monthly": 6000, "why": "商談・提案書管理APIの保守"}, {"id": "g36", "ind": "営業・人材", "c": "c8", "name": "人材紹介版", "by": "見本：専門職の人材紹介会社", "price": 210000, "priceTxt": "導入 210,000円〜（見本）", "demo": "../demo/taiken.html", "lead": "応募先ごとに同意範囲の情報で連絡を整理。推薦内容と情報の開示は担当者が確認。", "do": ["応募条件の確認事項整理", "面接日時の候補整理", "推薦文の下書き"], "tops": [], "links": ["応募者管理", "求人票管理"], "feature": "本人が共有を認めた応募情報のみ", "mode": "月額あり", "monthly": 12000, "why": "応募者・求人票管理APIの保守"}, {"id": "g37", "ind": "営業・人材", "c": "c8", "name": "派遣就業版", "by": "見本：地域の人材派遣会社", "price": 240000, "priceTxt": "導入 240,000円〜（見本）", "demo": "../demo/taiken.html", "lead": "スタッフの連絡を当該就業契約と整理。労務判断や相談内容の共有は担当者が確認。", "do": ["就業相談の要点整理", "契約条件の確認事項整理", "共有範囲別の返信下書き"], "tops": ["スマホ版"], "links": ["派遣契約管理", "就業報告管理"], "feature": "就業先への共有と内部相談を区別", "mode": "月額あり", "monthly": 20000, "why": "派遣契約連携保守と法改正対応"}, {"id": "g38", "ind": "自治体・団体", "c": "c1", "name": "商工相談版", "by": "見本：地域の商工支援団体", "price": 130000, "priceTxt": "導入 130,000円〜（見本）", "demo": "../demo/taiken.html", "lead": "事業者の相談から支援制度の候補と不足情報を整理。適用条件は相談員が確認。", "do": ["相談内容の分野別整理", "支援制度の候補作成", "必要書類の案内下書き"], "tops": ["補助金・助成金の型"], "links": ["事業相談台帳", "支援制度一覧"], "feature": "事業段階に応じた支援候補を整理", "mode": "月額あり", "monthly": 6000, "why": "支援制度・公募要件の継続更新"}, {"id": "g39", "ind": "自治体・団体", "c": "c1", "name": "地域活動版", "by": "見本：任意の地域活動団体", "price": 30000, "priceTxt": "導入 30,000円〜（見本）", "demo": "../demo/taiken.html", "lead": "住民の参加や手伝いの希望を行事別に整理し、役員が確認する案内を下書き。", "do": ["参加と手伝いの希望整理", "必要備品の確認待ち一覧", "集合場所の案内下書き"], "tops": [], "links": ["行事予定表", "備品貸出表"], "feature": "行事の参加希望と備品利用を整理", "mode": "売り切り", "monthly": 0, "why": "予定表の手動取込と行事案内の型"}];
 const ITEMS=[
  {id:'std',own:true,ind:'すべて',c:'c1',name:'これほし 通常版',by:'本家（五味田匡功）',price:50000,priceTxt:'導入 5万円（売り切り）。2年目から年1万2,000円の更新（任意）',demo:'../demo/taiken.html',
-  lead:'LINE公式・チャットワーク・メールの連絡を、AIが先に読んで下書きまで。いちばん素のスープです。',
-  do:['連絡をひとつの窓口で受けて要約','返信の下書きと、やることの書き出し','本人が確かめて送る送信セット'],tops:['体験版'],links:['LINE公式','チャットワーク','メール'],feature:'いちばん素のスープ',mode:'売り切り',monthly:0,why:'2年目から年1.2万円の更新（任意）'},
+  lead:'LINE公式・チャットワーク・メールの連絡を、AIが先に読んで下書きまで。いちばん基本の版です。',
+  do:['連絡をひとつの窓口で受けて要約','返信の下書きと、やることの書き出し','本人が確かめて送る送信セット'],tops:['体験版'],links:['LINE公式','チャットワーク','メール'],feature:'いちばん基本の版',mode:'売り切り',monthly:0,why:'2年目から年1.2万円の更新（任意）'},
  {id:'pro',own:true,ind:'すべて',c:'c2',name:'これほし 社長版',by:'本家（五味田匡功）',price:100000,priceTxt:'導入 10万円（続けてのフォローは月1万円から）',demo:'../demo/sp.html',
   lead:'通常版に、文脈を残し続ける「一子相伝」とスマホ版、守りの設定を足した社長向けの版です。',
   do:['案件ごとの経緯を残して、次の会話に引き継ぐ','スマホで、はじいて確かめて送る','フォルダの設計とセキュリティの強化'],tops:['一子相伝','スマホ版','セキュリティ強化'],links:['LINE公式','チャットワーク','メール'],feature:'文脈を残し続ける社長向け',mode:'売り切り',monthly:0,why:'続けてのフォローは月1万円から（任意）'},
@@ -312,7 +173,7 @@ function renderGrid(){
   grid.innerHTML=list.map(i=>`<article class="card"><div class="hd ${i.c}"><small>${i.own?'本家':i.ind}</small>${i.own?'<span class="own">いま使える</span>':''}<h3>${i.name}</h3><div class="by">${i.by}</div></div>
    <div class="bd"><p class="feat">${i.feature}</p><div class="links"><span class="lk">つなぐ先</span>${i.links.map(x=>`<span>${x}</span>`).join('')}</div><p style="font-size:15px">${i.lead}</p><ul>${i.do.map(x=>`<li>${x}</li>`).join('')}</ul>
    ${i.tops.length?`<div class="tops">${i.tops.map(x=>`<span>＋${x}</span>`).join('')}</div>`:''}
-   <p class="pr"><span class="md ${i.monthly?'run':'buy'}">${i.monthly?'月額あり':'売り切り'}</span> <b>${yen(i.price)}</b>${i.own?'':'〜'}${i.monthly?`<span class="mo">＋月${yen(i.monthly)}</span>`:''}　<span class="fake">${i.own?'':'見本'}</span><br><span class="why">${i.why}</span></p>
+   <p class="pr">${i.own?'':'<span class="sample">架空の見本</span> '}<span class="md ${i.monthly?'run':'buy'}">${i.monthly?'月額あり':'売り切り'}</span> <b>${yen(i.price)}</b>${i.own?'':'〜'}${i.monthly?`<span class="mo">＋月${yen(i.monthly)}</span>`:''}　<span class="fake">${i.own?'':'見本'}</span><br><span class="why">${i.why}</span></p>
    <div class="ac"><a href="${i.demo}">体験する</a><button data-id="${i.id}">詳しく</button></div></div></article>`).join('');
 }
 chips.addEventListener('click',e=>{const b=e.target.closest('.chip');if(!b)return;cur=b.dataset.v;renderChips();renderGrid();});

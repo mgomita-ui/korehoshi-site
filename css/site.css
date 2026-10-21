@@ -381,3 +381,17 @@ footer p{margin:4px 0}
 .top .cta:after{content:"　→"}
 @media(max-width:640px){.logo small{display:none}.top .cta{font-size:13px;padding:8px 14px}.top .cta .long{display:none}}
 @media(max-width:600px){.top .pat{display:none}}
+
+/* パソコンの画面（2026-10-21 パソコンを主に） */
+.pcshot{margin:0;border-radius:14px;overflow:hidden;background:#fff;border:1px solid var(--line);box-shadow:0 30px 60px rgba(11,42,91,.22)}
+.pcshot .pcbar{display:flex;align-items:center;gap:6px;padding:8px 12px;background:#eef2f7;border-bottom:1px solid var(--line);font-size:12px;color:var(--ink2)}
+.pcshot .pcbar i{width:10px;height:10px;border-radius:50%;background:#cfd6e0;display:inline-block}
+.pcshot .pcbar span{margin-left:8px}
+.pcshot img{display:block;width:100%;height:auto}
+.hero .w{grid-template-columns:.9fr 1.1fr}
+.pcmain{display:grid;grid-template-columns:1.5fr 1fr;gap:32px;align-items:center;margin-top:36px}
+.pcsteps{list-style:none;padding:0;margin:0;counter-reset:s;display:flex;flex-direction:column;gap:18px}
+.pcsteps li{counter-increment:s;position:relative;padding-left:46px;font-size:15px;line-height:1.7;color:var(--ink2)}
+.pcsteps li:before{content:counter(s);position:absolute;left:0;top:2px;width:32px;height:32px;border-radius:50%;background:var(--blue);color:#fff;font-weight:700;display:flex;align-items:center;justify-content:center}
+.pcsteps li b{display:block;font-size:18px;color:var(--blue)}
+@media(max-width:860px){.hero .w{grid-template-columns:1fr}.pcmain{grid-template-columns:1fr}}

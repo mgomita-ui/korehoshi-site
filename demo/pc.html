@@ -7,7 +7,7 @@
 <meta name="color-scheme" content="light">
 <title>これほし｜操作して体験（パソコン）</title>
 <meta name="description" content="連絡をまとめ、AIが返事と段取りを準備。送信は必ず人。ログインなし・3分の操作体験。">
-<meta property="og:title" content="これほし｜LINEで使う、社長のAI秘書室">
+<meta property="og:title" content="これほし｜LINEで使う、社長のAIの仲間">
 <meta property="og:description" content="連絡をまとめ、AIが返事と段取りを準備。送信は必ず人。ログインなし・3分の操作体験。">
 <meta property="og:image" content="https://mgomita-ui.github.io/korehoshi-site/demo/og.png">
 <meta property="og:type" content="website">
@@ -684,7 +684,7 @@ button.auto b { color: var(--accent-ink); font-weight: 500; }
 
 <div class="demobar">
   <span class="tag">これほし</span><span class="sep"></span>
-  <span>LINEで使う、社長のAI秘書室</span><span class="sep"></span>
+  <span>LINEで使う、社長のAIの仲間</span><span class="sep"></span>
   <span>架空のデータで、自由に操作できます。実際には送信しません。</span>
   <button class="restart" type="button" id="restart" style="margin-left:auto">↻ 最初から</button>
 </div>
@@ -2125,7 +2125,7 @@ function showClosing() {
 }
 function share() {
   var url = "https://mgomita-ui.github.io/korehoshi-site/demo/pc.html";
-  var text = "LINEで使う、社長のAI秘書室「これほし」。連絡をまとめ、AIが返事と段取りを準備。送るのは自分。ログインなしで、自分で操作して体験できます。";
+  var text = "LINEで使う、社長のAIの仲間「これほし」。連絡をまとめ、AIが返事と段取りを準備。送るのは自分。ログインなしで、自分で操作して体験できます。";
   dlog("cta", { k: "share" });
   if (navigator.share) { navigator.share({ title: "これほし｜操作して体験", text: text, url: url }).catch(function () {}); return; }
   try { navigator.clipboard.writeText(text + "\n" + url); toast("体験のURLをコピーしました（共通のURLです）"); } catch (e) { prompt("このURLを送ってください", url); }

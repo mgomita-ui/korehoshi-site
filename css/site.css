@@ -470,3 +470,5 @@ footer p{margin:4px 0}
 .pick div.rec{border:2px solid var(--gold)}
 .pick b{display:block;font-family:var(--mincho);font-size:20px;color:var(--blue)}
 @media(max-width:860px){.fmflow{grid-template-columns:1fr}.pick{grid-template-columns:1fr}}
+
+.fmcta .fmsub{margin:-4px 0 0;font-size:14px;color:rgba(255,255,255,.78)}

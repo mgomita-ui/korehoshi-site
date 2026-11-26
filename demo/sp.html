@@ -6,7 +6,7 @@
 <meta name="robots" content="noindex">
 <meta name="color-scheme" content="light">
 <meta name="theme-color" content="#FFFFFF">
-<title>これほし｜体験版（スマホ）</title>
+<title>スタコレ｜体験版（スマホ）</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
@@ -328,7 +328,7 @@ mark.chg { background: #DDF4E4; }
 <body>
 <div class="page">
   <aside class="side" aria-hidden="false">
-    <div class="k">これほし 体験版</div>
+    <div class="k">スタコレ 体験版</div>
     <h1>朝はLINEで段取り。<br>移動中は、<span class="nw">指ではじくだけ。</span></h1>
     <p>スマホでは、細かい操作はしません。大枠を選べば、AIがその場で下書きを作ります。送るのは、全文を見たあなたです。</p>
     <ol id="sideSteps">
@@ -384,7 +384,7 @@ function dwatch(on) {
 var PRIVACY = "体験の改善とご案内のため、開封・進み具合・ボタン操作を記録します。入力した文章は保存しません（パソコン版の左のAIに打った文は、返事を作るためにAI（OpenAI）へ送ります）。個別にお送りした体験URLでは、発行者がそのURLの進み具合を確認できます。";
 
 // ---------------- 職種ごとの台本（すべて架空。今日＝2026-10-05（月）） ----------------
-// GPT-6と相談した台本（drafts/これほし_体験版/gpt6-demo-design-20261004.md）をもとに、体験版の画面に合う形にした。
+// GPT-6と相談した台本（drafts/スタコレ_体験版/gpt6-demo-design-20261004.md）をもとに、体験版の画面に合う形にした。
 // kind：reply＝返事を作って送る／sched＝日時を提案して送る（返事が来たらカレンダーに入れるか聞く）／dept＝部署のAIに渡し、相手には一次返事。
 // 送る文の頭に相手の名前を書かない（呼びかけはメンション）。未確定のことは確定させない。
 var ROLES = {
@@ -825,7 +825,7 @@ function lineMsg(x) {
   var body = "";
   if (x.kind === "morning") body = morningCard();
   else if (x.kind === "draft") body = draftCard(x);
-  else if (x.kind === "role") body = '<div class="bub">はじめまして。これほしです。体験版では、あなたの立場に近い例で動かします。<br>お仕事に近いものを選んでください。</div>'
+  else if (x.kind === "role") body = '<div class="bub">はじめまして。スタコレです。体験版では、あなたの立場に近い例で動かします。<br>お仕事に近いものを選んでください。</div>'
     + (S.roleSet ? "" : '<div class="quick">' + ROLEBTN.map(function (r) { return '<button type="button" data-role="' + r[0] + '">' + r[1] + "</button>"; }).join("") + "</div>");
   else if (x.kind === "cust") body = '<div class="fx"><div class="fh">なごみ食品から返事が届きました</div><div class="fs">「' + esc(custText()) + "」</div>"
     + (S.nago === 2 ? '<div class="first">日程が決まりました：<b>' + esc(sev(chosen())) + ' 現場確認</b><br>カレンダーには黙って入れません。入れますか？（相手は招待しません）</div>'
@@ -833,11 +833,11 @@ function lineMsg(x) {
   else if (x.kind === "next") body = '<div class="fx"><div class="fh">受注できました。次はどうしますか？</div><div class="fs">どちらも、作るだけで送りません。</div>'
     + (S.nago === 3 ? '<div class="fb" style="flex-direction:column"><button class="main" type="button" data-act="thanks">お礼と日程の返事だけ作る（請求書は納品後）</button><button type="button" data-act="invoice">経理のAIに請求書を作ってもらう</button></div>' : '<div class="fs">（選びました）</div>') + "</div>";
   else body = '<div class="bub">' + (x.html || esc(x.text)) + "</div>";
-  return '<div class="tm"><div class="av">これ</div><div class="col"><div class="meta">これほし　<time>' + esc(x.t || "") + "</time></div>" + body + "</div></div>";
+  return '<div class="tm"><div class="av">これ</div><div class="col"><div class="meta">スタコレ　<time>' + esc(x.t || "") + "</time></div>" + body + "</div></div>";
 }
 function renderTalk(focus) {
   mark("m");
-  var html = '<div class="talk-head"><div class="av">これ</div><div><div class="t">これほし</div><div class="s">公式LINE・あなたとのトーク（簡略表示）</div></div></div>'
+  var html = '<div class="talk-head"><div class="av">これ</div><div><div class="t">スタコレ</div><div class="s">公式LINE・あなたとのトーク（簡略表示）</div></div></div>'
     + '<div class="talk" id="talk"><div class="day"><span>10月5日（月）</span></div>'
     + S.talk.map(lineMsg).join("") + "</div>"
     + (S.roleSet ? '<div class="menu"><div class="lbl">メニュー ▾</div>'
@@ -1103,7 +1103,7 @@ function refreshTabs() { var tb = $(".tabs"); if (tb) { var on = (tb.querySelect
 function banner(id) {
   var old = $(".banner"); if (old) old.remove();
   var el = document.createElement("div"); el.className = "banner";
-  el.innerHTML = '<div class="av">これ</div><div><div class="t">公式LINE・これほし・いま</div><div class="m">' + esc(T(id).name) + "への下書きができました。押すと見られます。</div></div>";
+  el.innerHTML = '<div class="av">これ</div><div><div class="t">公式LINE・スタコレ・いま</div><div class="m">' + esc(T(id).name) + "への下書きができました。押すと見られます。</div></div>";
   el.onclick = function () { el.remove(); showDraft(id); };
   $("#phone").appendChild(el);
   setTimeout(function () { el.remove(); }, 6500);

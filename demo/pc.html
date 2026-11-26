@@ -5,9 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
 <meta name="color-scheme" content="light">
-<title>これほし｜操作して体験（パソコン）</title>
+<title>スタコレ｜操作して体験（パソコン）</title>
 <meta name="description" content="連絡をまとめ、AIが返事と段取りを準備。送信は必ず人。ログインなし・3分の操作体験。">
-<meta property="og:title" content="これほし｜LINEで使う、社長のAIの仲間">
+<meta property="og:title" content="スタコレ｜LINEで使う、社長のAIの仲間">
 <meta property="og:description" content="連絡をまとめ、AIが返事と段取りを準備。送信は必ず人。ログインなし・3分の操作体験。">
 <meta property="og:image" content="https://mgomita-ui.github.io/korehoshi-site/demo/og.png">
 <meta property="og:type" content="website">
@@ -136,7 +136,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .send-btn { width: 34px; height: 34px; border-radius: 10px; border: 0; background: var(--ink); color: #fff; display: grid; place-items: center; flex: 0 0 auto; }
 .send-btn svg { width: 15px; height: 15px; }
 
-/* ---------- 右：これほし（受信箱） ---------- */
+/* ---------- 右：スタコレ（受信箱） ---------- */
 .kh { position: relative; display: flex; flex-direction: column; min-height: 0; min-width: 0; }
 .kh-top { flex: 0 0 auto; height: 56px; display: flex; align-items: center; gap: 14px; padding: 0 16px; border-bottom: 1px solid var(--rule); }
 .brand { font-weight: 700; font-size: 16px; letter-spacing: .04em; white-space: nowrap; }
@@ -683,7 +683,7 @@ button.auto b { color: var(--accent-ink); font-weight: 500; }
 </div></div>
 
 <div class="demobar">
-  <span class="tag">これほし</span><span class="sep"></span>
+  <span class="tag">スタコレ</span><span class="sep"></span>
   <span>LINEで使う、社長のAIの仲間</span><span class="sep"></span>
   <span>架空のデータで、自由に操作できます。実際には送信しません。</span>
   <button class="restart" type="button" id="restart" style="margin-left:auto">↻ 最初から</button>
@@ -712,7 +712,7 @@ button.auto b { color: var(--accent-ink); font-weight: 500; }
     </aside>
 
     <section class="ai" aria-label="Claude／Codex のチャット">
-      <div class="chrome"><span class="dots"><i></i><i></i><i></i></span><b>Claude ／ Codex</b><span class="what">パソコンのAIのチャット（これほしに頼む）</span></div>
+      <div class="chrome"><span class="dots"><i></i><i></i><i></i></span><b>Claude ／ Codex</b><span class="what">パソコンのAIのチャット（スタコレに頼む）</span></div>
       <div class="ai-head">
         <div class="ai-mark"><svg viewBox="0 0 16 16" fill="none"><path d="M8 1.5l1.6 4.9L14.5 8l-4.9 1.6L8 14.5l-1.6-4.9L1.5 8l4.9-1.6z" fill="currentColor"/></svg></div>
         <div><div class="t">AIアシスタント</div></div>
@@ -726,10 +726,10 @@ button.auto b { color: var(--accent-ink); font-weight: 500; }
       </div>
     </section>
 
-    <section class="kh" id="kh" aria-label="これほし 受信箱">
+    <section class="kh" id="kh" aria-label="スタコレ 受信箱">
       <div class="chrome"><span class="dots"><i></i><i></i><i></i></span><b>ブラウザ</b><span class="url">https://（あなたの受信箱）/inbox</span><span class="what">受信箱をブラウザで開いた画面</span></div>
       <div class="kh-top">
-        <div class="brand">これほし</div>
+        <div class="brand">スタコレ</div>
         <div class="nav" id="nav">
           <button type="button" data-view="inbox" class="on">やりとり</button>
           <button type="button" data-view="mine">やること<em class="c" id="cMine">1</em></button>
@@ -798,7 +798,7 @@ function dwatch(on) {
 var PRIVACY = "体験の改善とご案内のため、開封・進み具合・ボタン操作を記録します。入力した文章は保存しません（パソコン版の左のAIに打った文は、返事を作るためにAI（OpenAI）へ送ります）。個別にお送りした体験URLでは、発行者がそのURLの進み具合を確認できます。";
 
 // ---------------- 職種ごとの台本（すべて架空。今日＝2026-10-05（月）） ----------------
-// GPT-6と相談した台本（drafts/これほし_体験版/gpt6-demo-design-20261004.md）をもとに、体験版の画面に合う形にした。
+// GPT-6と相談した台本（drafts/スタコレ_体験版/gpt6-demo-design-20261004.md）をもとに、体験版の画面に合う形にした。
 // kind：reply＝返事を作って送る／sched＝日時を提案して送る（返事が来たらカレンダーに入れるか聞く）／dept＝部署のAIに渡し、相手には一次返事。
 // 送る文の頭に相手の名前を書かない（呼びかけはメンション）。未確定のことは確定させない。
 var ROLES = {
@@ -2110,7 +2110,7 @@ function showClosing() {
   var items = [["full", "経緯を読んで、返事を準備"], ["send", "全文を見て、自分で送信"], ["dept", "部署のAIに、自分で引き渡し"], ["cal", "決まった日程を、確かめてカレンダーへ"]];
   var dn = items.filter(function (x) { return S.tried[x[0]]; });
   $("#closingHost").innerHTML = '<div class="closing"><div class="cl"><div class="k">体験のまとめ</div>'
-    + "<h2>連絡先が増えても、AIが変わっても。<br>仕事の続きは、これほしに。</h2>"
+    + "<h2>連絡先が増えても、AIが変わっても。<br>仕事の続きは、スタコレに。</h2>"
     + "<p>あなたが判断し、送る。AIが読んで、返事と段取りを準備する。案件の経緯や会社のきまりを残しながら、新しいAIを使っていけます。</p>"
     + (dn.length ? '<div class="tried"><b style="font-size:12.5px;color:var(--ink2)">今回やったこと</b>' + dn.map(function (x) { return "<div>" + ICON_OK + esc(x[1]) + "</div>"; }).join("") + "</div>" : "")
     + '<p class="by">社労士事務所の所長・五味田が、自分の仕事のために作り、毎日使っています。特許出願中。</p>'
@@ -2125,9 +2125,9 @@ function showClosing() {
 }
 function share() {
   var url = "https://mgomita-ui.github.io/korehoshi-site/demo/pc.html";
-  var text = "LINEで使う、社長のAIの仲間「これほし」。連絡をまとめ、AIが返事と段取りを準備。送るのは自分。ログインなしで、自分で操作して体験できます。";
+  var text = "LINEで使う、社長のAIの仲間「スタコレ」。連絡をまとめ、AIが返事と段取りを準備。送るのは自分。ログインなしで、自分で操作して体験できます。";
   dlog("cta", { k: "share" });
-  if (navigator.share) { navigator.share({ title: "これほし｜操作して体験", text: text, url: url }).catch(function () {}); return; }
+  if (navigator.share) { navigator.share({ title: "スタコレ｜操作して体験", text: text, url: url }).catch(function () {}); return; }
   try { navigator.clipboard.writeText(text + "\n" + url); toast("体験のURLをコピーしました（共通のURLです）"); } catch (e) { prompt("このURLを送ってください", url); }
 }
 

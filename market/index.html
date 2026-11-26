@@ -60,8 +60,9 @@
       <h3>見積もりの目安</h3>
       <select id="base" aria-label="もとにする版"></select>
       <ul id="lines"></ul>
-      <div class="tot"><span>はじめに（税別）</span><b id="tot">0円</b></div>
-      <div class="tot" style="margin-top:4px"><span>毎月（税別）</span><b id="mtot" style="font-size:20px">なし</b></div>
+      <p id="basenote" class="fake" style="font-weight:700;color:#7A5510">本体・構築費は個別案内</p>
+      <div class="tot"><span>選んだ部品の参考価格・はじめに（税別）</span><b id="tot">—</b></div>
+      <div class="tot" style="margin-top:4px"><span>選んだ部品の参考価格・毎月（税別）</span><b id="mtot" style="font-size:20px">なし</b></div>
       <p class="fake" style="margin-top:6px">部品の価格は見本です。動画など人が作る部品は、内容に合わせて見積もります。</p>
       <a class="btn" href="https://line.me/R/ti/p/@232zafzm">この組み合わせで相談する</a>
     </aside>
@@ -173,8 +174,8 @@ function renderGrid(){
   grid.innerHTML=list.map(i=>`<article class="card"><div class="hd ${i.c}"><small>${i.own?'本家':i.ind}</small>${i.own?'<span class="own">いま使える</span>':''}<h3>${i.name}</h3><div class="by">${i.by}</div></div>
    <div class="bd"><p class="feat">${i.feature}</p><div class="links"><span class="lk">つなぐ先</span>${i.links.map(x=>`<span>${x}</span>`).join('')}</div><p style="font-size:15px">${i.lead}</p><ul>${i.do.map(x=>`<li>${x}</li>`).join('')}</ul>
    ${i.tops.length?`<div class="tops">${i.tops.map(x=>`<span>＋${x}</span>`).join('')}</div>`:''}
-   <p class="pr">${i.own?'':'<span class="sample">架空の見本</span> '}${i.label?'':`<span class="md ${i.monthly||i.run?'run':'buy'}">${i.monthly||i.run?'月額あり':'売り切り'}</span> `}<b>${i.label||yen(i.price)}</b>${i.own?'':'〜'}${i.monthly?`<span class="mo">＋月${yen(i.monthly)}</span>`:''}　<span class="fake">${i.own?'':'見本'}</span><br><span class="why">${i.why}</span></p>
-   <div class="ac"><a href="${i.demo}">体験する</a><button data-id="${i.id}">詳しく</button></div></div></article>`).join('');
+   <p class="pr">${i.own?'':'<span class="sample">出品見本</span> '}${i.label?'':`<span class="md ${i.monthly||i.run?'run':'buy'}">${i.monthly||i.run?'月額あり':'売り切り'}</span> `}<b>${i.label||yen(i.price)}</b>${i.own?'':'〜'}${i.monthly?`<span class="mo">＋月${yen(i.monthly)}</span>`:''}　<span class="fake">${i.own?'':'見本'}</span><br><span class="why">${i.why}</span></p>
+   <div class="ac"><a href="${i.demo}">${i.own?'体験する':'スタコレの共通デモを試す'}</a>${i.own?'<a href="https://line.me/R/ti/p/@232zafzm">相談する</a>':''}<button data-id="${i.id}">詳しく</button></div></div></article>`).join('');
 }
 chips.addEventListener('click',e=>{const b=e.target.closest('.chip');if(!b)return;cur=b.dataset.v;renderChips();renderGrid();});
 const dlg=document.getElementById('dlg');
@@ -182,7 +183,7 @@ grid.addEventListener('click',e=>{const b=e.target.closest('button[data-id]');if
   document.getElementById('dhd').className='hd '+i.c;document.getElementById('dind').textContent=i.own?'本家':i.ind;
   document.getElementById('dname').textContent=i.name;document.getElementById('dby').textContent=i.by;document.getElementById('dlead').textContent=i.lead;
   document.getElementById('dlk').innerHTML=i.links.map(x=>`<li>${x}</li>`).join('');document.getElementById('ddo').innerHTML=i.do.map(x=>`<li>${x}</li>`).join('');document.getElementById('dtop').innerHTML=(i.tops.length?i.tops:['（なし）']).map(x=>`<li>${x}</li>`).join('');
-  document.getElementById('dpr').textContent=(i.monthly?`月額あり：導入 ${yen(i.price)}〜＋月 ${yen(i.monthly)}（${i.why}）・見本`:(i.own?i.priceTxt:`売り切り：導入 ${yen(i.price)}〜（${i.why}）・見本`));document.getElementById('ddemo').href=i.demo;
+  document.getElementById('dpr').textContent=(i.monthly?`月額あり：導入 ${yen(i.price)}〜＋月 ${yen(i.monthly)}（${i.why}）・見本`:(i.own?i.priceTxt:`売り切り：導入 ${yen(i.price)}〜（${i.why}）・見本`));document.getElementById('ddemo').href=i.demo;document.getElementById('ddemo').textContent=i.own?'体験版を触る':'スタコレの共通デモを試す';
   dlg.showModal();});
 document.getElementById('dx').onclick=()=>dlg.close();
 dlg.addEventListener('click',e=>{if(e.target===dlg)dlg.close();});
@@ -192,12 +193,14 @@ opts.innerHTML=OPTS.map(o=>`<label class="opt"><input type="checkbox" value="${o
 base.innerHTML=ITEMS.map(i=>`<option value="${i.id}">${i.name}（${i.label||yen(i.price)}${i.own?'':'〜・見本'}）</option>`).join('');
 function calc(){
   const b=ITEMS.find(i=>i.id===base.value);const sel=[...opts.querySelectorAll('input:checked')].map(x=>OPTS.find(o=>o.id===x.value));
-  let t=b.price,mt=b.monthly||0;const f=(p,m)=>(p?yen(p):'見積もり')+(m?` ＋月${yen(m)}`:(m===null?' ＋月額':''));
-  const rows=[`<li><span>${b.name}</span><span>${b.label||f(b.price,b.monthly)}</span></li>`];
+  const f=(p,m)=>(p?yen(p):'見積もり')+(m?` ＋月${yen(m)}`:(m===null?' ＋月額':''));
+  let t=b.own?0:b.price, mt=b.own?0:(b.monthly||0);
+  const rows=[`<li><span>${b.name}</span><span>${b.own?'個別案内':f(b.price,b.monthly)+'（見本）'}</span></li>`];
   sel.forEach(o=>{rows.push(`<li><span>${o.name}</span><span>${f(o.p,o.m)}</span></li>`);if(o.p)t+=o.p;if(o.m)mt+=o.m;});
   document.getElementById('lines').innerHTML=rows.join('');
-  document.getElementById('tot').textContent=((b.run||b.label)&&!t?'ご相談':yen(t))+(sel.some(o=>!o.p)?'＋見積もり':'');
-  document.getElementById('mtot').textContent=b.label&&!b.run?(mt?yen(mt):'ご相談'):b.run?((mt?yen(mt)+'＋':'')+'人数に応じた月額'):mt||sel.some(o=>o.m===null)?(yen(mt)+(sel.some(o=>o.m===null)?'＋見積もり':'')):'なし（売り切り）';
+  document.getElementById('basenote').style.display=b.own?'':'none';
+  document.getElementById('tot').textContent=t?yen(t)+(sel.some(o=>!o.p)?'＋見積もり':''):(sel.some(o=>!o.p)?'見積もり':'—');
+  document.getElementById('mtot').textContent=mt?yen(mt)+(sel.some(o=>o.m===null)?'＋見積もり':''):(sel.some(o=>o.m===null)?'見積もり':'—');
 }
 opts.addEventListener('change',calc);base.addEventListener('change',calc);
 renderChips();renderGrid();calc();
